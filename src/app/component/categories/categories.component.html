@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-2 p-0" style="min-height: 795px;">
+      <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px; height: 100%;">
+          <a  class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+              <span class="fs-4"> Shop</span>
+          </a>
+          <hr>
+          <ul class="nav nav-pills flex-column mb-auto">
+              <li class="nav-item">
+                  <a [routerLink]="['/dashboard']" routerLinkActive="router-link-active" class="nav-link text-white"
+                      aria-current="page">
+                      <i class="bi bi-house-door"></i>
+                      Trang chủ
+                  </a>
+              </li>
+              <li>
+                  <a [routerLink]="['/categories']" class="nav-link active text-white">
+                      <i class="bi bi-tags"></i>
+                      Danh Mục
+                  </a>
+              </li>
+              <li>
+                  <a [routerLink]="['/products']" class="nav-link text-white">
+                      <i class="bi bi-display"></i>
+                      Sản phẩm
+                  </a>
+              </li>
+              <li>
+                  <a [routerLink]="['/users']" class="nav-link text-white">
+                      <i class="bi bi-people-fill"></i>
+                      Người dùng
+                  </a>
+              </li>
+          </ul>
+          <hr>
+          <div class="dropdown">
+
+
+          </div>
+      </div>
+
+  </div>
+  <div class="col-9 p-0 mt-4" style="margin-left: 5%;">
+      <div class="col">
+          <h2 style="font-size: 25px; font-family: Verdana, Geneva, Tahoma, sans-serif; text-decoration: underline;">
+              Quản lí Danh Mục</h2>
+
+          <div class="m-2">
+            <table class="table bg-dark text-white">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>cc</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <tr *ngFor="let aa of categories">
+
+                  <td>{{aa.name}}</td>
+                  <td>{{aa.status}}</td>
+
+                </tr> -->
+              </tbody>
+
+            </table>
+
+
+
+          </div>
+      </div>
+  </div>
+</div>
