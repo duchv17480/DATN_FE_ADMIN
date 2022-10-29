@@ -1,7 +1,7 @@
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Category } from 'src/app/common/Category';
+
 import { CategoryService } from 'src/app/services/category.service';
 
 
@@ -15,11 +15,11 @@ import { User } from 'src/app/common/User';
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent implements OnInit {
-  categories!: Category[];
+  categories: any =[];
   constructor(private categoryService: CategoryService, private toastr: ToastrService, private sessionService: SessionStorageService) { }
 
   ngOnInit(): void {
-
+this.getAll();
   }
 
 
@@ -30,16 +30,20 @@ export class CategoriesComponent implements OnInit {
   }
 
   //lay du lieu tu database
-  // getAll() {
+  getAll() {
+    this.categoryService.getAll().subscribe(data=>{
+      this.categories=data.data;
+      console.log(data);
+    })
 
-  //   })
+    }
 
-  // }
-
-
+  }
 
 
 
 
 
-}
+
+
+

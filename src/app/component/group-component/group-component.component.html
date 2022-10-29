@@ -14,7 +14,7 @@
                   </a>
               </li>
               <li>
-                  <a [routerLink]="['/categories']" class="nav-link active text-white">
+                  <a [routerLink]="['/categories']" class="nav-link  text-white">
                       <i class="bi bi-tags"></i>
                       Danh Mục
                   </a>
@@ -26,7 +26,7 @@
                   </a>
               </li>
               <li>
-                <a [routerLink]="['/groupcomponent']" class="nav-link text-white">
+                <a [routerLink]="['/groupcomponent']" class="nav-link  active text-white">
                     <i class="bi bi-display"></i>
                     Group_Component
                 </a>
@@ -66,33 +66,29 @@
           <div class="m-2">
             <div class="card">
               <p-toolbar styleClass="mb-4">
-                  <a  [routerLink]="'/categories/add'" style="margin-left: 950px;" class="btn btn-primary" >Add new</a>
+                  <a  [routerLink]="'/groupcomponent/add'" style="margin-left: 950px;" class="btn btn-primary" >Add new</a>
               </p-toolbar>
 
-              <p-table #dt [value]="categories" [rows]="5" [paginator]="true"  responsiveLayout="scroll" [rowHover]="true"
+              <p-table #dt [value]="group_component" [rows]="5" [paginator]="true"  responsiveLayout="scroll" [rowHover]="true"
                   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
 
                   <ng-template pTemplate="header">
                       <tr>
-
                           <th pSortableColumn="name">Name <p-sortIcon ></p-sortIcon></th>
-                          <th pSortableColumn="status">status <p-sortIcon ></p-sortIcon></th>
+                          <th pSortableColumn="brandId">brandId <p-sortIcon ></p-sortIcon></th>
                           <th pSortableColumn="createDate">createDate <p-sortIcon ></p-sortIcon></th>
                           <th pSortableColumn="updateDate">updateDate <p-sortIcon ></p-sortIcon></th>
-                          <th pSortableColumn="groupId">groupId <p-sortIcon ></p-sortIcon></th>
-                          <th pSortableColumn="images">images <p-sortIcon ></p-sortIcon></th>
                           <th>Action</th>
                       </tr>
                   </ng-template>
-                  <ng-template pTemplate="body" let-categories>
+                  <ng-template pTemplate="body" let-group_component>
                       <tr>
+                          <td>{{group_component?.name}}</td>
+                        <td>{{group_component?.brand_id
+                        }}</td>
+                          <td>{{group_component?.startDate}}</td>
+                          <td>{{group_component?.updateDate}}</td>
 
-                          <td>{{categories?.name}}</td>
-                          <td>{{categories?.status}}</td>
-                          <td>{{categories?.createDate}}</td>
-                          <td>{{categories?.updateDate}}</td>
-                          <td>{{categories?.groupId}}</td>
-                          <td>{{categories?.images}}</td>
 
 
                           <td>
@@ -103,7 +99,7 @@
                   </ng-template>
                   <ng-template pTemplate="summary">
                       <div class="flex align-items-center justify-content-between">
-                          In total there are {{categories ? categories?.length : 0 }}
+                          In total there are {{group_component ? group_component?.length : 0 }}
                       </div>
                   </ng-template>
               </p-table>

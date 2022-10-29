@@ -4,7 +4,7 @@ export class Category {
     status!: number;
     groupId!: number;
     createDate!: Date;
-    update_date!: Date;
+    updateDate!: Date;
     images!: string;
 
 
