@@ -5,12 +5,11 @@ import { UsersComponent } from './component/users/users.component';
 import { ProductsComponent } from './component/products/products.component';
 import { CategoriesComponent } from './component/categories/categories.component';
 
-import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { LoginComponent } from './component/login/login.component';
 import { AppComponent } from './app.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -46,13 +45,16 @@ import { GroupComponentComponent } from './component/group-component/group-compo
 import { ColorComponent } from './component/color/color.component';
 import { AddGroupComponentComponent } from './component/add-group-component/add-group-component.component';
 import { BrandsComponent } from './component/brands/brands.component';
+import { AuthInterceptor } from './_helper/auth.interceptor';
+import { ListChipComponent } from './component/chip/list-chip/list-chip.component';
+import { AddChipComponent } from './component/chip/add-chip/add-chip.component';
+import { EditChipComponent } from './component/chip/edit-chip/edit-chip.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent,
     CategoriesComponent,
     ProductsComponent,
     UsersComponent,
@@ -61,7 +63,9 @@ import { BrandsComponent } from './component/brands/brands.component';
     ColorComponent,
     AddGroupComponentComponent,
     BrandsComponent,
-
+    ListChipComponent,
+    AddChipComponent,
+    EditChipComponent
 
   ],
   imports: [
@@ -105,6 +109,11 @@ import { BrandsComponent } from './component/brands/brands.component';
     BrowserAnimationsModule
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
     MessageService
     ,PrimeModule],
   bootstrap: [AppComponent]

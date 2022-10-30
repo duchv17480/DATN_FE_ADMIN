@@ -10,11 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BrandsComponent implements OnInit {
 
-  brands: any =[];
+  brands: any = [];
   constructor(private BrandService: BrandService, private toastr: ToastrService, private sessionService: SessionStorageService) { }
 
   ngOnInit(): void {
-this.getAll();
+    this.getAll();
   }
 
 
@@ -26,10 +26,10 @@ this.getAll();
 
   //lay du lieu tu database
   getAll() {
-    this.BrandService.getAll().subscribe(data=>{
-      this.brands=data.data;
+    this.BrandService.getAll().subscribe(data => {
+      this.brands = data.data;
       console.log(data);
     })
 
-    }
+  }
 }
