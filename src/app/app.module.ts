@@ -50,6 +50,7 @@ import { ListChipComponent } from './component/chip/list-chip/list-chip.componen
 import { AddChipComponent } from './component/chip/add-chip/add-chip.component';
 import { EditChipComponent } from './component/chip/edit-chip/edit-chip.component';
 import { EditCategoryComponent } from './component/Category/edit-category/edit-category.component';
+import { EditGroupComponentComponent } from './component/Group/edit-group-component/edit-group-component.component';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import { EditCategoryComponent } from './component/Category/edit-category/edit-c
     ListChipComponent,
     AddChipComponent,
     EditChipComponent,
-    EditCategoryComponent
+    EditCategoryComponent,
+    EditGroupComponentComponent
 
   ],
   imports: [

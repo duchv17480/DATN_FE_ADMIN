@@ -45,15 +45,15 @@ export class CategoryService {
 
   }
 
-  patch(id:any, item:any):Observable<any> {
+  put(id:any, item:any):Observable<any> {
     let headers = this.getHeader();
     if (headers instanceof HttpHeaders)
     {
 
-      return this.httpClient.patch(this.url+"/update/"+id, item ,{ headers: headers });
+      return this.httpClient.put(this.url+"/update/"+id, item ,{ headers: headers });
     }else{
 
-      return this.httpClient.patch(this.url+"/update/"+id, item);
+      return this.httpClient.put(this.url+"/update/"+id, item);
     }
 
   }

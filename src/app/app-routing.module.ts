@@ -1,3 +1,4 @@
+import { EditGroupComponentComponent } from './component/Group/edit-group-component/edit-group-component.component';
 import { BrandsComponent } from './component/brands/brands.component';
 import { AddGroupComponentComponent } from './component/Group/add-group-component/add-group-component.component';
 import { ColorComponent } from './component/color/color.component';
@@ -21,6 +22,7 @@ const routes: Routes=[
   { path: 'categories/:id', component: EditCategoryComponent },
   { path: 'groupcomponent', component: GroupComponentComponent },
   { path: 'groupcomponent/add', component: AddGroupComponentComponent},
+  { path: 'groupcomponent/:id', component: EditGroupComponentComponent },
   { path: 'brand', component: BrandsComponent},
   { path: 'products', component: ProductsComponent },
   { path: 'color', component: ColorComponent },

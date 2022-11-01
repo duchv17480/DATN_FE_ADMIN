@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UploadService } from 'src/app/_service/upload/upload.service';
 import { CategoryService } from 'src/app/_service/CategoryService/category.service';
-import { GroupComponentService } from 'src/app/_service/CategoryService/group-component.service';
+import { GroupComponentService } from 'src/app/_service/group-component/group-component.service';
 
 
 @Component({
@@ -84,7 +84,7 @@ export class EditCategoryComponent implements OnInit {
         console.log(cateData);
 
         setTimeout(() => {
-           this.CategoryService.patch( this.id,cateData).subscribe({
+           this.CategoryService.put( this.id,cateData).subscribe({
           next: (data: any) => {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Edit success' })
             setTimeout(() => {
