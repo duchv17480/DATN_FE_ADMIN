@@ -1,11 +1,13 @@
-import { BrandService } from './../../services/brand.service';
+import { BrandService } from '../../../services/brand.service';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { UploadService } from './../../services/upload.service';
+
 import { MessageService } from 'primeng/api';
-import { GroupComponentService } from './../../services/group-component.service';
+
 import {FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { UploadService } from 'src/app/_service/upload/upload.service';
+import { GroupComponentService } from 'src/app/_service/CategoryService/group-component.service';
 
 @Component({
   selector: 'app-add-group-component',

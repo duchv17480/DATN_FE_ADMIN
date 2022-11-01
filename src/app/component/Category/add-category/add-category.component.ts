@@ -1,11 +1,15 @@
-import { GroupComponentService } from './../../services/group-component.service';
-import { UploadService } from './../../services/upload.service';
+
+
+
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { CategoryService } from './../../services/category.service';
+
 import { FormControl,FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { CategoryService } from 'src/app/_service/CategoryService/category.service';
+import { GroupComponentService } from 'src/app/_service/CategoryService/group-component.service';
+import { UploadService } from 'src/app/_service/upload/upload.service';
 
 @Component({
   selector: 'app-add-category',
@@ -17,11 +21,13 @@ export class AddCategoryComponent implements OnInit {
   AddForm: FormGroup;
   file: any = [];
   status: any[] = [
-    { name: 'active', value: 'active' },
-    { name: 'hidden', value: 'hidden' },
+    { name: 'inactive', value: 0 },
+    { name: 'active', value: 1 },
+    { name: 'delete', value: 2 },
   ];
-  selected: string = '';
-  constructor(
+  selected: any;
+  grSelect:any
+    constructor(
     private CategoryService: CategoryService,
     private messageService: MessageService,
     private route: Router,
@@ -34,7 +40,6 @@ export class AddCategoryComponent implements OnInit {
       images: new FormControl(),
       groupId: new FormControl(),
       status: new FormControl(),
-
     });
     this.title.setTitle('Admin | Category - Add');
   }
@@ -48,23 +53,29 @@ export class AddCategoryComponent implements OnInit {
   selectOption = (event: any) => {
     this.selected = event.target.value;
   };
+  selectGroup = (event: any) => {
+    this.grSelect = event.target.value;
+  };
   saveFileThumail(event: any) {
     this.file = event.target.files[0];
     this.uploadFile.uploadImg(this.file);
   }
   addNew() {
     this.messageService.add({ severity: 'info', summary: 'Loading', detail: 'Loading...' });
+    let image  = localStorage.getItem('imgThum')
     let upload:any = {
       name: this.AddForm.value.name,
-      images: this.AddForm.value.images,
-      status: this.AddForm.value.status,
-      groupId: 1,
+      images: image,
+      status: + this.selected,
+      groupId:+ this.grSelect,
 
     }
+
+
     setTimeout(() => {
       this.CategoryService.post(upload).subscribe({
         next: (data: any) => {
-          // this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Add success' })
+         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Add success' })
           setTimeout(() => {
             this.route.navigate(['/categories']);
 

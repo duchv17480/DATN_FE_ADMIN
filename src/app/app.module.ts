@@ -3,7 +3,7 @@ import { environment } from './../environments/environment';
 import { PrimeModule } from './component/uiHelpers/prime/Prime.module';
 import { UsersComponent } from './component/users/users.component';
 import { ProductsComponent } from './component/products/products.component';
-import { CategoriesComponent } from './component/categories/categories.component';
+import { CategoriesComponent } from './component/Category/categories/categories.component';
 
 import { LoginComponent } from './component/login/login.component';
 import { AppComponent } from './app.component';
@@ -23,7 +23,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { CarouselModule } from 'primeng/carousel';
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { GalleriaModule } from 'primeng/galleria';
-import { AddCategoryComponent } from './component/add-category/add-category.component';
+import { AddCategoryComponent } from './component/Category/add-category/add-category.component';
 
 import { MdbAccordionModule } from 'mdb-angular-ui-kit/accordion';
 import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
@@ -41,14 +41,15 @@ import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
 import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { GroupComponentComponent } from './component/group-component/group-component.component';
+import { GroupComponentComponent } from './component/Group/group-component/group-component.component';
 import { ColorComponent } from './component/color/color.component';
-import { AddGroupComponentComponent } from './component/add-group-component/add-group-component.component';
+import { AddGroupComponentComponent } from './component/Group/add-group-component/add-group-component.component';
 import { BrandsComponent } from './component/brands/brands.component';
 import { AuthInterceptor } from './_helper/auth.interceptor';
 import { ListChipComponent } from './component/chip/list-chip/list-chip.component';
 import { AddChipComponent } from './component/chip/add-chip/add-chip.component';
 import { EditChipComponent } from './component/chip/edit-chip/edit-chip.component';
+import { EditCategoryComponent } from './component/Category/edit-category/edit-category.component';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { EditChipComponent } from './component/chip/edit-chip/edit-chip.componen
     BrandsComponent,
     ListChipComponent,
     AddChipComponent,
-    EditChipComponent
+    EditChipComponent,
+    EditCategoryComponent
 
   ],
   imports: [
