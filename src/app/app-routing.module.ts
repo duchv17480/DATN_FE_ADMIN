@@ -6,7 +6,6 @@ import { GroupComponentComponent } from './component/Group/group-component/group
 import { AddCategoryComponent } from './component/Category/add-category/add-category.component';
 import { UsersComponent } from './component/users/users.component';
 import { ProductsComponent } from './component/products/products.component';
-import { CategoriesComponent } from './component/Category/categories/categories.component';
 import { LoginComponent } from './component/login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -20,9 +19,12 @@ import { ListVoucherComponent } from './component/voucher/list-voucher/list-vouc
 const routes: Routes=[
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: 'login', component: LoginComponent },
-  { path: 'categories', component: CategoriesComponent },
-  { path: 'categories/add', component: AddCategoryComponent },
-  { path: 'categories/:id', component: EditCategoryComponent },
+
+  { path: 'add-category', component: AddCategoryComponent },
+  { path: 'list-category', component: ListCategoryComponent},
+  { path: 'edit-category/:id', component: EditCategoryComponent},
+
+
   { path: 'groupcomponent', component: GroupComponentComponent },
   { path: 'groupcomponent/add', component: AddGroupComponentComponent},
   { path: 'groupcomponent/:id', component: EditGroupComponentComponent },

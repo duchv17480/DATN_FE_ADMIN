@@ -1,9 +1,10 @@
+import { EditCategoryComponent } from './component/Category/edit-category/edit-category.component';
+import { ListCategoryComponent } from './component/Category/list-category/list-category.component';
 import { MessageService } from 'primeng/api';
 import { environment } from './../environments/environment';
 import { PrimeModule } from './component/uiHelpers/prime/Prime.module';
 import { UsersComponent } from './component/users/users.component';
 import { ProductsComponent } from './component/products/products.component';
-import { CategoriesComponent } from './component/Category/categories/categories.component';
 
 import { LoginComponent } from './component/login/login.component';
 import { AppComponent } from './app.component';
@@ -49,6 +50,8 @@ import { AuthInterceptor } from './_helper/auth.interceptor';
 import { ListChipComponent } from './component/chip/list-chip/list-chip.component';
 import { AddChipComponent } from './component/chip/add-chip/add-chip.component';
 import { EditChipComponent } from './component/chip/edit-chip/edit-chip.component';
+import { NgZorroAntdModule } from './ng-zorro-antd.module';
+import { DataTablesModule } from 'angular-datatables';
 import { EditCategoryComponent } from './component/Category/edit-category/edit-category.component';
 import { EditGroupComponentComponent } from './component/Group/edit-group-component/edit-group-component.component';
 import { ListFavouriteComponent } from './component/favourite/list-favourite/list-favourite.component';
@@ -62,14 +65,17 @@ import { UpdateVoucherComponent } from './component/voucher/update-voucher/updat
   declarations: [
     AppComponent,
     LoginComponent,
-    CategoriesComponent,
     ProductsComponent,
     UsersComponent,
-    AddCategoryComponent,
     GroupComponentComponent,
     ColorComponent,
     AddGroupComponentComponent,
     BrandsComponent,
+
+    ListCategoryComponent,
+    AddCategoryComponent,
+    EditCategoryComponent,
+
     ListChipComponent,
     AddChipComponent,
     EditChipComponent,
@@ -89,12 +95,14 @@ import { UpdateVoucherComponent } from './component/voucher/update-voucher/updat
     FormsModule,
     ReactiveFormsModule,
     NgToastModule,
+    NgZorroAntdModule,
     AccordionModule,
     PanelModule,
     ButtonModule,
     CarouselModule,
     ScrollTopModule,
     GalleriaModule,
+    DataTablesModule,
     AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebase),
     PrimeModule,

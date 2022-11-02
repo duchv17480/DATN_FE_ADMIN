@@ -1,13 +1,10 @@
-
-
-
-import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
-
-import { FormControl,FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { CategoryService } from 'src/app/_service/CategoryService/category.service';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
+import { STATUS } from 'src/app/_model/status';
+import { Category } from 'src/app/_model/category';
+import { NgToastService } from 'ng-angular-popup';
 import { GroupComponentService } from 'src/app/_service/group-component/group-component.service';
 import { UploadService } from 'src/app/_service/upload/upload.service';
 
@@ -17,75 +14,66 @@ import { UploadService } from 'src/app/_service/upload/upload.service';
   styleUrls: ['./add-category.component.css']
 })
 export class AddCategoryComponent implements OnInit {
-  groupcomponent: any;
-  AddForm: FormGroup;
-  file: any = [];
-  status: any[] = [
-    { name: 'inactive', value: 0 },
-    { name: 'active', value: 1 },
-    { name: 'delete', value: 2 },
-  ];
-  selected: any;
-  grSelect:any
-    constructor(
-    private CategoryService: CategoryService,
-    private messageService: MessageService,
-    private route: Router,
-    private uploadFile: UploadService,
-    private GroupComponentService:GroupComponentService,
-    private title: Title
+
+  isLoading: boolean = true;
+  groupC: any[] = [];
+
+  categoryform = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    status: new FormControl(STATUS.ACTIVE, [Validators.required]),
+    groupId: new FormControl(1, [Validators.required]),
+    file: new FormControl('', [Validators.required]),
+    fileSource: new FormControl('', [Validators.required])
+  })
+
+
+  constructor(
+    private rest: CategoryService,
+    private toast: NgToastService
   ) {
-    this.AddForm = new FormGroup({
-      name: new FormControl(),
-      images: new FormControl(),
-      groupId: new FormControl(),
-      status: new FormControl(),
-    });
-    this.title.setTitle('Admin | Category - Add');
+
+  }
+
+  get f() {
+    return this.categoryform.controls;
   }
 
   ngOnInit(): void {
-    this.GroupComponentService.getAll().subscribe((data) => {
-      this.groupcomponent = data.data;
-      console.log(data);
-    });
+    this.getAllGroupComponent();
   }
-  selectOption = (event: any) => {
-    this.selected = event.target.value;
-  };
-  selectGroup = (event: any) => {
-    this.grSelect = event.target.value;
-  };
-  saveFileThumail(event: any) {
-    this.file = event.target.files[0];
-    this.uploadFile.uploadImg(this.file);
-  }
-  addNew() {
-    this.messageService.add({ severity: 'info', summary: 'Loading', detail: 'Loading...' });
-    let image  = localStorage.getItem('imgThum')
-    let upload:any = {
-      name: this.AddForm.value.name,
-      images: image,
-      status: + this.selected,
-      groupId:+ this.grSelect,
-
-    }
 
 
-    setTimeout(() => {
-      this.CategoryService.post(upload).subscribe({
-        next: (data: any) => {
-         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Add success' })
-          setTimeout(() => {
-            this.route.navigate(['/categories']);
+  onFileChange(event: any) {
 
-          });
-        }
-
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.categoryform.patchValue({
+        fileSource: file
       });
-    }, 6000);
+    }
+  }
 
+  createCategory() {
+    this.isLoading = true;
+    this.rest.createCategory(this.categoryform.value, this.categoryform.get('fileSource')?.value)
+      .subscribe(data => {
+        this.isLoading = false;
+        this.toast.success({ summary: 'Create category successfuly', duration: 3000 });
+        console.log(data.data);
 
+      })
 
   }
+
+
+  getAllGroupComponent() {
+    this.isLoading = true;
+    this.rest.getAllGroupcomponent().subscribe(data => {
+      this.isLoading = false;
+      this.groupC = data.data;
+    })
+  }
+
+
+
 }
