@@ -15,6 +15,7 @@ import { EditCategoryComponent } from './component/Category/edit-category/edit-c
 import { ListFavouriteComponent } from './component/favourite/list-favourite/list-favourite.component';
 import { AddFavouriteComponent } from './component/favourite/add-favourite/add-favourite.component';
 import { ListVoucherComponent } from './component/voucher/list-voucher/list-voucher.component';
+import { ListCategoryComponent } from './component/Category/list-category/list-category.component';
 
 const routes: Routes=[
   { path: '', pathMatch: 'full', redirectTo: 'login' },

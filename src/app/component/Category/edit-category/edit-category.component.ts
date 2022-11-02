@@ -58,34 +58,6 @@ export class EditCategoryComponent implements OnInit {
       })
 
   }
-  editCate(){
-      this.messageService.add({ severity: 'info', summary: 'Success', detail: 'Loading...'})
-      let images  = localStorage.getItem('imgThum') || this.OldImage
-        let cateData: any = {
-          name: this.cateForm.value.name,
-          groupId: + this.groupSelect,
-          status: + this.statusSelect,
-          images: images,
-        };
-        console.log(cateData);
-
-        setTimeout(() => {
-           this.CategoryService.put( this.id,cateData).subscribe({
-          next: (data: any) => {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Edit success' })
-            setTimeout(() => {
-              this.route.navigate(['/categories']);
-              localStorage.removeItem('imgThum');
-            },2000)
-
-          },
-          error: ({ error }) => {
-            this.messageService.add({ severity: 'error', summary: 'Success', detail: `${error}`})
-            localStorage.removeItem('imgThum');
-          },
-        });
-        }, 3000);
-
 
   getAllGroupComponent() {
     this.isLoading = true;

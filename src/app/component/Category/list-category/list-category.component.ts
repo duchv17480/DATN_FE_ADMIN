@@ -1,9 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { NgToastModule, NgToastService } from 'ng-angular-popup';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CategoryService } from './../../../_service/CategoryService/category.service';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { Subject } from 'rxjs';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-list-category',

@@ -12,31 +12,35 @@ export class CategoryService {
 
   constructor(
     private httpClient: HttpClient
-    ) { }
+  ) { }
 
 
-    createCategory(category: any, file?: any): Observable<any>{
-      const formData = new FormData();
+  createCategory(category: any, file?: any): Observable<any> {
+    const formData = new FormData();
 
-      formData.append('file', file);
-      formData.append('name', category.name);
-      formData.append('images', category.images);
-      formData.append('status', category.status.toString());
-      formData.append('groupId', category.groupId.toString());
+    formData.append('file', file);
+    formData.append('name', category.name);
+    formData.append('images', category.images);
+    formData.append('status', category.status.toString());
+    formData.append('groupId', category.groupId.toString());
 
-      return this.httpClient.post(this.url + "/create", formData);
-    }
+    return this.httpClient.post(this.url + "/create", formData);
+  }
 
-    getAllGroupcomponent():Observable<any>{
-      return this.httpClient.get(this.url_groupComponent + '/info');
-    }
+  getAllGroupcomponent(): Observable<any> {
+    return this.httpClient.get(this.url_groupComponent + '/info');
+  }
 
-    getAllCategory(page: number, pageSize: number): Observable<any>{
-      let param = new HttpParams();
-      param = param.append('page',page);
-      param = param.append('page-number',pageSize);
+  getAllCategory(page: number, pageSize: number): Observable<any> {
+    let param = new HttpParams();
+    param = param.append('page', page);
+    param = param.append('page-number', pageSize);
 
-      return this.httpClient.get(this.url + '?page=' + page + '&page-number=' + pageSize, { params:param });
+    return this.httpClient.get(this.url + '?page=' + page + '&page-number=' + pageSize, { params: param });
+  }
+
+  deleteCategory(id: number):Observable<any>{
+    return this.httpClient.delete(this.url + '/delete' + id);
   }
 
 
