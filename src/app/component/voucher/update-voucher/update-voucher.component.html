@@ -1,0 +1,66 @@
+<div id="voucherEdit">
+  <form [formGroup]="validForm" #EditdVoucherForm = "ngForm">
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Voucher</h4>
+        <button type="button" class="close" aria-label="close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="!doing">
+          <div class="row mx-2 mb-2">
+            <div class="form-group mt-2">
+              <div>Value</div>
+              <input formControlName="value" type="text" [ngModel]="vou.value" class="form-control"/>
+              <div *ngIf="validForm.controls['value'].invalid && validForm.controls['value'].touched"
+                class="text-danger">
+                <small *ngIf="validForm.controls['value'].errors?.['required']"> Value không được để trống</small>
+              </div>
+            </div>
+            <div class="form-group mt-2">
+              <div>Detail</div>
+              <input formControlName="detail" type="text" [ngModel]="vou.detail" class="form-control"/>
+              <div *ngIf="validForm.controls['detail'].invalid && validForm.controls['detail'].touched"
+                class="text-danger">
+                <small *ngIf="validForm.controls['detail'].errors?.['required']"> Detail không được để trống
+                </small>
+              </div>
+            </div>
+            <div class="form-group mt-2">
+              <div>Status</div>
+              <select class="form-select" [(ngModel)]="vou.status" formControlName="status">
+                <option value="1"> Active </option>
+                <option value="0"> In Active </option>
+              </select>
+              <div *ngIf="validForm.controls['status'].invalid && validForm.controls['status'].touched"
+              class="text-danger">
+              <small *ngIf="validForm.controls['status'].errors?.['required']"> Trạng thái không được để trống</small>
+            </div>
+            </div>
+            <div class="form-group mt-2">
+              <div>Start Date</div>
+              <input formControlName="startDate" type="datetime-local" [ngModel]="vou.startDate" class="form-control"/>
+              <div *ngIf="validForm.controls['startDate'].invalid && validForm.controls['startDate'].touched"
+                class="text-danger">
+                <small *ngIf="validForm.controls['startDate'].errors?.['required']"> Ngày bắt đầu không được để trống</small>
+              </div>
+            </div>
+            <div class="form-group mt-2">
+              <div>End Date</div>
+              <input formControlName="endDate" type="datetime-local" [ngModel]="vou.endDate" class="form-control"/>
+              <div *ngIf="validForm.controls['endDate'].invalid && validForm.controls['endDate'].touched"
+                class="text-danger">
+                <small *ngIf="validForm.controls['endDate'].errors?.['required']"> Ngày kết thúc không được để trống</small>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="validForm.invalid" class="btn btn-success" (click)="updateVoucher()" >Update</button>
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">No</button>
+      </div>
+    </ng-template>
+    <button class="btn btn-secondary mb-2" (click)="open(content)">Edit</button>
+  </form>
+</div>
+

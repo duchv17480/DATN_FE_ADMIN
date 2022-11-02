@@ -11,7 +11,7 @@
         <form [formGroup]="validForm">
           <div class="row mx-2 mb-2">
             <div class="form-group mt-2">
-              <div>Product</div>
+              <div>Like Date</div>
               <div class="form-control"> {{ likeDate | date: "dd/MM/yyyy - hh:mm:ss - a" }} </div>
             </div>
             <div class="form-group mt-2">
@@ -48,6 +48,6 @@
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">No</button>
       </div>
     </ng-template>
-    <button class="btn btn-success mb-2" (click)="open(content)">Add new chip</button>
+    <button class="btn btn-success mb-2" (click)="open(content)">Add new favourite</button>
   </form>
 </div>

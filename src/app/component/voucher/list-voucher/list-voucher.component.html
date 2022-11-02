@@ -1,7 +1,7 @@
 <section>
   <div class="row m-5">
     <div>
-      <app-add-favourite (saveFinished)="finishAndAlert($event)"></app-add-favourite>
+      <app-create-voucher (saveFinished)="finishAndAlert($event)"></app-create-voucher>
     </div>
     <div class="card p-0">
       <div class="card-header">
@@ -11,23 +11,29 @@
         <thead>
           <tr>
             <th>Id</th>
-            <th>Like Date</th>
-            <th>Product id</th>
-            <th>Account id</th>
+            <th>Code</th>
+            <th>value</th>
+            <th>Detail</th>
+            <th>Status</th>
+            <th>Start Date</th>
+            <th>End Date</th>
             <th colspan="2">Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let fav of favs">
-            <td>{{fav.id}}</td>
-            <td>{{fav.likeDate | date: "dd/MM/yyyy - hh:mm:ss - a"}}</td>
-            <td>{{fav.productId}}</td>
-            <td>{{fav.accountId}}</td>
+          <tr *ngFor="let vou of vous">
+            <td>{{vou.id}}</td>
+            <td>{{vou.code}}</td>
+            <td>{{vou.value}}</td>
+            <td>{{vou.detail}}</td>
+            <td>{{vou.status}}</td>
+            <td>{{vou.startDate | date: "dd/MM/yyyy - hh:mm:ss - a"}}</td>
+            <td>{{vou.endDate | date: "dd/MM/yyyy - hh:mm:ss - a"}}</td>
             <td>
-              <!-- <app-edit-chip [id]="fav.id" (updateFinished)="finishAndAlert($event)"></app-edit-chip> -->
+              <app-update-voucher [id]="vou.id" (updateFinished)="finishAndAlert($event)"></app-update-voucher>
             </td>
             <td>
-              <a (click)="confirmDeleteFavourite(content, fav.id)" class="btn btn-danger mx-2">delete</a>
+              <a (click)="confirmDeleteFavourite(content, vou.id)" class="btn btn-danger mx-2">delete</a>
             </td>
           </tr>
         </tbody>
@@ -53,3 +59,4 @@
     </div>
   </ng-template>
 </section>
+
