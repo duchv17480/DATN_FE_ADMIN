@@ -1,11 +1,8 @@
 export class Category {
     id!: number;
     name!: string;
+    images!: string;
     status!: number;
     groupId!: number;
-    createDate!: Date;
-    updateDate!: Date;
-    images!: string;
-
-
-}
+  }
+  

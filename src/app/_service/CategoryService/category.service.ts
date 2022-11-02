@@ -1,6 +1,5 @@
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Category } from './../../common/Category';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -9,59 +8,37 @@ import { Injectable } from '@angular/core';
 export class CategoryService {
 
   url = 'http://localhost:8080/api/v1/category';
+  url_groupComponent = 'http://localhost:8080/api/v1/component';
 
-  constructor(private httpClient: HttpClient) { }
-  getHeader() {
-    const token = localStorage.getItem("auth-token");
-    return token ? new HttpHeaders().set('Authorization', 'Bearer ' + token) : null;}
-  getAll():Observable<any> {
-
-      return this.httpClient.get(this.url + "/list" );
+  constructor(
+    private httpClient: HttpClient
+    ) { }
 
 
-  }
+    createCategory(category: any, file?: any): Observable<any>{
+      const formData = new FormData();
 
-  getOne(id:number):Observable<any> {
-    let headers = this.getHeader();
-    if (headers instanceof HttpHeaders)
-    {
-      return this.httpClient.get(this.url+"/"+id,{ headers: headers });
-    }else{
+      formData.append('file', file);
+      formData.append('name', category.name);
+      formData.append('images', category.images);
+      formData.append('status', category.status.toString());
+      formData.append('groupId', category.groupId.toString());
 
-      return this.httpClient.get(this.url+"/"+id);
+      return this.httpClient.post(this.url + "/create", formData);
     }
 
-  }
-
-
-  post(category:Category):Observable<any>  {
-    let headers = this.getHeader();
-    if (headers instanceof HttpHeaders)
-    {
-      return this.httpClient.post(this.url+"/create", category ,{ headers: headers });
-    }else{
-      return this.httpClient.post(this.url + "/create",category);
+    getAllGroupcomponent():Observable<any>{
+      return this.httpClient.get(this.url_groupComponent + '/info');
     }
 
+    getAllCategory(page: number, pageSize: number): Observable<any>{
+      let param = new HttpParams();
+      param = param.append('page',page);
+      param = param.append('page-number',pageSize);
+
+      return this.httpClient.get(this.url + '?page=' + page + '&page-number=' + pageSize, { params:param });
   }
 
-  patch(id:any, item:any):Observable<any> {
-    let headers = this.getHeader();
-    if (headers instanceof HttpHeaders)
-    {
-
-      return this.httpClient.patch(this.url+"/update/"+id, item ,{ headers: headers });
-    }else{
-
-      return this.httpClient.patch(this.url+"/update/"+id, item);
-    }
-
-  }
-
-
-  delete(id:number) {
-    return this.httpClient.delete(this.url+'/'+id);
-  }
 
 
 }

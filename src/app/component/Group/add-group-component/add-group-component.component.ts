@@ -7,7 +7,7 @@ import { MessageService } from 'primeng/api';
 import {FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { UploadService } from 'src/app/_service/upload/upload.service';
-import { GroupComponentService } from 'src/app/_service/CategoryService/group-component.service';
+import { GroupComponentService } from 'src/app/_service/group-component/group-component.service';
 
 @Component({
   selector: 'app-add-group-component',
@@ -23,7 +23,8 @@ export class AddGroupComponentComponent implements OnInit {
     { name: 'active', value: 'active' },
     { name: 'hidden', value: 'hidden' },
   ];
-  selected: string = '';
+
+  grSelect:any;
   constructor(
     private GroupComponentService: GroupComponentService,
     private BrandService: BrandService,
@@ -34,10 +35,10 @@ export class AddGroupComponentComponent implements OnInit {
   ) {
     this.AddForm = new FormGroup({
       name: new FormControl(),
-      brand_id: new FormControl(),
+      brandId: new FormControl(),
 
     });
-    this.title.setTitle('Admin | Category - Add');
+    this.title.setTitle('Admin | GroupComponent - Add');
   }
 
   ngOnInit(): void {
@@ -46,18 +47,22 @@ export class AddGroupComponentComponent implements OnInit {
       console.log(data);
     });
   }
-  selectOption = (event: any) => {
-    this.selected = event.target.value;
+  // selectOption = (event: any) => {
+  //   this.selected = event.target.value;
+  // };
+  selectGroup = (event: any) => {
+    this.grSelect = event.target.value;
   };
   saveFileThumail(event: any) {
     this.file = event.target.files[0];
     this.uploadFile.uploadImg(this.file);
   }
+
   addNew() {
     this.messageService.add({ severity: 'info', summary: 'Loading', detail: 'Loading...' });
     let upload:any = {
       name: this.AddForm.value.name,
-      brand_id: 1,
+      brandId: + this.grSelect,
 
     }
     setTimeout(() => {

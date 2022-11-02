@@ -2,7 +2,7 @@ import { SessionStorageService } from '../../../services/session-storage.service
 import { ToastrService } from 'ngx-toastr';
 
 import { Component, OnInit } from '@angular/core';
-import { GroupComponentService } from 'src/app/_service/CategoryService/group-component.service';
+import { GroupComponentService } from 'src/app/_service/group-component/group-component.service';
 
 @Component({
   selector: 'app-group-component',
