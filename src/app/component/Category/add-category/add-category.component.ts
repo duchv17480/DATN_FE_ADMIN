@@ -5,6 +5,8 @@ import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { STATUS } from 'src/app/_model/status';
 import { Category } from 'src/app/_model/category';
 import { NgToastService } from 'ng-angular-popup';
+import { GroupComponentService } from 'src/app/_service/group-component/group-component.service';
+import { UploadService } from 'src/app/_service/upload/upload.service';
 
 @Component({
   selector: 'app-add-category',

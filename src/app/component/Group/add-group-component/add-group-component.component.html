@@ -18,11 +18,21 @@
                               <label mdbLabel class="form-label" for="name">Group Name</label>
                           </mdb-form-control>
                       </div>
-                                         <div class="mb-3">
+                      <!-- <div class="mb-3">
                         <div class="form-group">
                           <label for="">Choose GroupId</label>
                           <select class="form-control" formControlName="brand_id">
                             <option  *ngFor="let item of brands">
+                              {{ item.brandName }}
+                            </option>
+                          </select>
+                        </div>
+                      </div> -->
+                      <div class="mb-3">
+                        <div class="form-group">
+                          <label for="">Choose Brand</label>
+                          <select (change)="selectGroup($event)" class="form-control" formControlName="brandId">
+                            <option [value]="item.id"  *ngFor="let item of brands">
                               {{ item.brandName }}
                             </option>
                           </select>
@@ -55,5 +65,5 @@
 
 
       </div>
- 
+
 

@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 import { CategoryService } from 'src/app/_service/CategoryService/category.service';
 import { Component, OnInit } from '@angular/core';
-
+import { GroupComponentService } from 'src/app/_service/group-component/group-component.service';
 @Component({
   selector: 'app-edit-category',
   templateUrl: './edit-category.component.html',
@@ -58,6 +58,33 @@ export class EditCategoryComponent implements OnInit {
       })
 
   }
+  editCate(){
+      this.messageService.add({ severity: 'info', summary: 'Success', detail: 'Loading...'})
+      let images  = localStorage.getItem('imgThum') || this.OldImage
+        let cateData: any = {
+          name: this.cateForm.value.name,
+          groupId: + this.groupSelect,
+          status: + this.statusSelect,
+          images: images,
+        };
+        console.log(cateData);
+
+        setTimeout(() => {
+           this.CategoryService.put( this.id,cateData).subscribe({
+          next: (data: any) => {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Edit success' })
+            setTimeout(() => {
+              this.route.navigate(['/categories']);
+              localStorage.removeItem('imgThum');
+            },2000)
+
+          },
+          error: ({ error }) => {
+            this.messageService.add({ severity: 'error', summary: 'Success', detail: `${error}`})
+            localStorage.removeItem('imgThum');
+          },
+        });
+        }, 3000);
 
 
   getAllGroupComponent() {

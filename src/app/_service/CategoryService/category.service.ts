@@ -37,11 +37,8 @@ export class CategoryService {
       param = param.append('page-number',pageSize);
 
       return this.httpClient.get(this.url + '?page=' + page + '&page-number=' + pageSize, { params:param });
-    }
+  }
 
-    deleteCategory(id:number):Observable<any>{
-      return this.httpClient.delete(this.url + '/delete/' + id);
-    }
 
 
 }
