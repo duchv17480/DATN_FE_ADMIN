@@ -1,30 +1,29 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Favourite } from 'src/app/_model/favourite';
-import { FavouriteService } from 'src/app/_service/favourite-service/favourite.service';
+import { Voucher } from 'src/app/_model/voucher';
+import { VoucherService } from 'src/app/_service/voucher-service/voucher.service';
 
 @Component({
-  selector: 'app-list-favourite',
-  templateUrl: './list-favourite.component.html',
-  styleUrls: ['./list-favourite.component.css']
+  selector: 'app-list-voucher',
+  templateUrl: './list-voucher.component.html',
+  styleUrls: ['./list-voucher.component.css']
 })
-export class ListFavouriteComponent implements OnInit {
+export class ListVoucherComponent implements OnInit {
 
-  favs: Favourite[] = [];
+  vous: Voucher[] = [];
   confirmMessage= '';
   deleteId!: number;
 
-  constructor(private router: Router, private favSer: FavouriteService, private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal, private vouSer: VoucherService) { }
 
   ngOnInit(): void {
-    this.showAllFavourite();
+    this.getAllVoucher();
   }
 
-  showAllFavourite() {
-    this.favSer.getAllFavoutite()
+  getAllVoucher() {
+    this.vouSer.getAllVoucher()
     .subscribe(data => {
-      this.favs = data.data;
+      this.vous = data.data;
     })
   }
 
@@ -40,7 +39,8 @@ export class ListFavouriteComponent implements OnInit {
 
   deleteFavourite(){
     if(this.deleteId != null){
-      this.favSer.deleteFavourite(this.deleteId).subscribe(data => {
+      this.vouSer.deleteVoucher(this.deleteId)
+      .subscribe(data => {
         this.modalService.dismissAll();
         this.ngOnInit();
       });

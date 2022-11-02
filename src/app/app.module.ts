@@ -52,6 +52,9 @@ import { EditChipComponent } from './component/chip/edit-chip/edit-chip.componen
 import { EditCategoryComponent } from './component/Category/edit-category/edit-category.component';
 import { ListFavouriteComponent } from './component/favourite/list-favourite/list-favourite.component';
 import { AddFavouriteComponent } from './component/favourite/add-favourite/add-favourite.component';
+import { ListVoucherComponent } from './component/voucher/list-voucher/list-voucher.component';
+import { CreateVoucherComponent } from './component/voucher/create-voucher/create-voucher.component';
+import { UpdateVoucherComponent } from './component/voucher/update-voucher/update-voucher.component';
 
 
 @NgModule({
@@ -71,7 +74,10 @@ import { AddFavouriteComponent } from './component/favourite/add-favourite/add-f
     EditChipComponent,
     EditCategoryComponent,
     ListFavouriteComponent,
-    AddFavouriteComponent
+    AddFavouriteComponent,
+    ListVoucherComponent,
+    CreateVoucherComponent,
+    UpdateVoucherComponent
 
   ],
   imports: [
