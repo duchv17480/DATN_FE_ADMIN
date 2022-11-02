@@ -13,6 +13,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { ListChipComponent } from './component/chip/list-chip/list-chip.component';
 import { AddChipComponent } from './component/chip/add-chip/add-chip.component';
 import { EditCategoryComponent } from './component/Category/edit-category/edit-category.component';
+import { ListFavouriteComponent } from './component/favourite/list-favourite/list-favourite.component';
+import { AddFavouriteComponent } from './component/favourite/add-favourite/add-favourite.component';
+import { ListVoucherComponent } from './component/voucher/list-voucher/list-voucher.component';
 
 const routes: Routes=[
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -27,9 +30,11 @@ const routes: Routes=[
   { path: 'products', component: ProductsComponent },
   { path: 'color', component: ColorComponent },
   { path: 'users', component: UsersComponent },
-
   { path: 'add-chip', component: AddChipComponent},
-  { path: 'list-chip', component: ListChipComponent}
+  { path: 'list-chip', component: ListChipComponent},
+  { path: 'list-favourite', component: ListFavouriteComponent},
+  { path: 'add-favourite', component: AddFavouriteComponent},
+  { path: 'list-voucher', component: ListVoucherComponent},
 
 
 
