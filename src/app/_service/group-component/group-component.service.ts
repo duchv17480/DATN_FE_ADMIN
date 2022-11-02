@@ -1,5 +1,5 @@
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { Groupcomponent } from './../../common/Groupcomponent';
+import { Groupcomponent } from '../../common/Groupcomponent';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
@@ -31,6 +31,23 @@ export class GroupComponentService {
     }else{
       return this.httpClient.post(this.url + "/create", Groupcomponent);
     }
+
+  }
+  put(id:any, item:any):Observable<any> {
+    let headers = this.getHeader();
+    if (headers instanceof HttpHeaders)
+    {
+      return this.httpClient.put(this.url+"/update/"+id, item ,{ headers: headers });
+
+    }else{
+      return this.httpClient.put(this.url+ "/update/"+id, item);
+    }
+
+  }
+  getOne(id:number):Observable<any> {
+
+      return this.httpClient.get(this.url+"/"+id);
+
 
   }
 }

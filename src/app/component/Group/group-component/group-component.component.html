@@ -26,15 +26,14 @@
                   <ng-template pTemplate="body" let-group_component>
                       <tr>
                           <td>{{group_component?.name}}</td>
-                        <td>{{group_component?.brand_id
-                        }}</td>
+                        <td>{{group_component?.brand_id}}</td>
                           <td>{{group_component?.startDate}}</td>
                           <td>{{group_component?.updateDate}}</td>
 
 
 
                           <td>
-                              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" ></button>
+                              <button [routerLink]="['/groupcomponent/'+group_component.id]" pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" ></button>
                               <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"  ></button>
                           </td>
                       </tr>

@@ -8,7 +8,7 @@ import { FormControl,FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { CategoryService } from 'src/app/_service/CategoryService/category.service';
-import { GroupComponentService } from 'src/app/_service/CategoryService/group-component.service';
+import { GroupComponentService } from 'src/app/_service/group-component/group-component.service';
 import { UploadService } from 'src/app/_service/upload/upload.service';
 
 @Component({
