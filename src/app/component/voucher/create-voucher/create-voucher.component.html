@@ -1,13 +1,13 @@
-<div id="voucherAdd">
-  <form #addChipForm="ngForm">
-    <ng-template #content let-c="close" let-d="dismiss">
-      <div class="modal-header">
-        <h4 class="modal-title">Add new Voucher</h4>
-        <button type="button" class="close" aria-label="close" (click)="d('Cross click')">
-          <span aria-hidden="true">&times;</span>
-        </button>
+<section>
+  <div class="row m-5">
+    <div>
+      <a [routerLink]="['/list-voucher']" class="btn btn-primary mb-3"> List Voucher </a>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        Create Voucher
       </div>
-      <div class="modal-body">
+      <div class="card-body">
         <form [formGroup]="validForm">
           <div class="row mx-2 mb-2">
             <div class="form-group mt-2">
@@ -52,12 +52,9 @@
             </div>
           </div>
         </form>
+        <button (click)="createVoucher()" [disabled]="validForm.invalid" class="btn btn-success mt-3"> Create </button>
       </div>
-      <div class="modal-footer">
-        <button [disabled]="validForm.invalid" class="btn btn-success" (click)="createVoucher()" >Create</button>
-        <button type="button" class="btn btn-secondary" (click)="c('Close click')">No</button>
-      </div>
-    </ng-template>
-    <button class="btn btn-success mb-2" (click)="open(content)">Add new voucher</button>
-  </form>
-</div>
+    </div>
+  </div>
+</section>
+
