@@ -1,0 +1,56 @@
+<section>
+  <div class="row m-5">
+    <div>
+      <a [routerLink]="['/add-staff']" class="btn btn-success mb-3"> Add New Staff </a>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        Staff List
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Fullname</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th colspan="2">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let staff of staffs, let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ staff.fullname }}</td>
+              <td>{{ staff.username }}</td>
+              <td>{{ staff.email }}</td>
+              <td>{{ staff.phone }}</td>
+              <td>
+                <a [routerLink]="['/update-staff', staff.id]" class="btn btn-primary mx-2">Update </a>
+              </td>
+              <td>
+                <a (click)="confirmDeleteStaff(content, staff.id)" class="btn btn-danger mx-2">delete</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Confirm</h4>
+      <button type="button" class="close" aria-label="close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <h5 class="text-danger">{{confirmMessage}}</h5>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success" (click)="deleteStaff()" >Yes</button>
+      <button type="button" class="btn btn-secondary" (click)="c('Close click')">No</button>
+    </div>
+  </ng-template>
+</section>

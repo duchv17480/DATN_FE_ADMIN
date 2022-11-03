@@ -16,6 +16,11 @@ import { ListFavouriteComponent } from './component/favourite/list-favourite/lis
 import { AddFavouriteComponent } from './component/favourite/add-favourite/add-favourite.component';
 import { ListVoucherComponent } from './component/voucher/list-voucher/list-voucher.component';
 import { ListCategoryComponent } from './component/Category/list-category/list-category.component';
+import { CreateVoucherComponent } from './component/voucher/create-voucher/create-voucher.component';
+import { UpdateVoucherComponent } from './component/voucher/update-voucher/update-voucher.component';
+import { ListStaffComponent } from './component/staff/list-staff/list-staff.component';
+import { CreateStaffComponent } from './component/staff/create-staff/create-staff.component';
+import { UpdateStaffComponent } from './component/staff/update-staff/update-staff.component';
 
 const routes: Routes=[
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -38,9 +43,11 @@ const routes: Routes=[
   { path: 'list-favourite', component: ListFavouriteComponent},
   { path: 'add-favourite', component: AddFavouriteComponent},
   { path: 'list-voucher', component: ListVoucherComponent},
-
-
-
+  { path: 'add-voucher', component: CreateVoucherComponent},
+  { path: 'edit-voucher', component: UpdateVoucherComponent},
+  { path: 'list-staff', component: ListStaffComponent},
+  { path: 'add-staff', component: CreateStaffComponent},
+  { path: 'update-staff/:id', component: UpdateStaffComponent},
 
 ];
 

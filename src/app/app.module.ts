@@ -58,6 +58,9 @@ import { AddFavouriteComponent } from './component/favourite/add-favourite/add-f
 import { ListVoucherComponent } from './component/voucher/list-voucher/list-voucher.component';
 import { CreateVoucherComponent } from './component/voucher/create-voucher/create-voucher.component';
 import { UpdateVoucherComponent } from './component/voucher/update-voucher/update-voucher.component';
+import { ListStaffComponent } from './component/staff/list-staff/list-staff.component';
+import { CreateStaffComponent } from './component/staff/create-staff/create-staff.component';
+import { UpdateStaffComponent } from './component/staff/update-staff/update-staff.component';
 
 
 @NgModule({
@@ -84,7 +87,10 @@ import { UpdateVoucherComponent } from './component/voucher/update-voucher/updat
     AddFavouriteComponent,
     ListVoucherComponent,
     CreateVoucherComponent,
-    UpdateVoucherComponent
+    UpdateVoucherComponent,
+    ListStaffComponent,
+    CreateStaffComponent,
+    UpdateStaffComponent,
 
   ],
   imports: [
