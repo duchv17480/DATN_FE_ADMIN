@@ -44,7 +44,7 @@ const routes: Routes=[
   { path: 'add-favourite', component: AddFavouriteComponent},
   { path: 'list-voucher', component: ListVoucherComponent},
   { path: 'add-voucher', component: CreateVoucherComponent},
-  { path: 'edit-voucher', component: UpdateVoucherComponent},
+  { path: 'edit-voucher/:id', component: UpdateVoucherComponent},
   { path: 'list-staff', component: ListStaffComponent},
   { path: 'add-staff', component: CreateStaffComponent},
   { path: 'update-staff/:id', component: UpdateStaffComponent},

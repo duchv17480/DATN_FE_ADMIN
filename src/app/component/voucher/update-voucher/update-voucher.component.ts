@@ -1,6 +1,8 @@
 import { Component, OnInit, EventEmitter, TemplateRef, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgToastService } from 'ng-angular-popup';
 import { Voucher } from 'src/app/_model/voucher';
 import { VoucherService } from 'src/app/_service/voucher-service/voucher.service';
 
@@ -11,17 +13,13 @@ import { VoucherService } from 'src/app/_service/voucher-service/voucher.service
 })
 export class UpdateVoucherComponent implements OnInit {
 
-  doing = false;
   validForm!: FormGroup
   vou: Voucher = new Voucher();
 
-  @Input("id")
-  editId!: number;
-
-  @Output()
-  updateFinished: EventEmitter<string> = new EventEmitter<string>();
-
-  constructor(private modelService: NgbModal, private vouSer: VoucherService) { }
+  constructor(private vouSer: VoucherService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router,
+              private toast: NgToastService) { }
 
   ngOnInit(): void {
     this.validForm = new FormGroup({
@@ -32,23 +30,19 @@ export class UpdateVoucherComponent implements OnInit {
       'status': new FormControl(null, [Validators.required]),
     });
 
-    this.vouSer.getVoucherById(this.editId)
+    let id = +this.activatedRoute.snapshot.params['id'];
+    this.vouSer.getVoucherById(id)
     .subscribe(data => {
       this.vou = data.data;
     })
   }
 
-  open(content: TemplateRef<any>) {
-    this.modelService.open(content, { ariaLabelledBy: 'modal-basic-title' });
-  }
 
   updateVoucher() {
-    this.doing = true;
-    this.vouSer.updateVoucher(this.editId, this.vou)
+    this.vouSer.updateVoucher(this.vou)
     .subscribe(data => {
-      this.doing = false;
-      this.updateFinished.emit('New chip is saved !')
-      this.modelService.dismissAll();
+      this.toast.success({ summary: 'Cập nhật voucher thành công' , duration: 3000 });
+      this.router.navigate(["list-voucher"]);
       console.log(data);
     })
   }

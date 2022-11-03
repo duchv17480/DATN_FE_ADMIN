@@ -24,8 +24,8 @@ export class VoucherService {
     return this.http.post(this.url + "/create", vou);
   }
 
-  updateVoucher(id: number, vou: Voucher): Observable<any> {
-    return this.http.put(this.url + "/update/" + id, vou);
+  updateVoucher(vou: Voucher): Observable<any> {
+    return this.http.put(this.url + "/update/" + vou.id, vou);
   }
 
   deleteVoucher(id: number): Observable<any> {
