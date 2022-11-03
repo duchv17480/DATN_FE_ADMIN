@@ -27,6 +27,23 @@ export class CategoryService {
     return this.httpClient.post(this.url + "/create", formData);
   }
 
+  editCategory(id: number,category: any, file?: any): Observable<any>{
+    const formData = new FormData();
+
+    formData.append('file', file);
+    formData.append('name', category.name);
+    formData.append('images', category.images);
+    formData.append('status', category.status.toString());
+    formData.append('groupId', category.groupId.toString());
+
+    return this.httpClient.put(this.url + "/update/" + id,formData);
+  }
+
+  getOne(id:number): Observable<any>{
+    return this.httpClient.get(this.url + '/' + id);
+  }
+
+
   getAllGroupcomponent(): Observable<any> {
     return this.httpClient.get(this.url_groupComponent + '/info');
   }
@@ -40,8 +57,9 @@ export class CategoryService {
   }
 
   deleteCategory(id: number):Observable<any>{
-    return this.httpClient.delete(this.url + '/delete' + id);
+    return this.httpClient.delete(this.url + '/delete/' + id);
   }
+
 
 
 

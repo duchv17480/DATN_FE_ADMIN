@@ -1,4 +1,14 @@
+import { STATUS } from 'src/app/_model/status';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { BrandService } from 'src/app/services/brand.service';
+import { VoucherService } from 'src/app/_service/voucher-service/voucher.service';
+import { CategoryService } from 'src/app/_service/category-service/category.service';
+import { NgToastService } from 'ng-angular-popup';
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { ProductApiService } from 'src/app/_service/product-service/product-api.service';
+import { Product } from 'src/app/_model/product';
+import { error } from 'jquery';
 
 @Component({
   selector: 'app-edit-product',
@@ -7,9 +17,88 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditProductComponent implements OnInit {
 
-  constructor() { }
+
+  id!: number;
+  product: Product = new Product();
+  isLoading: boolean = false;
+
+  categories: any[] = [];
+  voucher: any[] = [];
+  brand: any[] = [];
+
+  validateForm!: FormGroup;
+
+
+  constructor(
+    private restP: ProductApiService,
+    private restC: CategoryService,
+    private restV: VoucherService,
+    private restB: BrandService,
+    private rest: ProductApiService,
+    private route: ActivatedRoute,
+    private toast: NgToastService
+  ) { }
 
   ngOnInit(): void {
+    this.getAllCategory();
+    this.getAllVocher();
+    this.getAllBrand();
+
+    this.id = this.route.snapshot.params['id'];
+
+    this.rest.getOne(this.id).subscribe(data => {
+      this.product = data.data;
+    })
+
+    this.validateForm = new FormGroup({
+      'name': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
+      'price': new FormControl(null, [Validators.required]),
+      'quantity': new FormControl(null, [Validators.required]),
+      'discount': new FormControl(null, [Validators.required]),
+      'status': new FormControl(STATUS.ACTIVE, [Validators.required]),
+      'brandId': new FormControl(1, [Validators.required]),
+      'categoryId': new FormControl(1, [Validators.required]),
+      'voucherId': new FormControl(1, [Validators.required]),
+      'description': new FormControl(null, [Validators.required,Validators.minLength(6), Validators.maxLength(100)]),
+    })
+
+
+
   }
+
+
+  updateProduct() {
+    this.isLoading = true;
+    this.rest.updateProduct(this.id, this.product).subscribe(data => {
+      this.isLoading = false;
+      this.toast.success({ summary: 'Update product successfuly', duration: 3000 });
+    })
+  }
+
+  getAllCategory() {
+    this.isLoading = true;
+    this.restC.getAllCategory(0, 999).subscribe(data => {
+      this.isLoading = false;
+      this.categories = data.data;
+    })
+  }
+
+  getAllVocher() {
+    this.isLoading = true;
+    this.restV.getAllVoucher().subscribe(data => {
+      this.isLoading = false;
+      this.voucher = data.data;
+    })
+  }
+
+  getAllBrand() {
+    this.isLoading = true;
+    this.restB.getAll().subscribe(data => {
+      this.isLoading = false;
+      this.brand = data.data;
+    })
+  }
+
+
 
 }

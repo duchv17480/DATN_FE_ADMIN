@@ -1,53 +1,60 @@
-
 <div id="chipAdd" class="mt-5">
-
-
   <div *ngIf="isLoading" class="loading">
     <div class="spinner-border text-primary spinner-center" role="status">
     </div>
   </div>
 
-
-  <form [formGroup]="categoryformEdit" (ngSubmit)="createCategory()">
+  <form [formGroup]="categoryformEdit" (ngSubmit)="updateCategory()">
 
     <div class="card">
-
       <div class="card-header">
-        <h5>Add category</h5>
+        <h5>Update category</h5>
       </div>
       <div class="card-body">
 
-        <div class="form-group mt-2">
-          <div class="mb-3">
-            <label for="formFile" class="form-label">Default file input example</label>
-            <input class="form-control" type="file" formControlName="file" (change)="onFileChange($event)">
+        <div class="row">
+          <div class="col">
+
+            <div class="text-center">
+              <img [src]="preview" class="img-thumbnail w-25" alt="...">
+            </div>
+
+            <div class="form-group mt-2">
+              <div class="mb-3">
+                <label for="formFile" class="form-label">Choosse file</label>
+                <input class="form-control" type="file" formControlName="file" (change)="onFileChange($event)">
+              </div>
+            </div>
           </div>
-        </div>
+          <div class="col">
+            <div class="form-group mt-2">
+              <label for="">Name</label>
+              <input type="text" class="form-control" [ngModel]="category.name" formControlName="name">
+            </div>
 
-        <div class="form-group mt-2">
-          <label for="">Name</label>
-          <input type="text" class="form-control" formControlName="name" id="name">
-        </div>
+            <div class="form-group mt-2">
+              <label for="">Status</label>
+              <select class="form-select" [ngModel]="category.status" formControlName="status"
+                aria-label="Default select example">
+                <option value="INACTIVE">Inactive</option>
+                <option value="ACTIVE">Active</option>
+                <option value="DELETED">Deleted</option>
+              </select>
+            </div>
 
-        <div class="form-group mt-2">
-          <label for="">Status</label>
-          <select class="form-select" formControlName="status" id="status" aria-label="Default select example">
-            <option value="INACTIVE">Inactive</option>
-            <option value="ACTIVE">Active</option>
-            <option value="DELETED">Deleted</option>
-          </select>
-        </div>
-
-        <div class="form-group mt-2">
-          <label for="">Group component</label>
-          <select class="form-select" formControlName="groupId" id="groupId" aria-label="Default select example">
-            <option *ngFor="let item of groupC" value="{{item.id}}">{{item.name}}</option>
-          </select>
+            <div class="form-group mt-2">
+              <label for="">Group component</label>
+              <select class="form-select" [ngModel]="category.groupId" formControlName="groupId"
+                aria-label="Default select example">
+                <option *ngFor="let item of groupC" value="{{item.id}}">{{item.name}}</option>
+              </select>
+            </div>
+          </div>
         </div>
 
       </div>
       <div class="card-footer">
-        <button class="btn btn-success" type="submit">Create</button>
+        <button class="btn btn-success" type="submit">Update</button>
       </div>
 
     </div>

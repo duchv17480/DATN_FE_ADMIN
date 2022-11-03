@@ -7,7 +7,7 @@ import { User } from 'src/app/common/User';
 import { Favourite } from 'src/app/_model/favourite';
 import { Product } from 'src/app/_model/product';
 import { FavouriteService } from 'src/app/_service/favourite-service/favourite.service';
-import { ProductService } from 'src/app/_service/product-service/product.service';
+import { ProductApiService } from 'src/app/_service/product-service/product-api.service';
 import { UserService } from 'src/app/_service/user-service/user.service';
 
 @Component({
@@ -24,7 +24,7 @@ export class AddFavouriteComponent implements OnInit {
   validForm!: FormGroup;
 
   constructor(private modelService: NgbModal,
-              private proSer: ProductService,
+              private proSer: ProductApiService,
               private userSer: UserService,
               private favSer: FavouriteService,
               private router: Router,

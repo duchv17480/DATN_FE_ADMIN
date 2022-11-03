@@ -1,7 +1,7 @@
-<section>
-  <div class="row m-5">
+<div id="categoryAdd" class="mt-5">
+  <div class="row">
     <div>
-     <a href="">Add product</a>
+     <a [routerLink]="['/add-product']" class="btn btn-success mb-2">Create product</a>
     </div>
     <div class="card p-0">
       <div class="card-header">
@@ -28,18 +28,18 @@
             <td>{{pro.name}}</td>
             <td>{{pro.price}}</td>
             <td>{{pro.quantity}}</td>
-            <td>{{pro.createDate}}</td>
-            <td>{{pro.updateDate}}</td>
+            <td>{{pro.createDate | date: "dd/MM/yyyy"}}</td>
+            <td>{{pro.updateDate | date: "dd/MM/yyyy"}}</td>
             <td>{{pro.description}}</td>
             <td>{{pro.status}}</td>
             <td>
               <img src="{{pro.imageLink}}" class="img-fluid" alt="">
             </td>
             <td>
-              <a href="">edit</a>
+              <a [routerLink]="['/edit-product/' + pro.id]" class="btn btn-secondary">edit</a>
             </td>
             <td>
-              <a class="btn btn-danger mx-2">delete</a>
+              <a (click)="confirmDeleteProduct(content,pro.id,pro.name)" class="btn btn-danger mx-2">delete</a>
             </td>
           </tr>
         </tbody>
@@ -49,7 +49,7 @@
       </div>
     </div>
   </div>
-  <!-- <ng-template #content let-c="close" let-d="dismiss">
+  <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="modal-title">Confirm</h4>
       <button type="button" class="close" aria-label="close" (click)="d('Cross click')">
@@ -60,8 +60,8 @@
       <h5 class="text-danger">{{confirmMessage}}</h5>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-success" (click)="deleteChip()">Yes</button>
+      <button class="btn btn-success" (click)="deleteProduct()">Yes</button>
       <button type="button" class="btn btn-secondary" (click)="c('Close click')">No</button>
     </div>
-  </ng-template> -->
-</section>
+  </ng-template>
+</div>

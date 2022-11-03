@@ -8,4 +8,5 @@ export class Product {
   status!: number;
   categoryId!: number;
   voucherId!: number;
+  brandId!: number;
 }
