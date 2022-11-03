@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgToastService } from 'ng-angular-popup';
 import { Voucher } from 'src/app/_model/voucher';
 import { VoucherService } from 'src/app/_service/voucher-service/voucher.service';
 
@@ -11,14 +13,11 @@ import { VoucherService } from 'src/app/_service/voucher-service/voucher.service
 })
 export class CreateVoucherComponent implements OnInit {
 
-  @Output()
-  saveFinished: EventEmitter<string> = new EventEmitter<string>();
-
   validForm!: FormGroup;
   vou: Voucher = new Voucher();
   startDate: Date = new Date();
 
-  constructor(private modelService: NgbModal, private vouSer: VoucherService) { }
+  constructor(private modelService: NgbModal, private vouSer: VoucherService, private router: Router, private toast: NgToastService) { }
 
   ngOnInit(): void {
     this.validForm = new FormGroup({
@@ -29,17 +28,13 @@ export class CreateVoucherComponent implements OnInit {
     });
   }
 
-  open(content: TemplateRef<any>) {
-    this.modelService.open(content, { ariaLabelledBy: 'modal-basic-title' });
-  }
-
   createVoucher() {
     this.vou.startDate = this.startDate;
     this.vouSer.createVoucher(this.vou)
     .subscribe(data => {
       console.log(data);
-      this.saveFinished.emit('New favourite is saved !')
-      this.modelService.dismissAll();
+      this.toast.success({ summary: 'Thêm voucher thành công' , duration: 3000 });
+      this.router.navigate(["list-voucher"]);
     });
   }
 

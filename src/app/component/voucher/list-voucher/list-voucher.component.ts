@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgToastService } from 'ng-angular-popup';
 import { Voucher } from 'src/app/_model/voucher';
 import { VoucherService } from 'src/app/_service/voucher-service/voucher.service';
 
@@ -14,7 +15,7 @@ export class ListVoucherComponent implements OnInit {
   confirmMessage= '';
   deleteId!: number;
 
-  constructor(private modalService: NgbModal, private vouSer: VoucherService) { }
+  constructor(private modalService: NgbModal, private vouSer: VoucherService, private toast: NgToastService) { }
 
   ngOnInit(): void {
     this.getAllVoucher();
@@ -42,13 +43,10 @@ export class ListVoucherComponent implements OnInit {
       this.vouSer.deleteVoucher(this.deleteId)
       .subscribe(data => {
         this.modalService.dismissAll();
+        this.toast.success({ summary: 'Xóa voucher thành công', duration: 3000 });
         this.ngOnInit();
       });
     }
-  }
-
-  finishAndAlert(message: string){
-    this.ngOnInit();
   }
 
 }

@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgToastService } from 'ng-angular-popup';
 import { User } from 'src/app/common/User';
 import { Favourite } from 'src/app/_model/favourite';
 import { Product } from 'src/app/_model/product';
@@ -21,13 +23,12 @@ export class AddFavouriteComponent implements OnInit {
   likeDate: Date = new Date();
   validForm!: FormGroup;
 
-  @Output()
-  saveFinished: EventEmitter<string> = new EventEmitter<string>();
-
   constructor(private modelService: NgbModal,
               private proSer: ProductApiService,
               private userSer: UserService,
-              private favSer: FavouriteService) { }
+              private favSer: FavouriteService,
+              private router: Router,
+              private toast: NgToastService) { }
 
   ngOnInit(): void {
     this.validForm = new FormGroup({
@@ -37,10 +38,6 @@ export class AddFavouriteComponent implements OnInit {
 
     this.showAllProduct();
     this.showAllUser();
-  }
-
-  open(content: TemplateRef<any>) {
-    this.modelService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 
   showAllProduct() {
@@ -62,8 +59,8 @@ export class AddFavouriteComponent implements OnInit {
     let id = this.fav.productId;
     this.favSer.createFavourite(id, this.fav)
     .subscribe(data => {
-      this.saveFinished.emit('New favourite is saved !')
-      this.modelService.dismissAll();
+      this.toast.success({ summary: 'Thêm favourite thành công' , duration: 3000 });
+      this.router.navigate(["list-favourite"]);
     });
   }
 
