@@ -1,5 +1,5 @@
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CategoryService } from './../../../_service/CategoryService/category.service';
+import { CategoryService } from '../../../_service/category-service/category.service';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgToastService } from 'ng-angular-popup';
 

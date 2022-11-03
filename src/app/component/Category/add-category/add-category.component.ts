@@ -1,6 +1,6 @@
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { CategoryService } from 'src/app/_service/CategoryService/category.service';
+import { CategoryService } from 'src/app/_service/category-service/category.service';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { STATUS } from 'src/app/_model/status';
 import { NgToastService } from 'ng-angular-popup';
@@ -14,6 +14,10 @@ export class AddCategoryComponent implements OnInit {
 
   isLoading: boolean = true;
   groupC: any[] = [];
+
+  selectedFiles?: FileList;
+  currentFile?: File;
+  img_url = '';
 
   categoryform = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -39,20 +43,32 @@ export class AddCategoryComponent implements OnInit {
     this.getAllGroupComponent();
   }
 
-
   onFileChange(event: any) {
+    this.img_url = '';
+    this.selectedFiles = event.target.files;
 
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.categoryform.patchValue({
-        fileSource: file
-      });
+    if (this.selectedFiles) {
+      const file: File | null = this.selectedFiles.item(0);
+
+      if (file) {
+        this.img_url = '';
+        this.currentFile = file;
+
+        const reader = new FileReader();
+
+        reader.onload = (e: any) => {
+          this.img_url = e.target.result;
+        };
+
+        reader.readAsDataURL(this.currentFile);
+      }
     }
+
   }
 
   createCategory() {
     this.isLoading = true;
-    this.rest.createCategory(this.categoryform.value, this.categoryform.get('fileSource')?.value)
+    this.rest.createCategory(this.categoryform.value, this.currentFile)
       .subscribe(data => {
         this.isLoading = false;
         this.toast.success({ summary: 'Create category successfuly', duration: 3000 });

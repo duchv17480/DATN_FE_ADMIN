@@ -1,3 +1,5 @@
+import { EditProductComponent } from './component/product/edit-product/edit-product.component';
+import { ListProductComponent } from './component/product/list-product/list-product.component';
 import { EditGroupComponentComponent } from './component/Group/edit-group-component/edit-group-component.component';
 import { BrandsComponent } from './component/brands/brands.component';
 import { AddGroupComponentComponent } from './component/Group/add-group-component/add-group-component.component';
@@ -5,7 +7,6 @@ import { ColorComponent } from './component/color/color.component';
 import { GroupComponentComponent } from './component/Group/group-component/group-component.component';
 import { AddCategoryComponent } from './component/Category/add-category/add-category.component';
 import { UsersComponent } from './component/users/users.component';
-import { ProductsComponent } from './component/products/products.component';
 import { LoginComponent } from './component/login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -16,6 +17,7 @@ import { ListFavouriteComponent } from './component/favourite/list-favourite/lis
 import { AddFavouriteComponent } from './component/favourite/add-favourite/add-favourite.component';
 import { ListVoucherComponent } from './component/voucher/list-voucher/list-voucher.component';
 import { ListCategoryComponent } from './component/Category/list-category/list-category.component';
+import { AddProductComponent } from './component/product/add-product/add-product.component';
 
 const routes: Routes=[
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -25,12 +27,16 @@ const routes: Routes=[
   { path: 'list-category', component: ListCategoryComponent},
   { path: 'edit-category/:id', component: EditCategoryComponent},
 
+  { path: 'add-product', component: AddProductComponent},
+  { path: 'list-product', component: ListProductComponent},
+  { path: 'edit-product/:id', component: EditProductComponent},
+
+
 
   { path: 'groupcomponent', component: GroupComponentComponent },
   { path: 'groupcomponent/add', component: AddGroupComponentComponent},
   { path: 'groupcomponent/:id', component: EditGroupComponentComponent },
   { path: 'brand', component: BrandsComponent},
-  { path: 'products', component: ProductsComponent },
   { path: 'color', component: ColorComponent },
   { path: 'users', component: UsersComponent },
   { path: 'add-chip', component: AddChipComponent},

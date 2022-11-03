@@ -1,10 +1,11 @@
+import { AddProductComponent } from './component/product/add-product/add-product.component';
+import { ListProductComponent } from './component/product/list-product/list-product.component';
 import { EditCategoryComponent } from './component/Category/edit-category/edit-category.component';
 import { ListCategoryComponent } from './component/Category/list-category/list-category.component';
 import { MessageService } from 'primeng/api';
 import { environment } from './../environments/environment';
 import { PrimeModule } from './component/uiHelpers/prime/Prime.module';
 import { UsersComponent } from './component/users/users.component';
-import { ProductsComponent } from './component/products/products.component';
 
 import { LoginComponent } from './component/login/login.component';
 import { AppComponent } from './app.component';
@@ -58,13 +59,13 @@ import { AddFavouriteComponent } from './component/favourite/add-favourite/add-f
 import { ListVoucherComponent } from './component/voucher/list-voucher/list-voucher.component';
 import { CreateVoucherComponent } from './component/voucher/create-voucher/create-voucher.component';
 import { UpdateVoucherComponent } from './component/voucher/update-voucher/update-voucher.component';
+import { EditProductComponent } from './component/product/edit-product/edit-product.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ProductsComponent,
     UsersComponent,
     GroupComponentComponent,
     ColorComponent,
@@ -78,6 +79,11 @@ import { UpdateVoucherComponent } from './component/voucher/update-voucher/updat
     ListChipComponent,
     AddChipComponent,
     EditChipComponent,
+
+    ListProductComponent,
+    AddProductComponent,
+    EditProductComponent,
+
     EditCategoryComponent,
     EditGroupComponentComponent,
     ListFavouriteComponent,
