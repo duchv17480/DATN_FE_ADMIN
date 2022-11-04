@@ -24,26 +24,26 @@ export class BrandService {
 
   }
 
-  getOne(id:number) {
+  getOne(id:number):Observable<any> {
     return this.httpClient.get(this.url+'/'+id);
   }
 
-  // post(category:Brands):Observable<any>  {
-  //   let headers = this.getHeader();
-  //   if (headers instanceof HttpHeaders)
-  //   {
-  //     return this.httpClient.post(this.url+"/create", Brands ,{ headers: headers });
-  //   }else{
-  //     return this.httpClient.post(this.url + "/create", Brands);
-  //   }
+  post(brands:any):Observable<any>  {
+    let headers = this.getHeader();
+    if (headers instanceof HttpHeaders)
+    {
+      return this.httpClient.post(this.url, brands ,{ headers: headers });
+    }else{
+      return this.httpClient.post(this.url , brands);
+    }
 
-  // }
+  }
 
-  // put(id:number, category: Category) {
-  //   return this.httpClient.put(this.url+'/'+id, category);
-  // }
+  put(id:number, item:any):Observable<any> {
+    return this.httpClient.put(this.url+'/'+id, item);
+  }
 
-  // delete(id:number) {
-  //   return this.httpClient.delete(this.url+'/'+id);
-  // }
+  delete(id:number) {
+    return this.httpClient.delete(this.url+'/'+id);
+  }
 }

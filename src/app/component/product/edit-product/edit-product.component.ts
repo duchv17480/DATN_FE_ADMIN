@@ -1,6 +1,6 @@
 import { STATUS } from 'src/app/_model/status';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { BrandService } from 'src/app/services/brand.service';
+
 import { VoucherService } from 'src/app/_service/voucher-service/voucher.service';
 import { CategoryService } from 'src/app/_service/category-service/category.service';
 import { NgToastService } from 'ng-angular-popup';
@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductApiService } from 'src/app/_service/product-service/product-api.service';
 import { Product } from 'src/app/_model/product';
 import { error } from 'jquery';
+import { BrandService } from 'src/app/_service/Brand-service/brand.service';
 
 @Component({
   selector: 'app-edit-product',

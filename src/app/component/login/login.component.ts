@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
       if (data.success) {
         this.tokenStorage.saveToken(data.data.token);
         this.tokenStorage.saveUser(data.data.username);
+      
         const role = data.data.role[0].authority;
         console.log(role);
         this.toast.success({ summary: 'Login success', duration: 3000 });
