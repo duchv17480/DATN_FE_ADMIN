@@ -69,6 +69,10 @@ import { UpdateStaffComponent } from './component/staff/update-staff/update-staf
 import { AddColorComponent } from './component/color/add-color/add-color.component';
 import { AddReviewComponent } from './component/Review/add-review/add-review.component';
 import { AddBrandComponent } from './component/Brands/add-brand/add-brand.component';
+import { EditReviewComponent } from './component/Review/edit-review/edit-review.component';
+import { ListCaseComponent } from './component/Case/list-case/list-case.component';
+import { AddCaseComponent } from './component/Case/add-case/add-case.component';
+import { EditCaseComponent } from './component/Case/edit-case/edit-case.component';
 
 
 
@@ -80,11 +84,16 @@ import { AddBrandComponent } from './component/Brands/add-brand/add-brand.compon
 
     GroupComponentComponent,
     AddGroupComponentComponent,
+    EditGroupComponentComponent,
 
 
     BrandsComponent,
     AddBrandComponent,
     EditBrandComponent,
+
+    ListCaseComponent,
+    AddCaseComponent,
+    EditCaseComponent,
 
     ColorComponent,
     EditColorComponent,
@@ -92,6 +101,7 @@ import { AddBrandComponent } from './component/Brands/add-brand/add-brand.compon
 
     ReviewListComponent,
     AddReviewComponent,
+    EditReviewComponent,
 
     ListCategoryComponent,
     AddCategoryComponent,
@@ -106,7 +116,6 @@ import { AddBrandComponent } from './component/Brands/add-brand/add-brand.compon
     EditProductComponent,
 
     EditCategoryComponent,
-    EditGroupComponentComponent,
     ListFavouriteComponent,
     AddFavouriteComponent,
     ListVoucherComponent,

@@ -46,5 +46,5 @@ export class ColorService {
     return this.httpClient.get(this.url+"/"+id);
 
 
-}
+  }
 }
