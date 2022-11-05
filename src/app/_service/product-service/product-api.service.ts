@@ -24,6 +24,10 @@ export class ProductApiService {
     return this.http.get(URL_PROUCT + "?page=" + page + "&page-number=" + pageNumber);
   }
 
+  getAllProductsAndSearch(params: any): Observable<any> {
+    return this.http.get(URL_PROUCT + '/search', { params })
+  }
+
   createProduct(product: Product):Observable<any>{
     return this.http.post(URL_PROUCT + '/create',product);
   }

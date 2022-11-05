@@ -14,7 +14,6 @@ export class CategoryService {
     private httpClient: HttpClient
   ) { }
 
-
   createCategory(category: any, file?: any): Observable<any> {
     const formData = new FormData();
 
@@ -39,15 +38,18 @@ export class CategoryService {
     return this.httpClient.put(this.url + "/update/" + id,formData);
   }
 
+
   getOne(id:number): Observable<any>{
     return this.httpClient.get(this.url + '/' + id);
   }
-
 
   getAllGroupcomponent(): Observable<any> {
     return this.httpClient.get(this.url_groupComponent + '/info');
   }
 
+  getAllCategoryAndPage(params: any): Observable<any>{
+    return this.httpClient.get(this.url , {params});
+  }
   getAllCategory(page: number, pageSize: number): Observable<any> {
     let param = new HttpParams();
     param = param.append('page', page);
@@ -59,8 +61,5 @@ export class CategoryService {
   deleteCategory(id: number):Observable<any>{
     return this.httpClient.delete(this.url + '/delete/' + id);
   }
-
-
-
 
 }

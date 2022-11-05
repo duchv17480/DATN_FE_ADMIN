@@ -63,6 +63,7 @@ import { EditProductComponent } from './component/product/edit-product/edit-prod
 import { ListStaffComponent } from './component/staff/list-staff/list-staff.component';
 import { CreateStaffComponent } from './component/staff/create-staff/create-staff.component';
 import { UpdateStaffComponent } from './component/staff/update-staff/update-staff.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -108,6 +109,7 @@ import { UpdateStaffComponent } from './component/staff/update-staff/update-staf
     NgToastModule,
     NgZorroAntdModule,
     AccordionModule,
+    NgxPaginationModule,
     PanelModule,
     ButtonModule,
     CarouselModule,

@@ -2,6 +2,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CategoryService } from '../../../_service/category-service/category.service';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgToastService } from 'ng-angular-popup';
+import { data } from 'jquery';
 
 @Component({
   selector: 'app-list-category',
@@ -14,7 +15,12 @@ export class ListCategoryComponent implements OnInit {
   isLoading: boolean = true;
   categories: any[] = [];
   confirmMessage = '';
-  deleteId! :number;
+  deleteId!: number;
+
+  page = 0;
+  count = 0;
+  pageSize = 10;
+  pageSizes = [10, 20, 30];
 
   constructor(
     private rest: CategoryService,
@@ -22,26 +28,26 @@ export class ListCategoryComponent implements OnInit {
     private toast: NgToastService,
   ) {
 
-   }
+  }
 
   ngOnInit() {
     this.getAllCategory();
   }
 
 
-  confirmDeleteCategory(confirmDialog: TemplateRef<any>, id: number, name: string){
+  confirmDeleteCategory(confirmDialog: TemplateRef<any>, id: number, name: string) {
     this.confirmMessage = `Do you want to delete ${name} ?`;
     this.deleteId = id;
     this.modalService.open(confirmDialog,
-      {ariaDescribedBy:'modal-basic-title'}).result.then((result)=>{
-      }).catch((err)=>{
+      { ariaDescribedBy: 'modal-basic-title' }).result.then((result) => {
+      }).catch((err) => {
 
       })
   }
 
-  deleteCategory(){
-    if(this.deleteId != null){
-      this.rest.deleteCategory(this.deleteId).subscribe(data=>{
+  deleteCategory() {
+    if (this.deleteId != null) {
+      this.rest.deleteCategory(this.deleteId).subscribe(data => {
         this.modalService.dismissAll();
         this.ngOnInit();
         this.toast.success({ summary: 'Delete category successfuly', duration: 3000 });
@@ -59,5 +65,50 @@ export class ListCategoryComponent implements OnInit {
       console.log(data.data);
     })
   }
+
+  // pagination //
+
+  getRequestParams(page: number, pageSize: number) {
+    let params: any = {};
+
+    if (page) {
+      params[`page`] = page;
+    }
+
+    if (pageSize) {
+      params[`page-number`]
+    }
+
+    return params;
+
+  }
+
+  getAllCategoryAndPage() {
+    const params = this.getRequestParams(this.page, this.pageSize);
+
+    this.rest.getAllCategoryAndPage(params).subscribe(response => {
+      const totalItem = response.pagination.totalItem;
+      this.categories = response.data;
+      this.count = totalItem;
+    },
+      error => {
+        console.log(error);
+      });
+  }
+
+  handlePageChange(event: number){
+    this.page = event;
+    this.getAllCategoryAndPage();
+  }
+
+  handlePageSizeChange(event: any){
+    this.pageSize = event.target.value;
+    this.page = 0;
+    this.getAllCategory();
+  }
+
+
+
+
 
 }

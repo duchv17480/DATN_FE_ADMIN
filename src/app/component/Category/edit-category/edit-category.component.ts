@@ -23,11 +23,11 @@ export class EditCategoryComponent implements OnInit {
   preview = '';
 
   categoryformEdit = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    status: new FormControl(STATUS.ACTIVE, [Validators.required]),
-    groupId: new FormControl(1, [Validators.required]),
-    file: new FormControl('', [Validators.required]),
-    fileSource: new FormControl('', [Validators.required])
+    'name': new FormControl('', [Validators.required]),
+    'status': new FormControl(STATUS.ACTIVE, [Validators.required]),
+    'groupId': new FormControl(1, [Validators.required]),
+    'file': new FormControl('', [Validators.required]),
+    // fileSource: new FormControl('', [Validators.required])
   })
 
   constructor(
