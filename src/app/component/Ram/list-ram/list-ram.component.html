@@ -1,0 +1,53 @@
+
+
+  <div class="col-9 p-0 mt-4" style="margin-left: 5%;">
+    <div class="col">
+      <div class="m-2">
+        <div class="card">
+          <p-toolbar styleClass="mb-4">
+              <a  [routerLink]="'/ram/create/'"  class="btn btn-primary" >Add new</a>
+          </p-toolbar>
+
+          <p-table #dt [value]="ram" [rows]="5" [paginator]="true"  responsiveLayout="scroll" [rowHover]="true"
+              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+
+              <ng-template pTemplate="header">
+                  <tr>
+
+                      <th   pSortableColumn="ddr"> Ddr<p-sortIcon ></p-sortIcon></th>
+                      <th pSortableColumn="bus">Bus<p-sortIcon ></p-sortIcon></th>
+                      <th pSortableColumn="productId">Product  <p-sortIcon ></p-sortIcon></th>
+
+
+
+                      <th>Action</th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-ram>
+                  <tr>
+
+                    <td>{{ram?.ddr}}</td>
+                    <td>{{ram?.ddr}}</td>
+                    <td >{{ram?.productId}}</td>
+                      <td>
+                          <button [routerLink]="['/ram/update/'+ ram.id]" pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" ></button>
+                          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"  ></button>
+                      </td>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="summary">
+                  <div class="flex align-items-center justify-content-between">
+                    In total there are {{ram ? ram?.length : 0 }}
+                  </div>
+              </ng-template>
+          </p-table>
+      </div>
+
+
+
+      </div>
+
+    </div>
+
+</div>
+

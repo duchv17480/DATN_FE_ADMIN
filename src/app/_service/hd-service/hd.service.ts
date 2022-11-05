@@ -1,14 +1,15 @@
-import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CasesService {
+export class HdService {
 
 
-  url = 'http://localhost:8080/api/v1/case';
+
+  url = 'http://localhost:8080/api/v1/hd';
 
   constructor(private httpClient: HttpClient) { }
   getHeader() {
@@ -44,7 +45,13 @@ export class CasesService {
     return this.httpClient.put(this.url+'/update/'+id, item);
   }
 
-  delete(id:number) {
-    return this.httpClient.delete(this.url+'/'+id);
+  delete(id:number): Observable<any> {
+    let headers = this.getHeader();
+    if (headers instanceof HttpHeaders)
+    {
+    return this.httpClient.delete(this.url+'/delete/'+id,{ headers: headers });
+  }else{
+    return this.httpClient.post(this.url+"/delete/" , id);
+  }
   }
 }

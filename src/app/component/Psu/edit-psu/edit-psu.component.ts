@@ -1,45 +1,45 @@
-import { ColorService } from 'src/app/_service/color-service/color.service';
-import { ProductApiService } from 'src/app/_service/product-service/product-api.service';
+import { PsuService } from './../../../_service/psu-service/psu.service';
+import { ProductApiService } from './../../../_service/product-service/product-api.service';
 import { Title } from '@angular/platform-browser';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup,FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-edit-color',
-  templateUrl: './edit-color.component.html',
-  styleUrls: ['./edit-color.component.css']
+  selector: 'app-edit-psu',
+  templateUrl: './edit-psu.component.html',
+  styleUrls: ['./edit-psu.component.css']
 })
-export class EditColorComponent implements OnInit {
-
+export class EditPsuComponent implements OnInit {
 
   product: any =[];
   id!:number;
   groupForm: FormGroup;
   groupSelect: any
-  color : any;
+  psu : any;
   constructor(private activatedRoute: ActivatedRoute,
     private messageService: MessageService,
     private route: Router,
     private title: Title,
     private ProductApiService : ProductApiService,
-    private ColorService : ColorService
+    private PsuService : PsuService
 
   ) {
     this.id = activatedRoute.snapshot.params['id'];
     this.groupForm = new FormGroup({
-      colorName: new FormControl(),
-      productId: new FormControl(2, [Validators.required]),
+      'size': new FormControl(null,[Validators.required, Validators.minLength(1), Validators.maxLength(7)]),
+      'wattage': new FormControl(null,[Validators.required, Validators.pattern("^[0-9_-]{1,3}$")]),
+      'productId': new FormControl(2,[Validators.required]),
     });
-    this.title.setTitle('Admin | Color - Edit');
+    this.title.setTitle('Admin | psu - Edit');
   }
 
 
   ngOnInit(): void {
-    this.ColorService.getOne(this.id).subscribe((data) => {
-      this.color = data.data;
-      this.groupSelect = this.color.productId;
+    this.PsuService.getOne(this.id).subscribe((data) => {
+      this.psu = data.data;
+      this.groupSelect = this.psu.productId;
 
     });
     this.ProductApiService.getAllProduct(0,50).subscribe((data) => {
@@ -52,22 +52,24 @@ export class EditColorComponent implements OnInit {
     this.groupSelect = val.target.value
   }}
 
-  editcolor(){
+  editpsu(){
       this.messageService.add({ severity: 'info', summary: 'Success', detail: 'Loading...'})
 
         let groupForm: any = {
-          colorName: this.groupForm.value.colorName,
-          productId: + this.groupSelect,
+
+          'size': this.groupForm.value.size,
+          'wattage': this.groupForm.value.wattage,
+          'productId': + this.groupSelect,
 
         };
-        console.log(groupForm);
+
 
         setTimeout(() => {
-           this.ColorService.put( this.id,groupForm).subscribe({
+           this.PsuService.put(this.id,groupForm).subscribe({
           next: (data: any) => {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Edit success' })
             setTimeout(() => {
-              this.route.navigate(['/color']);
+              this.route.navigate(['/psu']);
 
             },2000)
 
@@ -81,4 +83,5 @@ export class EditColorComponent implements OnInit {
 
 
   }
+
 }

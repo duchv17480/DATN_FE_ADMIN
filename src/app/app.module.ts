@@ -1,3 +1,15 @@
+import { AddMainComponent } from './component/Main/add-main/add-main.component';
+import { ListMainComponent } from './component/Main/list-main/list-main.component';
+import { EditHdComponent } from './component/HD/edit-hd/edit-hd.component';
+import { AddHdComponent } from './component/HD/add-hd/add-hd.component';
+import { ListHdComponent } from './component/HD/list-hd/list-hd.component';
+import { EditPsuComponent } from './component/Psu/edit-psu/edit-psu.component';
+import { AddPsuComponent } from './component/Psu/add-psu/add-psu.component';
+import { ListPsuComponent } from './component/Psu/list-psu/list-psu.component';
+import { EditRamComponent } from './component/Ram/edit-ram/edit-ram.component';
+
+import { RamComponent } from './component/Ram/add-ram/ram.component';
+
 import { EditBrandComponent } from './component/Brands/edit-brand/edit-brand.component';
 import { EditColorComponent } from './component/color/edit-color/edit-color.component';
 import { ReviewListComponent } from './component/Review/review-list/review-list.component';
@@ -73,6 +85,8 @@ import { EditReviewComponent } from './component/Review/edit-review/edit-review.
 import { ListCaseComponent } from './component/Case/list-case/list-case.component';
 import { AddCaseComponent } from './component/Case/add-case/add-case.component';
 import { EditCaseComponent } from './component/Case/edit-case/edit-case.component';
+import { ListRamComponent } from './component/Ram/list-ram/list-ram.component';
+
 
 
 
@@ -86,6 +100,20 @@ import { EditCaseComponent } from './component/Case/edit-case/edit-case.componen
     AddGroupComponentComponent,
     EditGroupComponentComponent,
 
+    ListRamComponent,
+    RamComponent,
+    EditRamComponent,
+
+    ListMainComponent,
+    AddMainComponent,
+
+    ListPsuComponent,
+    AddPsuComponent,
+    EditPsuComponent,
+
+    ListHdComponent,
+    AddHdComponent,
+    EditHdComponent,
 
     BrandsComponent,
     AddBrandComponent,

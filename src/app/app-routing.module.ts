@@ -1,3 +1,13 @@
+import { AddMainComponent } from './component/Main/add-main/add-main.component';
+import { ListMainComponent } from './component/Main/list-main/list-main.component';
+import { EditHdComponent } from './component/HD/edit-hd/edit-hd.component';
+import { AddHdComponent } from './component/HD/add-hd/add-hd.component';
+import { ListHdComponent } from './component/HD/list-hd/list-hd.component';
+import { EditPsuComponent } from './component/Psu/edit-psu/edit-psu.component';
+import { AddPsuComponent } from './component/Psu/add-psu/add-psu.component';
+import { ListPsuComponent } from './component/Psu/list-psu/list-psu.component';
+import { EditRamComponent } from './component/Ram/edit-ram/edit-ram.component';
+import { RamComponent } from './component/Ram/add-ram/ram.component';
 import { EditCaseComponent } from './component/Case/edit-case/edit-case.component';
 import { AddCaseComponent } from './component/Case/add-case/add-case.component';
 import { ListCaseComponent } from './component/Case/list-case/list-case.component';
@@ -34,6 +44,8 @@ import { UpdateVoucherComponent } from './component/voucher/update-voucher/updat
 import { ListStaffComponent } from './component/staff/list-staff/list-staff.component';
 import { CreateStaffComponent } from './component/staff/create-staff/create-staff.component';
 import { UpdateStaffComponent } from './component/staff/update-staff/update-staff.component';
+import { ListRamComponent } from './component/Ram/list-ram/list-ram.component';
+
 
 const routes: Routes=[
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -47,7 +59,20 @@ const routes: Routes=[
   { path: 'list-product', component: ListProductComponent},
   { path: 'edit-product/:id', component: EditProductComponent},
 
+  { path: 'ram', component: ListRamComponent},
+  { path: 'ram/create', component: RamComponent},
+  { path: 'ram/update/:id', component: EditRamComponent},
 
+  { path: 'hd', component: ListHdComponent},
+  { path: 'hd/create', component: AddHdComponent},
+  { path: 'hd/update/:id', component: EditHdComponent},
+
+  { path: 'psu', component: ListPsuComponent},
+  { path: 'psu/create', component: AddPsuComponent},
+  { path: 'psu/update/:id', component: EditPsuComponent},
+
+  { path: 'main', component: ListMainComponent},
+  { path: 'main/create', component: AddMainComponent},
 
   { path: 'case', component: ListCaseComponent },
   { path: 'case/create', component: AddCaseComponent },

@@ -1,14 +1,14 @@
-import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CasesService {
+export class RamService {
 
 
-  url = 'http://localhost:8080/api/v1/case';
+  url = 'http://localhost:8080/api/v1/ram';
 
   constructor(private httpClient: HttpClient) { }
   getHeader() {
@@ -40,7 +40,7 @@ export class CasesService {
 
   }
 
-  put(id:any, item:any):Observable<any> {
+  put(id:number, item:any):Observable<any> {
     return this.httpClient.put(this.url+'/update/'+id, item);
   }
 

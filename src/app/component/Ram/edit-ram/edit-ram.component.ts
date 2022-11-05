@@ -1,45 +1,47 @@
-import { ColorService } from 'src/app/_service/color-service/color.service';
-import { ProductApiService } from 'src/app/_service/product-service/product-api.service';
+import { ProductApiService } from './../../../_service/product-service/product-api.service';
+import { RamService } from './../../../_service/ram-service/ram.service';
 import { Title } from '@angular/platform-browser';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-edit-color',
-  templateUrl: './edit-color.component.html',
-  styleUrls: ['./edit-color.component.css']
+  selector: 'app-edit-ram',
+  templateUrl: './edit-ram.component.html',
+  styleUrls: ['./edit-ram.component.css']
 })
-export class EditColorComponent implements OnInit {
+export class EditRamComponent implements OnInit {
+
 
 
   product: any =[];
   id!:number;
   groupForm: FormGroup;
   groupSelect: any
-  color : any;
+  ram : any;
   constructor(private activatedRoute: ActivatedRoute,
     private messageService: MessageService,
     private route: Router,
     private title: Title,
     private ProductApiService : ProductApiService,
-    private ColorService : ColorService
+    private RamService : RamService
 
   ) {
     this.id = activatedRoute.snapshot.params['id'];
     this.groupForm = new FormGroup({
-      colorName: new FormControl(),
-      productId: new FormControl(2, [Validators.required]),
+      'ddr': new FormControl(null,[Validators.required, Validators.pattern("^[0-9_-]{1,3}$")]),
+      'bus': new FormControl(null,[Validators.required, Validators.pattern("^[0-9_-]{1,3}$")]),
+      'productId': new FormControl(2,[Validators.required]),
     });
     this.title.setTitle('Admin | Color - Edit');
   }
 
 
   ngOnInit(): void {
-    this.ColorService.getOne(this.id).subscribe((data) => {
-      this.color = data.data;
-      this.groupSelect = this.color.productId;
+    this.RamService.getOne(this.id).subscribe((data) => {
+      this.ram = data.data;
+      this.groupSelect = this.ram.productId;
 
     });
     this.ProductApiService.getAllProduct(0,50).subscribe((data) => {
@@ -56,18 +58,19 @@ export class EditColorComponent implements OnInit {
       this.messageService.add({ severity: 'info', summary: 'Success', detail: 'Loading...'})
 
         let groupForm: any = {
-          colorName: this.groupForm.value.colorName,
-          productId: + this.groupSelect,
+          'ddr': this.groupForm.value.ddr,
+          'bus': this.groupForm.value.bus,
+          'productId': + this.groupSelect,
 
         };
         console.log(groupForm);
 
         setTimeout(() => {
-           this.ColorService.put( this.id,groupForm).subscribe({
+           this.RamService.put( this.id,groupForm).subscribe({
           next: (data: any) => {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Edit success' })
             setTimeout(() => {
-              this.route.navigate(['/color']);
+              this.route.navigate(['/ram']);
 
             },2000)
 
