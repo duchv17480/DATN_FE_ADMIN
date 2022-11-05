@@ -1,3 +1,7 @@
+import { EditCaseComponent } from './component/Case/edit-case/edit-case.component';
+import { AddCaseComponent } from './component/Case/add-case/add-case.component';
+import { ListCaseComponent } from './component/Case/list-case/list-case.component';
+import { EditReviewComponent } from './component/Review/edit-review/edit-review.component';
 import { EditBrandComponent } from './component/Brands/edit-brand/edit-brand.component';
 import { AddBrandComponent } from './component/Brands/add-brand/add-brand.component';
 import { EditColorComponent } from './component/color/edit-color/edit-color.component';
@@ -45,6 +49,10 @@ const routes: Routes=[
 
 
 
+  { path: 'case', component: ListCaseComponent },
+  { path: 'case/create', component: AddCaseComponent },
+  { path: 'case/update/:id', component: EditCaseComponent },
+
   { path: 'groupcomponent', component: GroupComponentComponent },
   { path: 'groupcomponent/add', component: AddGroupComponentComponent},
   { path: 'groupcomponent/:id', component: EditGroupComponentComponent },
@@ -60,6 +68,7 @@ const routes: Routes=[
 
   { path: 'review/list', component: ReviewListComponent },
   { path: 'review/create/:id', component: AddReviewComponent },
+  { path: 'review/update/:id', component: EditReviewComponent },
 
   { path: 'users', component: UsersComponent },
   { path: 'add-chip', component: AddChipComponent},
