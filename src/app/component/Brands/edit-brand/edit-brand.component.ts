@@ -1,73 +1,67 @@
+import { brands } from './../../../common/Brands';
 import { Title } from '@angular/platform-browser';
-import { UploadService } from './../../../_service/upload/upload.service';
 import { MessageService } from 'primeng/api';
+
+import { FormGroup,FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { GroupComponentService } from 'src/app/_service/group-component/group-component.service';
 import { BrandService } from 'src/app/_service/Brand-service/brand.service';
 
-
 @Component({
-  selector: 'app-edit-group-component',
-  templateUrl: './edit-group-component.component.html',
-  styleUrls: ['./edit-group-component.component.css']
+  selector: 'app-edit-brand',
+  templateUrl: './edit-brand.component.html',
+  styleUrls: ['./edit-brand.component.css']
 })
-export class EditGroupComponentComponent implements OnInit {
+export class EditBrandComponent implements OnInit {
 
-  brands: any =[];
+
+
   id!:number;
   groupForm: FormGroup;
-  groupSelect: any
-  groupOne : any;
+
+  brands : any;
   constructor(private activatedRoute: ActivatedRoute,
     private messageService: MessageService,
     private route: Router,
     private title: Title,
-    private Group : GroupComponentService,
-    private BrandService: BrandService
+    private BrandService : BrandService,
+
+
   ) {
     this.id = activatedRoute.snapshot.params['id'];
     this.groupForm = new FormGroup({
-      name: new FormControl(),
-      brandId: new FormControl(),
+      brandName: new FormControl(),
+      description: new FormControl(),
     });
     this.title.setTitle('Admin | Category - Edit');
   }
 
 
   ngOnInit(): void {
-    this.Group.getOne(this.id).subscribe((data) => {
-      this.groupOne = data.data;
-      this.groupSelect = this.groupOne.brandId;
-
-
-    });
-    this.BrandService.getAll().subscribe(data => {
+    this.BrandService.getOne(this.id).subscribe((data) => {
       this.brands = data.data;
-      console.log(data);
-    })
-  }
-  changeGroup = (val:any) => {{
-    this.groupSelect = val.target.value
-  }}
+    });
 
-  editgroup(){
+
+  }
+
+
+  editcolor(){
       this.messageService.add({ severity: 'info', summary: 'Success', detail: 'Loading...'})
 
         let groupForm: any = {
-          name: this.groupForm.value.name,
-          brandId: + this.groupSelect,
+          brandName: this.groupForm.value.brandName,
+          description: this.groupForm.value.description
 
         };
-        console.log(groupForm);
+
 
         setTimeout(() => {
-           this.Group.put( this.id,groupForm).subscribe({
+           this.BrandService.put( this.id,groupForm).subscribe({
           next: (data: any) => {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Edit success' })
             setTimeout(() => {
-              this.route.navigate(['/groupcomponent']);
+              this.route.navigate(['/brand']);
 
             },2000)
 

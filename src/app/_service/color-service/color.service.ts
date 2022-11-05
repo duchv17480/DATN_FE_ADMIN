@@ -21,4 +21,30 @@ export class ColorService {
     }
 
   }
+  post(color:any):Observable<any>  {
+    let headers = this.getHeader();
+    if (headers instanceof HttpHeaders)
+    {
+      return this.httpClient.post(this.url , color ,{ headers: headers });
+    }else{
+        return this.httpClient.get(this.url );
+      }
+  }
+  put(id:any, item:any):Observable<any> {
+    let headers = this.getHeader();
+    if (headers instanceof HttpHeaders)
+    {
+      return this.httpClient.put(this.url+"/"+id, item ,{ headers: headers });
+
+    }else{
+      return this.httpClient.put(this.url+ "/"+id, item);
+    }
+
+  }
+  getOne(id:number):Observable<any> {
+
+    return this.httpClient.get(this.url+"/"+id);
+
+
+  }
 }

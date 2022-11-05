@@ -6,7 +6,8 @@ import { ProductApiService } from './../../../_service/product-service/product-a
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/_service/category-service/category.service';
 import { VoucherService } from 'src/app/_service/voucher-service/voucher.service';
-import { BrandService } from 'src/app/services/brand.service';
+import { BrandService } from 'src/app/_service/Brand-service/brand.service';
+
 
 @Component({
   selector: 'app-add-product',

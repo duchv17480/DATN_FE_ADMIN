@@ -1,7 +1,8 @@
-import { SessionStorageService } from './../../services/session-storage.service';
+import { SessionStorageService } from '../../../services/session-storage.service';
 import { ToastrService } from 'ngx-toastr';
-import { ColorService } from './../../services/color.service';
+
 import { Component, OnInit } from '@angular/core';
+import { ColorService } from 'src/app/_service/color-service/color.service';
 
 @Component({
   selector: 'app-color',

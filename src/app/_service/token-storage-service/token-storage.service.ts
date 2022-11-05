@@ -27,10 +27,20 @@ export class TokenStorageService {
     window.localStorage.removeItem(USER_KEY);
     window.localStorage.setItem(USER_KEY, JSON.stringify(user));
   }
+  public saveUser_id(id:number): void{
+    window.localStorage.removeItem(USER_KEY);
+    window.localStorage.setItem(USER_KEY, JSON.stringify(id));
+  }
+
+
 
   public getUser():any{
     return JSON.parse(localStorage.getItem(USER_KEY)!);
   }
+  public getUser_id():any{
+    return JSON.parse(localStorage.getItem(USER_KEY)!);
+  }
+
 
 
 }
