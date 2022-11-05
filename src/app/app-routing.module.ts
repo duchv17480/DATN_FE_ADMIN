@@ -1,9 +1,16 @@
+import { EditBrandComponent } from './component/Brands/edit-brand/edit-brand.component';
+import { AddBrandComponent } from './component/Brands/add-brand/add-brand.component';
+import { EditColorComponent } from './component/color/edit-color/edit-color.component';
+import { AddReviewComponent } from './component/Review/add-review/add-review.component';
+import { ReviewListComponent } from './component/Review/review-list/review-list.component';
+import { AddColorComponent } from './component/color/add-color/add-color.component';
+
 import { EditProductComponent } from './component/product/edit-product/edit-product.component';
 import { ListProductComponent } from './component/product/list-product/list-product.component';
 import { EditGroupComponentComponent } from './component/Group/edit-group-component/edit-group-component.component';
-import { BrandsComponent } from './component/brands/brands.component';
+import { BrandsComponent } from './component/Brands/brands-list/brands.component';
 import { AddGroupComponentComponent } from './component/Group/add-group-component/add-group-component.component';
-import { ColorComponent } from './component/color/color.component';
+import { ColorComponent } from './component/color/color-list/color.component';
 import { GroupComponentComponent } from './component/Group/group-component/group-component.component';
 import { AddCategoryComponent } from './component/Category/add-category/add-category.component';
 import { UsersComponent } from './component/users/users.component';
@@ -41,8 +48,19 @@ const routes: Routes=[
   { path: 'groupcomponent', component: GroupComponentComponent },
   { path: 'groupcomponent/add', component: AddGroupComponentComponent},
   { path: 'groupcomponent/:id', component: EditGroupComponentComponent },
+
+
   { path: 'brand', component: BrandsComponent},
+  { path: 'brand/add', component: AddBrandComponent},
+  { path: 'brand/edit/:id', component: EditBrandComponent},
+
   { path: 'color', component: ColorComponent },
+  { path: 'color/add', component: AddColorComponent },
+  { path: 'color/edit/:id', component: EditColorComponent },
+
+  { path: 'review/list', component: ReviewListComponent },
+  { path: 'review/create/:id', component: AddReviewComponent },
+
   { path: 'users', component: UsersComponent },
   { path: 'add-chip', component: AddChipComponent},
   { path: 'list-chip', component: ListChipComponent},

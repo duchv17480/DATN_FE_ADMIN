@@ -1,3 +1,6 @@
+import { EditBrandComponent } from './component/Brands/edit-brand/edit-brand.component';
+import { EditColorComponent } from './component/color/edit-color/edit-color.component';
+import { ReviewListComponent } from './component/Review/review-list/review-list.component';
 import { AddProductComponent } from './component/product/add-product/add-product.component';
 import { ListProductComponent } from './component/product/list-product/list-product.component';
 import { EditCategoryComponent } from './component/Category/edit-category/edit-category.component';
@@ -44,9 +47,9 @@ import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GroupComponentComponent } from './component/Group/group-component/group-component.component';
-import { ColorComponent } from './component/color/color.component';
+import { ColorComponent } from './component/color/color-list/color.component';
 import { AddGroupComponentComponent } from './component/Group/add-group-component/add-group-component.component';
-import { BrandsComponent } from './component/brands/brands.component';
+import { BrandsComponent } from './component/Brands/brands-list/brands.component';
 import { AuthInterceptor } from './_helper/auth.interceptor';
 import { ListChipComponent } from './component/chip/list-chip/list-chip.component';
 import { AddChipComponent } from './component/chip/add-chip/add-chip.component';
@@ -63,6 +66,10 @@ import { EditProductComponent } from './component/product/edit-product/edit-prod
 import { ListStaffComponent } from './component/staff/list-staff/list-staff.component';
 import { CreateStaffComponent } from './component/staff/create-staff/create-staff.component';
 import { UpdateStaffComponent } from './component/staff/update-staff/update-staff.component';
+import { AddColorComponent } from './component/color/add-color/add-color.component';
+import { AddReviewComponent } from './component/Review/add-review/add-review.component';
+import { AddBrandComponent } from './component/Brands/add-brand/add-brand.component';
+
 
 
 @NgModule({
@@ -70,10 +77,21 @@ import { UpdateStaffComponent } from './component/staff/update-staff/update-staf
     AppComponent,
     LoginComponent,
     UsersComponent,
+
     GroupComponentComponent,
-    ColorComponent,
     AddGroupComponentComponent,
+
+
     BrandsComponent,
+    AddBrandComponent,
+    EditBrandComponent,
+
+    ColorComponent,
+    EditColorComponent,
+    AddColorComponent,
+
+    ReviewListComponent,
+    AddReviewComponent,
 
     ListCategoryComponent,
     AddCategoryComponent,

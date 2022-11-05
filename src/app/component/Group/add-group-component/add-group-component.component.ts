@@ -1,4 +1,4 @@
-import { BrandService } from '../../../services/brand.service';
+
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
@@ -8,6 +8,7 @@ import {FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { UploadService } from 'src/app/_service/upload/upload.service';
 import { GroupComponentService } from 'src/app/_service/group-component/group-component.service';
+import { BrandService } from 'src/app/_service/Brand-service/brand.service';
 
 @Component({
   selector: 'app-add-group-component',
