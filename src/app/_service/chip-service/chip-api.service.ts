@@ -41,5 +41,9 @@ export class ChipApiService {
     return this.http.put(URL + '/update/' + id, chip);
   }
 
+  getAllAndPage(params:any):Observable<any>{
+    return this.http.get(URL,{params});
+  }
+
 
 }

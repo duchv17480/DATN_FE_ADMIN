@@ -28,7 +28,7 @@
 
             <div class="form-group mt-2">
               <label for="">Price</label>
-              <input type="text" [(ngModel)]="product.price" formControlName="price" class="form-control">
+              <input type="number" [(ngModel)]="product.price" formControlName="price" class="form-control">
               <div *ngIf="validateForm.controls['price'].invalid && validateForm.controls['price'].touched"
                 class="text-danger">
                 <small *ngIf="validateForm.controls['price'].errors?.['required']"> Name không được để trống</small>
@@ -37,7 +37,7 @@
 
             <div class="form-group mt-2">
               <label for="">Quantity</label>
-              <input type="text" [(ngModel)]="product.quantity"  formControlName="quantity" class="form-control">
+              <input type="number" [(ngModel)]="product.quantity"  formControlName="quantity" class="form-control">
               <div *ngIf="validateForm.controls['quantity'].invalid && validateForm.controls['quantity'].touched"
                 class="text-danger">
                 <small *ngIf="validateForm.controls['quantity'].errors?.['required']"> Quantity không được để
@@ -47,7 +47,7 @@
 
             <div class="form-group mt-2">
               <label for="">Discount</label>
-              <input type="text" [(ngModel)]="product.discount" formControlName="discount"  class="form-control">
+              <input type="number" [(ngModel)]="product.discount" formControlName="discount"  class="form-control">
               <div *ngIf="validateForm.controls['discount'].invalid && validateForm.controls['discount'].touched"
                 class="text-danger">
                 <small *ngIf="validateForm.controls['discount'].errors?.['required']"> Discount không được để

@@ -1,12 +1,37 @@
 <div id="categoryAdd" class="mt-5">
   <div class="row">
     <div>
-     <a [routerLink]="['/add-product']" class="btn btn-success mb-2">Create product</a>
+      <a [routerLink]="['/add-product']" class="btn btn-success mb-2">Create product</a>
     </div>
-    <div class="card p-0">
+    <div class="card">
       <div class="card-header">
-        Product List
+        <div class="row">
+          <div class="col-5">
+            <div class="row">
+              <div class="col">
+                <input type="text" class="form-control"
+                placeholder="Search by title" [(ngModel)]="title" />
+              </div>
+              <div class="col">
+                <button class="btn btn-outline-secondary"
+                type="button" (click)="searchTitle()">
+                  Search
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-2"></div>
+          <div class="col-5 ">
+            <select class="form-select w-25 float-end"
+            (change)="handlePageSizeChange($event)">
+              <option *ngFor="let size of pageSizes" [ngValue]="size">
+                {{ size }}
+              </option>
+            </select>
+          </div>
+        </div>
       </div>
+
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -23,7 +48,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let pro of products">
+          <tr *ngFor="let pro of products | paginate : {
+                itemsPerPage: pageSize,
+                currentPage: page,
+                totalItems: count}
+                ">
             <td>{{pro.id}}</td>
             <td>{{pro.name}}</td>
             <td>{{pro.price}}</td>
@@ -47,24 +76,29 @@
           </tr>
         </tbody>
       </table>
-      <div class="card-footer">
 
+      <div class="card-footer">
+        <div class="col-md-12">
+          <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+            (pageChange)="handlePageChange($event)">
+          </pagination-controls>
+        </div>
       </div>
+
     </div>
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Confirm</h4>
+        <button type="button" class="close" aria-label="close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5 class="text-danger">{{confirmMessage}}</h5>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" (click)="deleteProduct()">Yes</button>
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">No</button>
+      </div>
+    </ng-template>
   </div>
-  <ng-template #content let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title">Confirm</h4>
-      <button type="button" class="close" aria-label="close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <h5 class="text-danger">{{confirmMessage}}</h5>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-success" (click)="deleteProduct()">Yes</button>
-      <button type="button" class="btn btn-secondary" (click)="c('Close click')">No</button>
-    </div>
-  </ng-template>
-</div>
