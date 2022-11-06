@@ -1,3 +1,4 @@
+import { EditMainComponent } from './component/Main/edit-main/edit-main.component';
 import { AddMainComponent } from './component/Main/add-main/add-main.component';
 import { ListMainComponent } from './component/Main/list-main/list-main.component';
 import { EditHdComponent } from './component/HD/edit-hd/edit-hd.component';
@@ -73,6 +74,7 @@ const routes: Routes=[
 
   { path: 'main', component: ListMainComponent},
   { path: 'main/create', component: AddMainComponent},
+  { path: 'main/update/:id', component: EditMainComponent},
 
   { path: 'case', component: ListCaseComponent },
   { path: 'case/create', component: AddCaseComponent },

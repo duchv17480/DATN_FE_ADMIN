@@ -27,7 +27,7 @@ export class AddCaseComponent implements OnInit {
   ) {
     this.AddForm = new FormGroup({
       'size': new FormControl(null,[Validators.required, Validators.minLength(1), Validators.maxLength(5)]),
-      'productId': new FormControl(2,[Validators.required]),
+      'productId': new FormControl(null,[Validators.required]),
 
     });
     this.title.setTitle('Admin | case - Add');

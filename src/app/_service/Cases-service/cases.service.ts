@@ -44,7 +44,13 @@ export class CasesService {
     return this.httpClient.put(this.url+'/update/'+id, item);
   }
 
-  delete(id:number) {
-    return this.httpClient.delete(this.url+'/'+id);
+  delete(id:number): Observable<any> {
+    let headers = this.getHeader();
+    if (headers instanceof HttpHeaders)
+    {
+    return this.httpClient.delete(this.url+'/delete/'+id,{ headers: headers });
+  }else{
+    return this.httpClient.post(this.url+"/delete/" , id);
+  }
   }
 }

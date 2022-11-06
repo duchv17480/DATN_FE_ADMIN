@@ -2,7 +2,7 @@ import { Title } from '@angular/platform-browser';
 import { UploadService } from './../../../_service/upload/upload.service';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { GroupComponentService } from 'src/app/_service/group-component/group-component.service';
 import { BrandService } from 'src/app/_service/Brand-service/brand.service';
@@ -29,8 +29,8 @@ export class EditGroupComponentComponent implements OnInit {
   ) {
     this.id = activatedRoute.snapshot.params['id'];
     this.groupForm = new FormGroup({
-      name: new FormControl(),
-      brandId: new FormControl(),
+      'name': new FormControl(null,[Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
+      'brandId': new FormControl(null,[Validators.required]),
     });
     this.title.setTitle('Admin | Category - Edit');
   }
@@ -56,8 +56,8 @@ export class EditGroupComponentComponent implements OnInit {
       this.messageService.add({ severity: 'info', summary: 'Success', detail: 'Loading...'})
 
         let groupForm: any = {
-          name: this.groupForm.value.name,
-          brandId: + this.groupSelect,
+          'name': this.groupForm.value.name,
+          'brandId': + this.groupForm,
 
         };
         console.log(groupForm);

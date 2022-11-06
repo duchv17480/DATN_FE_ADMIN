@@ -29,8 +29,8 @@ export class EditColorComponent implements OnInit {
   ) {
     this.id = activatedRoute.snapshot.params['id'];
     this.groupForm = new FormGroup({
-      colorName: new FormControl(),
-      productId: new FormControl(2, [Validators.required]),
+      'colorName': new FormControl(null,[Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
+      'productId': new FormControl(null,[Validators.required]),
     });
     this.title.setTitle('Admin | Color - Edit');
   }
@@ -56,8 +56,9 @@ export class EditColorComponent implements OnInit {
       this.messageService.add({ severity: 'info', summary: 'Success', detail: 'Loading...'})
 
         let groupForm: any = {
-          colorName: this.groupForm.value.colorName,
-          productId: + this.groupSelect,
+          'colorName': this.groupForm.value.colorName,
+          'productId': + this.groupSelect,
+
 
         };
         console.log(groupForm);

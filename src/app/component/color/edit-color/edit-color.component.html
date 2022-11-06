@@ -13,6 +13,11 @@
         />
         <label mdbLabel class="form-label" for="colorName">name</label>
       </mdb-form-control>
+      <div *ngIf="groupForm.controls['colorName'].invalid && groupForm.controls['colorName'].touched" class="text-danger">
+        <small *ngIf="groupForm.controls['colorName'].errors?.['required']"> colorName không được để trống</small>
+        <small *ngIf="groupForm.controls['colorName'].hasError('minlength')"> colorName phải lớn hơn 1 ký tự </small>
+        <small *ngIf="groupForm.controls['colorName'].hasError('maxlength')"> colorName phải nhỏ hơn 50 ký tự </small>
+      </div>
     </div>
 
 
@@ -29,6 +34,10 @@
             {{ item?.name }}
           </option>
         </select>
+        <div *ngIf="groupForm.controls['productId'].invalid && groupForm.controls['productId'].touched"
+        class="text-danger">
+        <small *ngIf="groupForm.controls['productId'].errors?.['required']">Product không được để trống</small>
+      </div>
       </div>
     </div>
 

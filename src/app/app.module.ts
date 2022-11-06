@@ -1,3 +1,4 @@
+import { EditMainComponent } from './component/Main/edit-main/edit-main.component';
 import { AddMainComponent } from './component/Main/add-main/add-main.component';
 import { ListMainComponent } from './component/Main/list-main/list-main.component';
 import { EditHdComponent } from './component/HD/edit-hd/edit-hd.component';
@@ -106,6 +107,7 @@ import { ListRamComponent } from './component/Ram/list-ram/list-ram.component';
 
     ListMainComponent,
     AddMainComponent,
+    EditMainComponent,
 
     ListPsuComponent,
     AddPsuComponent,

@@ -4,6 +4,7 @@
   <form action="" [formGroup]="groupForm" (ngSubmit)="editgroup()">
     <div class="mb-4">
       <mdb-form-control>
+        <label mdbLabel class="form-label" for="name">name</label>
         <input
           mdbInput
           type="text"
@@ -11,7 +12,11 @@
           formControlName="name"
           class="form-control"
         />
-        <label mdbLabel class="form-label" for="name">name</label>
+        <div *ngIf="groupForm.controls['name'].invalid && groupForm.controls['name'].touched" class="text-danger">
+          <small *ngIf="groupForm.controls['name'].errors?.['required']"> name không được để trống</small>
+          <small *ngIf="groupForm.controls['name'].hasError('minlength')"> name phải lớn hơn 1 ký tự </small>
+          <small *ngIf="groupForm.controls['name'].hasError('maxlength')"> name phải nhỏ hơn 50 ký tự </small>
+        </div>
       </mdb-form-control>
     </div>
 
@@ -29,6 +34,10 @@
             {{ item?.brandName }}
           </option>
         </select>
+        <div *ngIf="groupForm.controls['brandId'].invalid && groupForm.controls['brandId'].touched"
+        class="text-danger">
+        <small *ngIf="groupForm.controls['brandId'].errors?.['required']">Brand không được để trống</small>
+      </div>
       </div>
     </div>
 

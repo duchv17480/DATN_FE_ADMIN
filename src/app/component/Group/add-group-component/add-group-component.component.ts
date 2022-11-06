@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { MessageService } from 'primeng/api';
 
-import {FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { UploadService } from 'src/app/_service/upload/upload.service';
 import { GroupComponentService } from 'src/app/_service/group-component/group-component.service';
@@ -35,8 +35,8 @@ export class AddGroupComponentComponent implements OnInit {
     private title: Title
   ) {
     this.AddForm = new FormGroup({
-      name: new FormControl(),
-      brandId: new FormControl(),
+      'name': new FormControl(null,[Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
+      'brandId': new FormControl(null,[Validators.required]),
 
     });
     this.title.setTitle('Admin | GroupComponent - Add');
@@ -62,8 +62,8 @@ export class AddGroupComponentComponent implements OnInit {
   addNew() {
     this.messageService.add({ severity: 'info', summary: 'Loading', detail: 'Loading...' });
     let upload:any = {
-      name: this.AddForm.value.name,
-      brandId: + this.grSelect,
+      'name': this.AddForm.value.name,
+      'brandId': + this.grSelect,
 
     }
     setTimeout(() => {
@@ -77,7 +77,7 @@ export class AddGroupComponentComponent implements OnInit {
         }
 
       });
-    }, 6000);
+    }, 3000);
 
 
 
