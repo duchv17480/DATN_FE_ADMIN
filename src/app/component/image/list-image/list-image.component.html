@@ -1,0 +1,83 @@
+<div>
+  <div class="row m-5 p-0">
+    <div *ngIf="isLoading" class="loading">
+      <div class="spinner-border text-primary spinner-center" role="status">
+      </div>
+    </div>
+    <div>
+      <a [routerLink]="['/add-image']" class="btn btn-success mb-2">Create Image</a>
+    </div>
+    <div class="card p-0">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-5"></div>
+          <div class="col-2"></div>
+          <div class="col-5">
+            <select class="form-select w-25 float-end" (change)="handlePageSizeChange($event)">
+              <option *ngFor="let size of pageSizes" [ngValue]="size">
+                {{ size }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <table class="table table-bordered" id="category">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Link</th>
+            <th>Product Id</th>
+            <th>Product Name</th>
+            <th colspan="2">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let img of images | paginate : {
+            itemsPerPage: pageSize,
+            currentPage: page,
+            totalItems: count}">
+            <td>{{img.id}}</td>
+            <td>{{img.name}}</td>
+            <td class="w-25">
+              <img src="{{img.link}}" class="img-fluid w-25" alt="">
+            </td>
+            <td>{{img.productId}}</td>
+            <td>{{img.productName}}</td>
+            <td>
+              <a [routerLink]="['/edit-image/' + img.id]" class="btn btn-secondary">Edit</a>
+            </td>
+            <td>
+              <a (click)="confirmDeleteCategory(content, img.id,img.name)"
+                class="btn btn-danger mx-2 text-white">delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="card-footer">
+        <div class="col-md-12">
+          <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+            (pageChange)="handlePageChange($event)">
+          </pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Confirm</h4>
+      <button type="button" class="close" aria-label="close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <h5 class="text-danger">{{confirmMessage}}</h5>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success" (click)="deleteImage()">Yes</button>
+      <button type="button" class="btn btn-secondary" (click)="c('Close click')">No</button>
+    </div>
+  </ng-template>
+
+</div>
