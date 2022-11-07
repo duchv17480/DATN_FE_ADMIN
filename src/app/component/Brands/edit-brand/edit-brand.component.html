@@ -13,6 +13,11 @@
           class="form-control"
         />
       </mdb-form-control>
+      <div *ngIf="groupForm.controls['brandName'].invalid && groupForm.controls['brandName'].touched" class="text-danger">
+        <small *ngIf="groupForm.controls['brandName'].errors?.['required']"> brandName không được để trống</small>
+        <small *ngIf="groupForm.controls['brandName'].hasError('minlength')"> brandName phải lớn hơn 1 ký tự </small>
+        <small *ngIf="groupForm.controls['brandName'].hasError('maxlength')"> brandName phải nhỏ hơn 50 ký tự </small>
+      </div>
     </div>
     <div class="mb-4">
       <mdb-form-control>
@@ -25,6 +30,11 @@
           class="form-control"
         />
       </mdb-form-control>
+      <div *ngIf="groupForm.controls['description'].invalid && groupForm.controls['description'].touched" class="text-danger">
+        <small *ngIf="groupForm.controls['description'].errors?.['required']"> description không được để trống</small>
+        <small *ngIf="groupForm.controls['description'].hasError('minlength')"> description phải lớn hơn 1 ký tự </small>
+        <small *ngIf="groupForm.controls['description'].hasError('maxlength')"> description phải nhỏ hơn 50 ký tự </small>
+      </div>
     </div>
 
 

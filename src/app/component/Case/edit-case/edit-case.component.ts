@@ -32,7 +32,7 @@ export class EditCaseComponent implements OnInit {
       'size': new FormControl(null,[Validators.required, Validators.minLength(1), Validators.maxLength(5)]),
       'productId': new FormControl(2,[Validators.required]),
     });
-    this.title.setTitle('Admin | Category - Edit');
+    this.title.setTitle('Admin | Case - Edit');
   }
 
 
@@ -63,7 +63,7 @@ export class EditCaseComponent implements OnInit {
         console.log(groupForm);
 
         setTimeout(() => {
-           this.CasesService.put( this.id,groupForm).subscribe({
+           this.CasesService.put(this.id,groupForm).subscribe({
           next: (data: any) => {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Edit success' })
             setTimeout(() => {

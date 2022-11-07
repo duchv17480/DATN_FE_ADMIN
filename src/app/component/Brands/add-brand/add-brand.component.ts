@@ -1,4 +1,4 @@
-import { FormGroup,FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -12,7 +12,7 @@ import { BrandService } from 'src/app/_service/Brand-service/brand.service';
 })
 export class AddBrandComponent implements OnInit {
 
- 
+
 
   AddForm: FormGroup;
 
@@ -24,8 +24,8 @@ export class AddBrandComponent implements OnInit {
     private title: Title
   ) {
     this.AddForm = new FormGroup({
-      brandName: new FormControl(),
-      description: new FormControl(),
+      'brandName': new FormControl(null,[Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
+      'description': new FormControl(null,[Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
 
     });
     this.title.setTitle('Admin | color - Add');
@@ -39,8 +39,8 @@ export class AddBrandComponent implements OnInit {
   addNew() {
     this.messageService.add({ severity: 'info', summary: 'Loading', detail: 'Loading...' });
     let upload:any = {
-      brandName: this.AddForm.value.brandName,
-      description: this.AddForm.value.description
+      'brandName': this.AddForm.value.brandName,
+      'description': this.AddForm.value.description
 
     }
     setTimeout(() => {

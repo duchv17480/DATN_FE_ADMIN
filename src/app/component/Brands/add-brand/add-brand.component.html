@@ -14,16 +14,26 @@
 
                       <div class="mb-4">
                           <mdb-form-control>
+                            <label mdbLabel class="form-label" for="brandName">Brand Name</label>
                               <input mdbInput type="text" formControlName="brandName" class="form-control" />
-                              <label mdbLabel class="form-label" for="brandName">Brand Name</label>
                           </mdb-form-control>
+                          <div *ngIf="AddForm.controls['brandName'].invalid && AddForm.controls['brandName'].touched" class="text-danger">
+                            <small *ngIf="AddForm.controls['brandName'].errors?.['required']"> brandName không được để trống</small>
+                            <small *ngIf="AddForm.controls['brandName'].hasError('minlength')"> brandName phải lớn hơn 1 ký tự </small>
+                            <small *ngIf="AddForm.controls['brandName'].hasError('maxlength')"> brandName phải nhỏ hơn 50 ký tự </small>
+                          </div>
                       </div>
 
                       <div class="mb-4">
                           <mdb-form-control>
+                            <label mdbLabel class="form-label" for="description">Description</label>
                               <input mdbInput type="text" formControlName="description" class="form-control" />
-                              <label mdbLabel class="form-label" for="description">Description</label>
                           </mdb-form-control>
+                          <div *ngIf="AddForm.controls['description'].invalid && AddForm.controls['description'].touched" class="text-danger">
+                            <small *ngIf="AddForm.controls['description'].errors?.['required']"> description không được để trống</small>
+                            <small *ngIf="AddForm.controls['description'].hasError('minlength')"> description phải lớn hơn 1 ký tự </small>
+                            <small *ngIf="AddForm.controls['description'].hasError('maxlength')"> description phải nhỏ hơn 50 ký tự </small>
+                          </div>
                       </div>
 
 

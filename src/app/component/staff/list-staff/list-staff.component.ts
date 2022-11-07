@@ -16,7 +16,8 @@ export class ListStaffComponent implements OnInit {
   confirmMessage= '';
   deleteId!: number;
 
-  constructor(private router: Router, private staffSer: StaffService, private modalService: NgbModal, private toast: NgToastService) { }
+  constructor(private router: Router,
+     private staffSer: StaffService, private modalService: NgbModal, private toast: NgToastService) { }
 
   ngOnInit(): void {
     this.showAllStaff();

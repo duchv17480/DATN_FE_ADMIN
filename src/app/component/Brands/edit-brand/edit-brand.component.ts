@@ -2,7 +2,7 @@ import { brands } from './../../../common/Brands';
 import { Title } from '@angular/platform-browser';
 import { MessageService } from 'primeng/api';
 
-import { FormGroup,FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { BrandService } from 'src/app/_service/Brand-service/brand.service';
@@ -30,8 +30,9 @@ export class EditBrandComponent implements OnInit {
   ) {
     this.id = activatedRoute.snapshot.params['id'];
     this.groupForm = new FormGroup({
-      brandName: new FormControl(),
-      description: new FormControl(),
+      'brandName': new FormControl(null,[Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
+      'description': new FormControl(null,[Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
+
     });
     this.title.setTitle('Admin | Category - Edit');
   }
@@ -50,8 +51,8 @@ export class EditBrandComponent implements OnInit {
       this.messageService.add({ severity: 'info', summary: 'Success', detail: 'Loading...'})
 
         let groupForm: any = {
-          brandName: this.groupForm.value.brandName,
-          description: this.groupForm.value.description
+          'brandName': this.groupForm.value.brandName,
+          'description': this.groupForm.value.description
 
         };
 

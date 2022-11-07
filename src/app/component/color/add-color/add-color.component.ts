@@ -1,4 +1,4 @@
-import { FormGroup ,FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -26,8 +26,8 @@ export class AddColorComponent implements OnInit {
     private title: Title
   ) {
     this.AddForm = new FormGroup({
-      colorName: new FormControl(),
-      productId: new FormControl(),
+      'colorName': new FormControl(null,[Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
+      'productId': new FormControl(null,[Validators.required]),
 
     });
     this.title.setTitle('Admin | color - Add');
@@ -49,8 +49,8 @@ export class AddColorComponent implements OnInit {
   addNew() {
     this.messageService.add({ severity: 'info', summary: 'Loading', detail: 'Loading...' });
     let upload:any = {
-      colorName: this.AddForm.value.colorName,
-      productId: + this.grSelect,
+      'colorName': this.AddForm.value.colorName,
+      'productId': + this.grSelect,
 
     }
     setTimeout(() => {

@@ -44,7 +44,14 @@ export class ColorService {
   getOne(id:number):Observable<any> {
 
     return this.httpClient.get(this.url+"/"+id);
-
-
+  }
+  delete(id:number): Observable<any> {
+    let headers = this.getHeader();
+    if (headers instanceof HttpHeaders)
+    {
+    return this.httpClient.delete(this.url+'/'+id,{ headers: headers });
+  }else{
+    return this.httpClient.post(this.url+"/" , id);
+  }
   }
 }
