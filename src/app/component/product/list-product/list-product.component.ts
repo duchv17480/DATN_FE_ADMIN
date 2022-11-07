@@ -12,7 +12,15 @@ export class ListProductComponent implements OnInit {
   products: any[] = [];
   confirmMessage = '';
 
-  deleteId! : number;
+  deleteId!: number;
+
+
+  title = '';
+  page = 0;
+  count = 0;
+  pageSize = 10;
+  pageSizes = [10, 20, 30];
+
 
   constructor(
     private rest: ProductApiService,
@@ -23,29 +31,85 @@ export class ListProductComponent implements OnInit {
     this.getAllProduct();
   }
 
-  getAllProduct(){
-    this.rest.getAllProduct(0,50).subscribe(data =>{
-      this.products = data.data;
-    })
+
+
+  // pagination
+
+  getRequestParams(searchName: string, page: number, pageSize: number): any {
+    let params: any = {};
+
+    if (searchName) {
+      params[`name`] = searchName;
+    }
+
+    if (page) {
+      params[`page`] = page - 1;
+    }
+
+    if (pageSize) {
+      params[`page-number`] = pageSize;
+    }
+
+    return params;
   }
 
-  confirmDeleteProduct(confirmDialog: TemplateRef<any>, id: number, name: string){
+
+
+
+  getAllProduct() {
+
+    const params = this.getRequestParams(this.title, this.page, this.pageSize);
+
+    this.rest.getAllProductsAndSearch(params).subscribe(data => {
+      const totalItem = data.pagination.totalItem;
+      this.products = data.data;
+      this.count = totalItem;
+      console.log(data);
+    },
+      error => {
+        console.log(error);
+      });
+  }
+
+
+  handlePageChange(event: number) {
+    this.page = event;
+    this.getAllProduct();
+  }
+
+  handlePageSizeChange(event: any): void {
+    this.pageSize = event.target.value;
+    this.page = 0;
+    this.getAllProduct();
+  }
+
+  searchTitle(): void {
+    this.page = 0;
+    this.getAllProduct();
+  }
+
+  //////////////
+
+  confirmDeleteProduct(confirmDialog: TemplateRef<any>, id: number, name: string) {
     this.confirmMessage = `Do you want to delete ${name} ?`;
     this.deleteId = id;
     this.modalService.open(confirmDialog,
-      {ariaDescribedBy:'modal-basic-title'}).result.then((result)=>{
-      }).catch((err)=>{
+      { ariaDescribedBy: 'modal-basic-title' }).result.then((result) => {
+      }).catch((err) => {
 
       })
   }
 
-  deleteProduct(){
-    if(this.deleteId != null){
-      this.rest.deletteProduct(this.deleteId).subscribe(data=>{
+  deleteProduct() {
+    if (this.deleteId != null) {
+      this.rest.deletteProduct(this.deleteId).subscribe(data => {
         this.modalService.dismissAll();
         this.ngOnInit();
       })
     }
   }
+
+
+
 
 }

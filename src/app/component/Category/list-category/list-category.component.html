@@ -1,16 +1,25 @@
-<div class="container-lg mt-5">
-  <div *ngIf="isLoading" class="loading">
-    <div class="spinner-border text-primary spinner-center" role="status">
-    </div>
-  </div>
-
+<div>
   <div class="row m-5 p-0">
+    <div *ngIf="isLoading" class="loading">
+      <div class="spinner-border text-primary spinner-center" role="status">
+      </div>
+    </div>
     <div>
       <a [routerLink]="['/add-category']" class="btn btn-success mb-2">Create Category</a>
     </div>
     <div class="card p-0">
       <div class="card-header">
-        <h5>Categories List</h5>
+        <div class="row">
+          <div class="col-5"></div>
+          <div class="col-2"></div>
+          <div class="col-5">
+            <select class="form-select w-25 float-end" (change)="handlePageSizeChange($event)">
+              <option *ngFor="let size of pageSizes" [ngValue]="size">
+                {{ size }}
+              </option>
+            </select>
+          </div>
+        </div>
       </div>
       <table class="table table-bordered" id="category">
         <thead>
@@ -26,15 +35,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let cate of categories">
+          <tr *ngFor="let cate of categories | paginate : {
+            itemsPerPage: pageSize,
+            currentPage: page,
+            totalItems: count}">
             <td>{{cate.id}}</td>
             <td>{{cate.name}}</td>
             <td>{{cate.createDate}}</td>
             <td>{{cate.updateDate}}</td>
             <td>{{cate.status}}</td>
             <td>{{cate.groupId}}</td>
-            <td>
-              <img src="{{cate.images}}" class="img-fluid" alt="">
+            <td class="w-25">
+              <img src="{{cate.images}}" class="img-fluid w-25" alt="">
             </td>
             <td>
               <a [routerLink]="['/edit-category/' + cate.id]" class="btn btn-secondary">Edit</a>
@@ -47,7 +59,11 @@
         </tbody>
       </table>
       <div class="card-footer">
-
+        <div class="col-md-12">
+          <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+            (pageChange)="handlePageChange($event)">
+          </pagination-controls>
+        </div>
       </div>
     </div>
   </div>
