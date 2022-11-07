@@ -1,3 +1,6 @@
+import { AddImageComponent } from './component/image/add-image/add-image.component';
+import { EditImageComponent } from './component/image/edit-image/edit-image.component';
+import { ListImageComponent } from './component/image/list-image/list-image.component';
 import { EditMainComponent } from './component/Main/edit-main/edit-main.component';
 import { AddMainComponent } from './component/Main/add-main/add-main.component';
 import { ListMainComponent } from './component/Main/list-main/list-main.component';
@@ -84,7 +87,6 @@ const routes: Routes=[
   { path: 'groupcomponent/add', component: AddGroupComponentComponent},
   { path: 'groupcomponent/:id', component: EditGroupComponentComponent },
 
-
   { path: 'brand', component: BrandsComponent},
   { path: 'brand/add', component: AddBrandComponent},
   { path: 'brand/edit/:id', component: EditBrandComponent},
@@ -96,6 +98,10 @@ const routes: Routes=[
   { path: 'review/list', component: ReviewListComponent },
   { path: 'review/create/:id', component: AddReviewComponent },
   { path: 'review/update/:id', component: EditReviewComponent },
+
+  { path: 'list-image', component: ListImageComponent},
+  { path: 'add-image', component: AddImageComponent},
+  { path: 'edit-image/:id', component: EditImageComponent},
 
   { path: 'users', component: UsersComponent },
   { path: 'add-chip', component: AddChipComponent},

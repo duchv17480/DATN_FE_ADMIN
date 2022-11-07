@@ -1,3 +1,6 @@
+import { EditImageComponent } from './component/image/edit-image/edit-image.component';
+import { AddImageComponent } from './component/image/add-image/add-image.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { EditMainComponent } from './component/Main/edit-main/edit-main.component';
 import { AddMainComponent } from './component/Main/add-main/add-main.component';
 import { ListMainComponent } from './component/Main/list-main/list-main.component';
@@ -79,7 +82,6 @@ import { EditProductComponent } from './component/product/edit-product/edit-prod
 import { ListStaffComponent } from './component/staff/list-staff/list-staff.component';
 import { CreateStaffComponent } from './component/staff/create-staff/create-staff.component';
 import { UpdateStaffComponent } from './component/staff/update-staff/update-staff.component';
-import { NgxPaginationModule } from 'ngx-pagination';
 import { AddColorComponent } from './component/color/add-color/add-color.component';
 import { AddReviewComponent } from './component/Review/add-review/add-review.component';
 import { AddBrandComponent } from './component/Brands/add-brand/add-brand.component';
@@ -88,6 +90,7 @@ import { ListCaseComponent } from './component/Case/list-case/list-case.componen
 import { AddCaseComponent } from './component/Case/add-case/add-case.component';
 import { EditCaseComponent } from './component/Case/edit-case/edit-case.component';
 import { ListRamComponent } from './component/Ram/list-ram/list-ram.component';
+import { ListImageComponent } from './component/image/list-image/list-image.component';
 
 
 
@@ -144,6 +147,10 @@ import { ListRamComponent } from './component/Ram/list-ram/list-ram.component';
     ListProductComponent,
     AddProductComponent,
     EditProductComponent,
+
+    ListImageComponent,
+    AddImageComponent,
+    EditImageComponent,
 
     EditCategoryComponent,
     ListFavouriteComponent,

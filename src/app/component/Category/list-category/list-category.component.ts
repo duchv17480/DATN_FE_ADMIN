@@ -11,7 +11,6 @@ import { data } from 'jquery';
 })
 export class ListCategoryComponent implements OnInit {
 
-
   isLoading: boolean = true;
   categories: any[] = [];
   confirmMessage = '';
