@@ -1,3 +1,6 @@
+import { ForgotPasswordComponent } from './component/Auth/forgot-password/forgot-password.component';
+import { EmailRegisterComponent } from './component/Auth/email-register/email-register.component';
+import { RegisterComponent } from './component/Auth/register/register.component';
 import { EditImageComponent } from './component/image/edit-image/edit-image.component';
 import { AddImageComponent } from './component/image/add-image/add-image.component';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -151,6 +154,10 @@ import { ListImageComponent } from './component/image/list-image/list-image.comp
     ListImageComponent,
     AddImageComponent,
     EditImageComponent,
+
+    RegisterComponent,
+    EmailRegisterComponent,
+    ForgotPasswordComponent,
 
     EditCategoryComponent,
     ListFavouriteComponent,

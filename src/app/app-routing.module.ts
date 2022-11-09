@@ -49,6 +49,9 @@ import { ListStaffComponent } from './component/staff/list-staff/list-staff.comp
 import { CreateStaffComponent } from './component/staff/create-staff/create-staff.component';
 import { UpdateStaffComponent } from './component/staff/update-staff/update-staff.component';
 import { ListRamComponent } from './component/Ram/list-ram/list-ram.component';
+import { RegisterComponent } from './component/Auth/register/register.component';
+import { EmailRegisterComponent } from './component/Auth/email-register/email-register.component';
+import { ForgotPasswordComponent } from './component/Auth/forgot-password/forgot-password.component';
 
 
 const routes: Routes=[
@@ -66,6 +69,10 @@ const routes: Routes=[
   { path: 'ram', component: ListRamComponent},
   { path: 'ram/create', component: RamComponent},
   { path: 'ram/update/:id', component: EditRamComponent},
+
+  { path:'register', component: RegisterComponent},
+  { path:'emailRegister', component: EmailRegisterComponent},
+  { path:'forgotPassword', component: ForgotPasswordComponent},
 
   { path: 'hd', component: ListHdComponent},
   { path: 'hd/create', component: AddHdComponent},
