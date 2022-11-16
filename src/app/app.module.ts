@@ -1,3 +1,4 @@
+import { EditPaymentComponent } from './component/payment/edit-payment/edit-payment.component';
 import { EditImageComponent } from './component/image/edit-image/edit-image.component';
 import { AddImageComponent } from './component/image/add-image/add-image.component';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -91,6 +92,8 @@ import { AddCaseComponent } from './component/Case/add-case/add-case.component';
 import { EditCaseComponent } from './component/Case/edit-case/edit-case.component';
 import { ListRamComponent } from './component/Ram/list-ram/list-ram.component';
 import { ListImageComponent } from './component/image/list-image/list-image.component';
+import { ListPaymentComponent } from './component/payment/list-payment/list-payment.component';
+import { AddPaymentComponent } from './component/payment/add-payment/add-payment.component';
 
 
 
@@ -151,6 +154,10 @@ import { ListImageComponent } from './component/image/list-image/list-image.comp
     ListImageComponent,
     AddImageComponent,
     EditImageComponent,
+
+    ListPaymentComponent,
+    AddPaymentComponent,
+    EditPaymentComponent,
 
     EditCategoryComponent,
     ListFavouriteComponent,
