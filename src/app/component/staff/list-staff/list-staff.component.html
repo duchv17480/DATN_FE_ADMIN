@@ -26,11 +26,10 @@
               <td>{{ staff.username }}</td>
               <td>{{ staff.email }}</td>
               <td>{{ staff.phone }}</td>
+            
               <td>
-                <a [routerLink]="['/update-staff', staff.id]" class="btn btn-primary mx-2">Update </a>
-              </td>
-              <td>
-                <a (click)="confirmDeleteStaff(content, staff.id)" class="btn btn-danger mx-2">delete</a>
+                <button [routerLink]="['/update-staff', staff.id]" pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" ></button>
+                <button (click)="confirmDeleteStaff(content, staff.id)" pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"  ></button>
               </td>
             </tr>
           </tbody>

@@ -31,7 +31,7 @@ import { AddGroupComponentComponent } from './component/Group/add-group-componen
 import { ColorComponent } from './component/color/color-list/color.component';
 import { GroupComponentComponent } from './component/Group/group-component/group-component.component';
 import { AddCategoryComponent } from './component/Category/add-category/add-category.component';
-import { UsersComponent } from './component/users/users.component';
+
 import { LoginComponent } from './component/login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -110,7 +110,7 @@ const routes: Routes=[
   { path: 'add-image', component: AddImageComponent},
   { path: 'edit-image/:id', component: EditImageComponent},
 
-  { path: 'users', component: UsersComponent },
+
   { path: 'add-chip', component: AddChipComponent},
   { path: 'list-chip', component: ListChipComponent},
   { path: 'list-favourite', component: ListFavouriteComponent},

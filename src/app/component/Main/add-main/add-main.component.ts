@@ -43,7 +43,7 @@ export class AddMainComponent implements OnInit {
     private title: Title
   ) {
     this.AddForm = new FormGroup({
-      'socket': new FormControl(null,[Validators.required, Validators.minLength(1), Validators.maxLength(7)]),
+      'socket': new FormControl(null,[Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
       'slotRam': new FormControl(null,[Validators.required, Validators.pattern("^[0-9_-]{1,5}$")]),
       'ddr': new FormControl(null,[Validators.required, Validators.pattern("^[0-9_-]{1,5}$")]),
       'busRam': new FormControl(null,[Validators.required, Validators.pattern("^[0-9_-]{1,5}$")]),

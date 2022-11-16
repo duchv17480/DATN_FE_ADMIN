@@ -29,12 +29,11 @@
             <td>{{vou.status}}</td>
             <td>{{vou.startDate | date: "dd/MM/yyyy - hh:mm:ss - a"}}</td>
             <td>{{vou.endDate | date: "dd/MM/yyyy - hh:mm:ss - a"}}</td>
+          
             <td>
-              <a [routerLink]="['/edit-voucher', vou.id]"  class="btn btn-primary mx-2">update</a>
-            </td>
-            <td>
-              <a (click)="confirmDeleteFavourite(content, vou.id)" class="btn btn-danger mx-2">delete</a>
-            </td>
+              <button [routerLink]="['/edit-voucher', vou.id]" pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" ></button>
+              <button (click)="confirmDeleteFavourite(content, vou.id)" pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"  ></button>
+          </td>
           </tr>
         </tbody>
       </table>

@@ -20,10 +20,18 @@
               </div>
             </div>
           </div>
-          <div class="col-2">
-            
+          <div class="col-5 row">
+            <div class="col"><select  class="form-select" (change)="filter($event)"   formControlName="categoryId">
+              <option [value]="item.id"  *ngFor="let item of categories">
+
+                {{ item.name }}
+              </option>
+            </select></div>
+
+
+            <div class="col"><label mdbLabel class="form-label" for="" style="font-weight:bold ; font-size:15px ;">Filter by Category</label></div>
           </div>
-          <div class="col-5 ">
+          <div class="col-2 ">
             <select class="form-select w-25 float-end"
             (change)="handlePageSizeChange($event)">
               <option *ngFor="let size of pageSizes" [ngValue]="size">
@@ -66,15 +74,15 @@
             <td>
               <img src="{{pro.imageLink}}" class="img-fluid" alt="">
             </td>
+
+
+
             <td>
-              <a [routerLink]="['/review/create/' + pro.id]" class="btn btn-success">Add Review</a>
-            </td>
-            <td>
-              <a [routerLink]="['/edit-product/' + pro.id]" class="btn btn-secondary">edit</a>
-            </td>
-            <td>
-              <a (click)="confirmDeleteProduct(content,pro.id,pro.name)" class="btn btn-danger mx-2">delete</a>
-            </td>
+              <button [routerLink]="['/review/create/' + pro.id]" pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary "></button>
+
+              <button [routerLink]="['/edit-product/' + pro.id]" pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" ></button>
+              <button (click)="confirmDeleteProduct(content,pro.id,pro.name)" pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"  ></button>
+          </td>
           </tr>
         </tbody>
       </table>

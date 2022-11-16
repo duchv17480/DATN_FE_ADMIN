@@ -1,6 +1,7 @@
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ProductApiService } from '../../../_service/product-service/product-api.service';
+import { CategoryService } from 'src/app/_service/category-service/category.service';
 
 @Component({
   selector: 'app-list-product',
@@ -13,7 +14,9 @@ export class ListProductComponent implements OnInit {
   confirmMessage = '';
 
   deleteId!: number;
+  isLoading:boolean =false;
 
+  categories: any[] = [];
 
   title = '';
   page = 0;
@@ -24,11 +27,14 @@ export class ListProductComponent implements OnInit {
 
   constructor(
     private rest: ProductApiService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private restC: CategoryService,
   ) { }
 
   ngOnInit(): void {
+    this.getAllCategory();
     this.getAllProduct();
+    this.getAll();
   }
 
 
@@ -52,19 +58,35 @@ export class ListProductComponent implements OnInit {
 
     return params;
   }
-
-
+ getAll(){
+  this.rest.getAllProduct(0,50).subscribe(data => {
+    const totalItem = data.pagination.totalItem;
+    this.products = data.data;
+    this.count = totalItem;
+    console.log(data);
+  },
+    error => {
+      console.log(error);
+    });
+ }
+  getAllCategory() {
+    this.isLoading = true;
+    this.restC.getAllCategory(0, 999).subscribe(data => {
+      this.isLoading = false;
+      this.categories = data.data;
+    })
+  }
 
 
   getAllProduct() {
 
     const params = this.getRequestParams(this.title, this.page, this.pageSize);
 
-    this.rest.getAllProductsAndSearch(params).subscribe(data => {
+    this.rest.getAllProductsAndSearch(params,0,50).subscribe(data => {
       const totalItem = data.pagination.totalItem;
       this.products = data.data;
       this.count = totalItem;
-      console.log(data);
+      // console.log(data);
     },
       error => {
         console.log(error);
@@ -89,6 +111,19 @@ export class ListProductComponent implements OnInit {
   }
 
   //////////////
+  filter(e:any) {
+    let condition = e.target.value;
+
+    if(condition) {
+      this.rest.getAllProduct_byCate(condition,0,50).subscribe(data => {
+        const totalItem = data.pagination.totalItem;
+      this.products = data.data;
+      this.count = totalItem;
+      console.log(data);
+      })
+    }
+
+  }
 
   confirmDeleteProduct(confirmDialog: TemplateRef<any>, id: number, name: string) {
     this.confirmMessage = `Do you want to delete ${name} ?`;
@@ -108,6 +143,7 @@ export class ListProductComponent implements OnInit {
       })
     }
   }
+
 
 
 
