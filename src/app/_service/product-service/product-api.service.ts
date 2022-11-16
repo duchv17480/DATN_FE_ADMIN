@@ -24,6 +24,10 @@ export class ProductApiService {
     return this.http.get(URL_PROUCT + "?page=" + page + "&page-number=" + pageNumber);
   }
 
+  getAllProductAndImage(params:any): Observable<any> {
+    return this.http.get(URL_PROUCT ,{ params });
+  }
+
   getAllProductsAndSearch(params: any): Observable<any> {
     return this.http.get(URL_PROUCT + '/search', { params })
   }

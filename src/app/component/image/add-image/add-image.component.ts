@@ -42,6 +42,7 @@ export class AddImageComponent implements OnInit {
     this.restI.getAllProduct(0, 999).subscribe(respose => {
       this.isLoading = false;
       this.products = respose.data;
+      console.log(respose.data+"ahsdj")
     })
   }
 
