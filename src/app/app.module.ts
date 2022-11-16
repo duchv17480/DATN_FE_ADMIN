@@ -1,3 +1,6 @@
+import { ForgotPasswordComponent } from './component/Auth/forgot-password/forgot-password.component';
+import { EmailRegisterComponent } from './component/Auth/email-register/email-register.component';
+import { RegisterComponent } from './component/Auth/register/register.component';
 import { EditPaymentComponent } from './component/payment/edit-payment/edit-payment.component';
 import { EditImageComponent } from './component/image/edit-image/edit-image.component';
 import { AddImageComponent } from './component/image/add-image/add-image.component';
@@ -155,6 +158,9 @@ import { AddPaymentComponent } from './component/payment/add-payment/add-payment
     AddImageComponent,
     EditImageComponent,
 
+    RegisterComponent,
+    EmailRegisterComponent,
+    ForgotPasswordComponent,
     ListPaymentComponent,
     AddPaymentComponent,
     EditPaymentComponent,
