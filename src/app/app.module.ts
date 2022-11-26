@@ -1,3 +1,6 @@
+import { MatTableModule } from '@angular/material/table';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ListOrderComponent } from './component/Oder/list-order/list-order.component';
 import { ForgotPasswordComponent } from './component/Auth/forgot-password/forgot-password.component';
 import { EmailRegisterComponent } from './component/Auth/email-register/email-register.component';
 import { RegisterComponent } from './component/Auth/register/register.component';
@@ -96,6 +99,7 @@ import { ListRamComponent } from './component/Ram/list-ram/list-ram.component';
 import { ListImageComponent } from './component/image/list-image/list-image.component';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -106,6 +110,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     GroupComponentComponent,
     AddGroupComponentComponent,
     EditGroupComponentComponent,
+
+    ListOrderComponent,
+
 
     ListRamComponent,
     RamComponent,
@@ -188,6 +195,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     DataTablesModule,
     MatStepperModule,
     MatFormFieldModule,
+    MatDialogModule,
+    CommonModule,
+    MatTableModule,
     AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebase),
     PrimeModule,

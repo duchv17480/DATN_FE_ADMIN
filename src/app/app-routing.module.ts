@@ -1,3 +1,4 @@
+import { ListOrderComponent } from './component/Oder/list-order/list-order.component';
 import { AddImageComponent } from './component/image/add-image/add-image.component';
 import { EditImageComponent } from './component/image/edit-image/edit-image.component';
 import { ListImageComponent } from './component/image/list-image/list-image.component';
@@ -61,6 +62,9 @@ const routes: Routes=[
   { path: 'add-category', component: AddCategoryComponent },
   { path: 'list-category', component: ListCategoryComponent},
   { path: 'edit-category/:id', component: EditCategoryComponent},
+
+  { path: 'list-order', component: ListOrderComponent},
+
 
   { path: 'add-product', component: AddProductComponent},
   { path: 'list-product', component: ListProductComponent},

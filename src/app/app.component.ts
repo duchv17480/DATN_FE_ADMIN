@@ -18,6 +18,11 @@ export class AppComponent {
 
     },
     {
+      label: 'Order',
+      icon: 'pi pi-fw pi-tablet',
+      routerLink: 'list-order'
+    },
+    {
       label: 'Staff',
       icon: 'pi pi-fw pi-user',
       routerLink: '/list-staff'
@@ -95,11 +100,6 @@ export class AppComponent {
         label: 'Review',
         icon: 'pi pi-fw pi-bookmark',
         routerLink: '/review/list'
-    },
-    {
-      label: 'Order',
-      icon: 'pi pi-fw pi-tablet',
-      // routerLink: '/review/list'
     },
     {
       label: 'Order Detail',

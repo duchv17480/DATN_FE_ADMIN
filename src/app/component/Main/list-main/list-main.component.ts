@@ -24,9 +24,9 @@ export class ListMainComponent implements OnInit {
   constructor(
      private toastr: ToastrService,
      private sessionService: SessionStorageService,
-     private MainService: MainService,
      private modalService: NgbModal,
-     private toast: NgToastService
+     private toast: NgToastService,
+     private MainService: MainService
      ) { }
 
   ngOnInit(): void {
@@ -49,7 +49,7 @@ export class ListMainComponent implements OnInit {
       console.log(data);
     })
 
-    }
+  }
     confirmDeleteStaff(confirmDialog: TemplateRef<any>, id: number){
       this.confirmMessage = `Do you want to delete?`;
       this.deleteId = id;
