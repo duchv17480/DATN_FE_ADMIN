@@ -24,7 +24,7 @@
       <table class="table table-bordered" id="category">
         <thead>
           <tr>
-            <th>Id</th>
+            <th>No</th>
             <th>Name</th>
             <th>Create Date</th>
             <th>Update Date</th>
@@ -48,13 +48,12 @@
             <td class="w-25">
               <img src="{{cate.images}}" class="img-fluid w-25" alt="">
             </td>
+
             <td>
-              <a [routerLink]="['/edit-category/' + cate.id]" class="btn btn-secondary">Edit</a>
+              <button [routerLink]="['/edit-category/' + cate.id]" pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" ></button>
+              <button (click)="confirmDeleteCategory(content, cate.id,cate.name)" pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"  ></button>
             </td>
-            <td>
-              <a (click)="confirmDeleteCategory(content, cate.id,cate.name)"
-                class="btn btn-danger mx-2 text-white">delete</a>
-            </td>
+
           </tr>
         </tbody>
       </table>

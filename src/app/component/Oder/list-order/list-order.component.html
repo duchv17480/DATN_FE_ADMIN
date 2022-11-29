@@ -1,0 +1,162 @@
+<div class="col">
+  <div class="m-2">
+    <div class="card">
+
+      <div class="row m-3">
+        <div class="col-2 ">
+            <button (click)="getAll_choxacnhan()" class="btn btn-success">Chờ Xác Nhận <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-aspect-ratio" viewBox="0 0 16 16">
+              <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h13A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5v-9zM1.5 3a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-13z"/>
+              <path d="M2 4.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1H3v2.5a.5.5 0 0 1-1 0v-3zm12 7a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1H13V8.5a.5.5 0 0 1 1 0v3z"/>
+            </svg></button>
+
+        </div>
+
+        <div class="col-3 ">
+          <button (click)="  getAll_DANGVANCHUYEN()" class="btn btn-danger">Đang Vận Chuyển  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bus-front" viewBox="0 0 16 16">
+            <path d="M5 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm8 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-6-1a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2H7Zm1-6c-1.876 0-3.426.109-4.552.226A.5.5 0 0 0 3 4.723v3.554a.5.5 0 0 0 .448.497C4.574 8.891 6.124 9 8 9c1.876 0 3.426-.109 4.552-.226A.5.5 0 0 0 13 8.277V4.723a.5.5 0 0 0-.448-.497A44.303 44.303 0 0 0 8 4Zm0-1c-1.837 0-3.353.107-4.448.22a.5.5 0 1 1-.104-.994A44.304 44.304 0 0 1 8 2c1.876 0 3.426.109 4.552.226a.5.5 0 1 1-.104.994A43.306 43.306 0 0 0 8 3Z"/>
+            <path d="M15 8a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1V2.64c0-1.188-.845-2.232-2.064-2.372A43.61 43.61 0 0 0 8 0C5.9 0 4.208.136 3.064.268 1.845.408 1 1.452 1 2.64V4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v3.5c0 .818.393 1.544 1 2v2a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5V14h6v1.5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-2c.607-.456 1-1.182 1-2V8ZM8 1c2.056 0 3.71.134 4.822.261.676.078 1.178.66 1.178 1.379v8.86a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 11.5V2.64c0-.72.502-1.301 1.178-1.379A42.611 42.611 0 0 1 8 1Z"/>
+          </svg> </button >
+
+        </div>
+        <div class="col-3 ">
+            <button (click)="  getAll_DANGXULY()" class="btn btn-warning">Đang Xử Lý <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
+              <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z"/>
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
+            </svg></button>
+        </div>
+        <div class="col-2 ">
+          <button (click)=" getAll_DAGIAO()" class="btn btn-primary">Đã Giao <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+          </svg></button>
+        </div>
+        <div class="col-2 ">
+            <button (click)="  getAll_DAHUY()" class="btn btn-dark">Đã Hủy <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+            </svg></button>
+        </div>
+
+      </div>
+      <p-table #dt [value]="order" [rows]="5" [paginator]="true"  responsiveLayout="scroll" [rowHover]="true"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+
+          <ng-template pTemplate="header">
+              <tr>
+
+                  <th pSortableColumn="shipping">shipping<p-sortIcon ></p-sortIcon></th>
+                  <th pSortableColumn="fullname"> fullname<p-sortIcon ></p-sortIcon></th>
+                  <th pSortableColumn="phone">phone <p-sortIcon ></p-sortIcon></th>
+                  <th pSortableColumn="quantity">quantity <p-sortIcon ></p-sortIcon></th>
+                  <th pSortableColumn="description">description <p-sortIcon ></p-sortIcon></th>
+                  <th pSortableColumn="staff_id">staff_id <p-sortIcon ></p-sortIcon></th>
+                  <th pSortableColumn="reason">reason <p-sortIcon ></p-sortIcon></th>
+                  <th pSortableColumn="createDate">createDate <p-sortIcon ></p-sortIcon></th>
+                  <th pSortableColumn="updateDate">updateDate <p-sortIcon ></p-sortIcon></th>
+                  <th pSortableColumn="status">status <p-sortIcon ></p-sortIcon></th>
+                  <th pSortableColumn="grandTotal">grandTotal <p-sortIcon ></p-sortIcon></th>
+                  <th pSortableColumn="discount">discount <p-sortIcon ></p-sortIcon></th>
+                  <th pSortableColumn="account_id">account_id <p-sortIcon ></p-sortIcon></th>
+                  <th pSortableColumn="address">address <p-sortIcon ></p-sortIcon></th>
+                  <th pSortableColumn="payment_id">payment_id <p-sortIcon ></p-sortIcon></th>
+
+
+                  <th>Action</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-order>
+              <tr>
+
+                <td>{{order?.shipping}}</td>
+                <td>{{order?.fullname}}</td>
+                <td >{{order?.phone}}</td>
+                <td >{{order?.quantity}}</td>
+                <td >{{order?.description}}</td>
+                <td >{{order?.staff_id}}</td>
+                <td >{{order?.reason}}</td>
+                <td >{{order?.createDate}}</td>
+                <td >{{order?.updateDate}}</td>
+                <td style="font-weight:bold ; color: rgb(69, 188, 4);">{{order?.status}}</td>
+                <td >{{order?.grandTotal}}</td>
+                <td >{{order?.discount}}</td>
+                <td >{{order?.account_id}}</td>
+                <td >{{order?.address}}</td>
+                <td >{{order?.payment_id}}</td>
+                   <td>
+
+                      <button (click)="orderdetail(content,order.id,order)" pButton pRipple  class="  mr-2"  ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ticket-detailed" viewBox="0 0 16 16">
+                        <path d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5ZM5 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H5Z"/>
+                        <path d="M0 4.5A1.5 1.5 0 0 1 1.5 3h13A1.5 1.5 0 0 1 16 4.5V6a.5.5 0 0 1-.5.5 1.5 1.5 0 0 0 0 3 .5.5 0 0 1 .5.5v1.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 11.5V10a.5.5 0 0 1 .5-.5 1.5 1.5 0 1 0 0-3A.5.5 0 0 1 0 6V4.5ZM1.5 4a.5.5 0 0 0-.5.5v1.05a2.5 2.5 0 0 1 0 4.9v1.05a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-1.05a2.5 2.5 0 0 1 0-4.9V4.5a.5.5 0 0 0-.5-.5h-13Z"/>
+                      </svg></button>
+                  </td>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+              <div class="flex align-items-center justify-content-between">
+                  In total there are {{order ? order?.length : 0 }}
+              </div>
+          </ng-template>
+
+
+      <ng-template #content let-c="close" let-d="dismiss">
+            <div class="modal-header">
+              <h4 class="modal-title " style="color: rgb(30, 214, 9);">OrderDetail</h4>
+              <button type="button" class="close" aria-label="close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h5 class="text-danger">
+                <p-table #dt [value]="orderdetaila" [rows]="5" [paginator]="true"  responsiveLayout="scroll" [rowHover]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+
+                <ng-template pTemplate="header">
+                    <tr>
+
+                        <th   pSortableColumn="price">Price</th>
+                        <th pSortableColumn="quantity">Quantity</th>
+                        <th pSortableColumn="productId">productId</th>
+                        <th pSortableColumn="orderId">orderId</th>
+                        <th pSortableColumn="userId">userId</th>
+
+
+                        <th>Action</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-orderdetaila>
+                    <tr>
+
+                      <td>{{orderdetaila?.price}}</td>
+                      <td >{{orderdetaila?.quantity}}</td>
+                      <td >{{orderdetaila?.productId}}</td>
+                      <td >{{orderdetaila?.orderId}}</td>
+                      <td >{{orderdetaila?.userId}}</td>
+                        <td>
+
+
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="flex align-items-center justify-content-between">
+                        In total there are {{orderdetaila ? orderdetaila?.length : 0 }}
+                    </div>
+                </ng-template>
+
+            </p-table>
+
+              </h5>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" [disabled]="order_status.status!= 'CHOXACNHAN'"  (click)="Confilrm(order_status.id)" >Xác nhận đơn</button>
+              <button type="button" class="btn btn-danger" (click)="cancel(order_status.id)">Cancel</button>
+            </div>
+          </ng-template>
+      </p-table>
+  </div>
+
+
+
+  </div>
+
+</div>

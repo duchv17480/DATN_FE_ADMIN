@@ -1,3 +1,4 @@
+import { ListOrderComponent } from './component/Oder/list-order/list-order.component';
 import { EditPaymentComponent } from './component/payment/edit-payment/edit-payment.component';
 import { AddPaymentComponent } from './component/payment/add-payment/add-payment.component';
 import { ListPaymentComponent } from './component/payment/list-payment/list-payment.component';
@@ -34,7 +35,7 @@ import { AddGroupComponentComponent } from './component/Group/add-group-componen
 import { ColorComponent } from './component/color/color-list/color.component';
 import { GroupComponentComponent } from './component/Group/group-component/group-component.component';
 import { AddCategoryComponent } from './component/Category/add-category/add-category.component';
-import { UsersComponent } from './component/users/users.component';
+
 import { LoginComponent } from './component/login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -64,6 +65,9 @@ const routes: Routes=[
   { path: 'add-category', component: AddCategoryComponent },
   { path: 'list-category', component: ListCategoryComponent},
   { path: 'edit-category/:id', component: EditCategoryComponent},
+
+  { path: 'list-order', component: ListOrderComponent},
+
 
   { path: 'add-product', component: AddProductComponent},
   { path: 'list-product', component: ListProductComponent},

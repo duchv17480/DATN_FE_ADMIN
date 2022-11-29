@@ -31,11 +31,11 @@ import {ConfirmPopupModule} from 'primeng/confirmpopup';
 import {StepsModule} from 'primeng/steps';
 import {DropdownModule} from 'primeng/dropdown';
 import {CaptchaModule} from 'primeng/captcha';
-
+import {PanelMenuModule} from 'primeng/panelmenu';
 const PrimeComponent = [
   PasswordModule,
   DividerModule,
-
+  PanelMenuModule,
   ToolbarModule,
   RippleModule,
   TableModule,

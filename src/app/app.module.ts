@@ -1,3 +1,6 @@
+import { MatTableModule } from '@angular/material/table';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ListOrderComponent } from './component/Oder/list-order/list-order.component';
 import { ForgotPasswordComponent } from './component/Auth/forgot-password/forgot-password.component';
 import { EmailRegisterComponent } from './component/Auth/email-register/email-register.component';
 import { RegisterComponent } from './component/Auth/register/register.component';
@@ -28,7 +31,7 @@ import { ListCategoryComponent } from './component/Category/list-category/list-c
 import { MessageService } from 'primeng/api';
 import { environment } from './../environments/environment';
 import { PrimeModule } from './component/uiHelpers/prime/Prime.module';
-import { UsersComponent } from './component/users/users.component';
+
 
 import { LoginComponent } from './component/login/login.component';
 import { AppComponent } from './app.component';
@@ -95,20 +98,24 @@ import { AddCaseComponent } from './component/Case/add-case/add-case.component';
 import { EditCaseComponent } from './component/Case/edit-case/edit-case.component';
 import { ListRamComponent } from './component/Ram/list-ram/list-ram.component';
 import { ListImageComponent } from './component/image/list-image/list-image.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
 import { ListPaymentComponent } from './component/payment/list-payment/list-payment.component';
 import { AddPaymentComponent } from './component/payment/add-payment/add-payment.component';
-
-
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    UsersComponent,
+
 
     GroupComponentComponent,
     AddGroupComponentComponent,
     EditGroupComponentComponent,
+
+    ListOrderComponent,
+
 
     ListRamComponent,
     RamComponent,
@@ -192,6 +199,11 @@ import { AddPaymentComponent } from './component/payment/add-payment/add-payment
     ScrollTopModule,
     GalleriaModule,
     DataTablesModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    CommonModule,
+    MatTableModule,
     AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebase),
     PrimeModule,
