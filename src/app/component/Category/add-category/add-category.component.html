@@ -24,9 +24,9 @@
                 <label for="formFile" class="form-label">Choosse</label>
                 <input class="form-control" type="file" formControlName="file" (change)="onFileChange($event)">
                 <div *ngIf="categoryform.controls['file'].invalid && categoryform.controls['file'].touched"
-                class="text-danger">
-                <small *ngIf="categoryform.controls['file'].errors?.['required']"> Name không được để trống</small>
-              </div>
+                  class="text-danger">
+                  <small *ngIf="categoryform.controls['file'].errors?.['required']"> Name không được để trống</small>
+                </div>
               </div>
             </div>
 

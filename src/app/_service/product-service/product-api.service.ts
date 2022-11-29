@@ -29,6 +29,14 @@ export class ProductApiService {
 
   getAllProductsAndSearch(params: any,page: number, pageNumber: number): Observable<any> {
     return this.http.get(URL_PROUCT + '/search' + "?page=" + page + "&page-number=" + pageNumber, { params })
+   }
+    
+  getAllProductAndImage(params:any): Observable<any> {
+    return this.http.get(URL_PROUCT ,{ params });
+  }
+
+  getAllProductsAndSearch(params: any): Observable<any> {
+    return this.http.get(URL_PROUCT + '/search', { params })
   }
 
   createProduct(product: Product):Observable<any>{

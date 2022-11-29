@@ -56,7 +56,7 @@ export class AddProductComponent implements OnInit {
     this.getAllBrand();
 
     this.validateForm = new FormGroup({
-      'name': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
+      'name': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(50)]),
       'price': new FormControl(null, [Validators.required]),
       'quantity': new FormControl(null, [Validators.required]),
       'discount': new FormControl(null, [Validators.required]),

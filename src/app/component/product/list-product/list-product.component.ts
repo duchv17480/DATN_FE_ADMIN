@@ -78,6 +78,21 @@ export class ListProductComponent implements OnInit {
   }
 
 
+  // getAllProduct() {
+
+  //   const params = this.getRequestParams(this.title, this.page, this.pageSize);
+
+  //   this.rest.getAllProductsAndSearch(params).subscribe(data => {
+  //     const totalItem = data.pagination.totalItem;
+  //     this.products = data.data;
+  //     this.count = totalItem;
+  //     console.log(data);
+  //   },
+  //     error => {
+  //       console.log(error);
+  //     });
+  // }
+
   getAllProduct() {
 
     const params = this.getRequestParams(this.title, this.page, this.pageSize);

@@ -1,4 +1,7 @@
 import { ListOrderComponent } from './component/Oder/list-order/list-order.component';
+import { EditPaymentComponent } from './component/payment/edit-payment/edit-payment.component';
+import { AddPaymentComponent } from './component/payment/add-payment/add-payment.component';
+import { ListPaymentComponent } from './component/payment/list-payment/list-payment.component';
 import { AddImageComponent } from './component/image/add-image/add-image.component';
 import { EditImageComponent } from './component/image/edit-image/edit-image.component';
 import { ListImageComponent } from './component/image/list-image/list-image.component';
@@ -114,7 +117,13 @@ const routes: Routes=[
   { path: 'add-image', component: AddImageComponent},
   { path: 'edit-image/:id', component: EditImageComponent},
 
+  { path: 'list-payment', component: ListPaymentComponent},
+  { path: 'add-payment', component: AddPaymentComponent},
+  { path: 'edit-payment/:id', component: EditPaymentComponent},
 
+
+
+  { path: 'users', component: UsersComponent },
   { path: 'add-chip', component: AddChipComponent},
   { path: 'list-chip', component: ListChipComponent},
   { path: 'list-favourite', component: ListFavouriteComponent},
