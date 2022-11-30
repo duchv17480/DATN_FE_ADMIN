@@ -26,6 +26,7 @@ export class ListOrderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getall();
   }
   getAll_choxacnhan() {
     this.OrderService.getAll_CHOXACNHAN().subscribe(data=>{
@@ -78,8 +79,19 @@ export class ListOrderComponent implements OnInit {
   Confilrm(id:number){
     this.OrderService.confilrm_byid(id).subscribe(data=>{
       this.modalService.dismissAll();
-      this.toast.success({ summary: 'Xác Nhận thành công', duration: 2000 });
+      this.toast.success({ summary: 'Xác Nhận Thành Công', duration: 2000 });
       this.getAll_choxacnhan();
+
+
+    })
+
+  }
+  transporting(id:number){
+    this.OrderService.transporting(id).subscribe(data=>{
+      this.modalService.dismissAll();
+      this.toast.success({ summary: 'Cập Nhật Thành Công', duration: 1000 });
+      this.toast.success({ summary: 'Đơn Đang Vận Chuyển', duration: 2000 });
+      this.getAll_DANGVANCHUYEN();
 
 
     })
@@ -90,8 +102,6 @@ export class ListOrderComponent implements OnInit {
       this.modalService.dismissAll();
       this.toast.success({ summary: 'Hủy Đơn thành công', duration: 2000 });
       this.getAll_choxacnhan();
-
-
     })
 
   }
@@ -103,5 +113,10 @@ export class ListOrderComponent implements OnInit {
     })
 
   }
+  getall(){
+    this.OrderService.getall().subscribe(data=>{
+      this.order=data.data;
+      console.log(data);
+  })
 
-}
+}}

@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
         const role = data.data.role[0].authority;
         console.log(role);
         this.toast.success({ summary: 'Login success', duration: 3000 });
-        this.router.navigate(['/main']);
+        this.router.navigate(['/list-order']);
         console.log(data)
       } else {
         this.toast.error({ summary: 'Incorrect username or password', sticky: true });

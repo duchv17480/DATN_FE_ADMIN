@@ -34,8 +34,14 @@ export class OrderService {
   confilrm_byid(id: any): Observable<any> {
     return this.http.get(URL_order +'/order-confirm/'+id );
   }
+  transporting(id: any): Observable<any> {
+    return this.http.get(URL_order +'/being-shipped/'+id );
+  }
   Cancel_byid(id: any): Observable<any> {
     return this.http.get(URL_order +'/cancelled/'+id );
+  }
+  getall(): Observable<any> {
+    return this.http.get(URL_order  );
   }
 
 

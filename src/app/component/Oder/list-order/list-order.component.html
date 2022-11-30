@@ -149,7 +149,8 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-success" [disabled]="order_status.status!= 'CHOXACNHAN'"  (click)="Confilrm(order_status.id)" >Xác nhận đơn</button>
-              <button type="button" class="btn btn-danger" (click)="cancel(order_status.id)">Cancel</button>
+              <button type="button" class="btn btn-primary" [disabled]="order_status.status!= 'DANGSULY'"  (click)="transporting(order_status.id)" >Đang vận chuyển</button>
+              <button type="button" class="btn btn-danger" (click)="cancel(order_status.id)">Hủy Đơn</button>
             </div>
           </ng-template>
       </p-table>
