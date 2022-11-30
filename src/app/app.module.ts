@@ -1,3 +1,4 @@
+import { ListOrdersComponent } from './component/Oder/list-orders/list-orders.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ListOrderComponent } from './component/Oder/list-order/list-order.component';
@@ -115,6 +116,7 @@ import { AddPaymentComponent } from './component/payment/add-payment/add-payment
     EditGroupComponentComponent,
 
     ListOrderComponent,
+    ListOrdersComponent,
 
 
     ListRamComponent,

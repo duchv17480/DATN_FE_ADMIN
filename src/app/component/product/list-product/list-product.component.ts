@@ -14,7 +14,7 @@ export class ListProductComponent implements OnInit {
   confirmMessage = '';
 
   deleteId!: number;
-  isLoading:boolean =false;
+  isLoading: boolean = false;
 
   categories: any[] = [];
 
@@ -34,7 +34,6 @@ export class ListProductComponent implements OnInit {
   ngOnInit(): void {
     this.getAllCategory();
     this.getAllProduct();
-    this.getAll();
   }
 
 
@@ -53,22 +52,12 @@ export class ListProductComponent implements OnInit {
     }
 
     if (pageSize) {
-      params[`page-number`] = pageSize;
+      params[`page-size`] = pageSize;
     }
 
     return params;
   }
- getAll(){
-  this.rest.getAllProduct(0,50).subscribe(data => {
-    const totalItem = data.pagination.totalItem;
-    this.products = data.data;
-    this.count = totalItem;
-    console.log(data);
-  },
-    error => {
-      console.log(error);
-    });
- }
+
   getAllCategory() {
     this.isLoading = true;
     this.restC.getAllCategory(0, 999).subscribe(data => {
@@ -77,27 +66,11 @@ export class ListProductComponent implements OnInit {
     })
   }
 
-
-  // getAllProduct() {
-
-  //   const params = this.getRequestParams(this.title, this.page, this.pageSize);
-
-  //   this.rest.getAllProductsAndSearch(params).subscribe(data => {
-  //     const totalItem = data.pagination.totalItem;
-  //     this.products = data.data;
-  //     this.count = totalItem;
-  //     console.log(data);
-  //   },
-  //     error => {
-  //       console.log(error);
-  //     });
-  // }
-
   getAllProduct() {
 
     const params = this.getRequestParams(this.title, this.page, this.pageSize);
 
-    this.rest.getAllProductsAndSearch(params,0,50).subscribe(data => {
+    this.rest.getAllProductAndSearch(params).subscribe(data => {
       const totalItem = data.pagination.totalItem;
       this.products = data.data;
       this.count = totalItem;
@@ -126,15 +99,15 @@ export class ListProductComponent implements OnInit {
   }
 
   //////////////
-  filter(e:any) {
+  filter(e: any) {
     let condition = e.target.value;
 
-    if(condition) {
-      this.rest.getAllProduct_byCate(condition,0,50).subscribe(data => {
+    if (condition) {
+      this.rest.getAllProduct_byCate(condition, 0, 50).subscribe(data => {
         const totalItem = data.pagination.totalItem;
-      this.products = data.data;
-      this.count = totalItem;
-      console.log(data);
+        this.products = data.data;
+        this.count = totalItem;
+        console.log(data);
       })
     }
 

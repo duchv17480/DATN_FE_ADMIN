@@ -21,21 +21,21 @@ export class ProductApiService {
 
 
   getAllProduct(page: number, pageNumber: number): Observable<any> {
-    return this.http.get(URL_PROUCT + "?page=" + page + "&page-number=" + pageNumber);
+    return this.http.get(URL_PROUCT + "?page=" + page + "&page-size=" + pageNumber);
   }
   getAllProduct_byCate(id: number,page: number, pageNumber: number): Observable<any> {
-    return this.http.get(URL_PROUCT +'/category/'+id + "?page=" + page + "&page-number=" + pageNumber);
+    return this.http.get(URL_PROUCT +'/category/'+id + "?page=" + page + "&page-size=" + pageNumber);
   }
 
   getAllProductsAndSearch(params: any,page: number, pageNumber: number): Observable<any> {
-    return this.http.get(URL_PROUCT + '/search' + "?page=" + page + "&page-number=" + pageNumber, { params })
+    return this.http.get(URL_PROUCT + '/search' + "?page=" + page + "&page-size=" + pageNumber, { params })
    }
-    
+
   getAllProductAndImage(params:any): Observable<any> {
     return this.http.get(URL_PROUCT ,{ params });
   }
 
-  getAllProductsAndSearch(params: any): Observable<any> {
+  getAllProductAndSearch(params: any): Observable<any> {
     return this.http.get(URL_PROUCT + '/search', { params })
   }
 

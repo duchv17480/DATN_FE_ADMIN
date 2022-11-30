@@ -1,3 +1,4 @@
+import { ListOrdersComponent } from './component/Oder/list-orders/list-orders.component';
 import { ListOrderComponent } from './component/Oder/list-order/list-order.component';
 import { EditPaymentComponent } from './component/payment/edit-payment/edit-payment.component';
 import { AddPaymentComponent } from './component/payment/add-payment/add-payment.component';
@@ -67,6 +68,7 @@ const routes: Routes=[
   { path: 'edit-category/:id', component: EditCategoryComponent},
 
   { path: 'list-order', component: ListOrderComponent},
+  { path: 'list-orders', component: ListOrdersComponent},
 
 
   { path: 'add-product', component: AddProductComponent},
@@ -123,7 +125,7 @@ const routes: Routes=[
 
 
 
-  { path: 'users', component: UsersComponent },
+  // { path: 'users', component: UsersComponent },
   { path: 'add-chip', component: AddChipComponent},
   { path: 'list-chip', component: ListChipComponent},
   { path: 'list-favourite', component: ListFavouriteComponent},
