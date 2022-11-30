@@ -34,6 +34,7 @@ export class ListProductComponent implements OnInit {
   ngOnInit(): void {
     this.getAllCategory();
     this.getAllProduct();
+    // this.getAll();
   }
 
 
@@ -57,7 +58,17 @@ export class ListProductComponent implements OnInit {
 
     return params;
   }
-
+//  getAll(){
+//   this.rest.getAllProduct(0,50).subscribe(data => {
+//     const totalItem = data.pagination.totalItem;
+//     this.products = data.data;
+//     this.count = totalItem;
+//     console.log(data);
+//   },
+//     error => {
+//       console.log(error);
+//     });
+//  }
   getAllCategory() {
     this.isLoading = true;
     this.restC.getAllCategory(0, 999).subscribe(data => {
