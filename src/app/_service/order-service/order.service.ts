@@ -44,6 +44,9 @@ export class OrderService {
     return this.http.get(URL_order  );
   }
 
+  getAllOrderStatus():Observable<any>{
+    return this.http.get(URL_order);
+  }
 
 
 

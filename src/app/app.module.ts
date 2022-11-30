@@ -1,9 +1,11 @@
+import { ListOrdersComponent } from './component/Oder/list-orders/list-orders.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ListOrderComponent } from './component/Oder/list-order/list-order.component';
 import { ForgotPasswordComponent } from './component/Auth/forgot-password/forgot-password.component';
 import { EmailRegisterComponent } from './component/Auth/email-register/email-register.component';
 import { RegisterComponent } from './component/Auth/register/register.component';
+import { EditPaymentComponent } from './component/payment/edit-payment/edit-payment.component';
 import { EditImageComponent } from './component/image/edit-image/edit-image.component';
 import { AddImageComponent } from './component/image/add-image/add-image.component';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -100,6 +102,8 @@ import { ListImageComponent } from './component/image/list-image/list-image.comp
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
+import { ListPaymentComponent } from './component/payment/list-payment/list-payment.component';
+import { AddPaymentComponent } from './component/payment/add-payment/add-payment.component';
 
 @NgModule({
   declarations: [
@@ -112,6 +116,7 @@ import { CommonModule } from '@angular/common';
     EditGroupComponentComponent,
 
     ListOrderComponent,
+    ListOrdersComponent,
 
 
     ListRamComponent,
@@ -165,6 +170,9 @@ import { CommonModule } from '@angular/common';
     RegisterComponent,
     EmailRegisterComponent,
     ForgotPasswordComponent,
+    ListPaymentComponent,
+    AddPaymentComponent,
+    EditPaymentComponent,
 
     EditCategoryComponent,
     ListFavouriteComponent,
