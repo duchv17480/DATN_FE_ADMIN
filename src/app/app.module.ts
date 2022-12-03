@@ -104,6 +104,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { ListPaymentComponent } from './component/payment/list-payment/list-payment.component';
 import { AddPaymentComponent } from './component/payment/add-payment/add-payment.component';
+import { InfoOrderComponent } from './component/Oder/info-order/info-order.component';
 
 @NgModule({
   declarations: [
@@ -117,6 +118,7 @@ import { AddPaymentComponent } from './component/payment/add-payment/add-payment
 
     ListOrderComponent,
     ListOrdersComponent,
+    InfoOrderComponent,
 
 
     ListRamComponent,

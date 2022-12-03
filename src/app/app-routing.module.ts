@@ -57,6 +57,7 @@ import { ListRamComponent } from './component/Ram/list-ram/list-ram.component';
 import { RegisterComponent } from './component/Auth/register/register.component';
 import { EmailRegisterComponent } from './component/Auth/email-register/email-register.component';
 import { ForgotPasswordComponent } from './component/Auth/forgot-password/forgot-password.component';
+import { InfoOrderComponent } from './component/Oder/info-order/info-order.component';
 
 
 const routes: Routes=[
@@ -69,6 +70,7 @@ const routes: Routes=[
 
   { path: 'list-order', component: ListOrderComponent},
   { path: 'list-orders', component: ListOrdersComponent},
+  { path: 'info-order/:id', component: InfoOrderComponent},
 
 
   { path: 'add-product', component: AddProductComponent},

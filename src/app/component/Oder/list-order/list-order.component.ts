@@ -92,13 +92,13 @@ export class ListOrderComponent implements OnInit {
 
   }
   Confilrm(id: number) {
-    this.OrderService.confilrm_byid(id).subscribe(data => {
-      this.modalService.dismissAll();
-      this.toast.success({ summary: 'Xác Nhận Thành Công', duration: 2000 });
-      this.getAll_choxacnhan();
+    // this.OrderService.confilrm_byid(id).subscribe(data => {
+    //   this.modalService.dismissAll();
+    //   this.toast.success({ summary: 'Xác Nhận Thành Công', duration: 2000 });
+    //   this.getAll_choxacnhan();
 
 
-    })
+    // })
 
   }
   transporting(id:number){
@@ -113,8 +113,6 @@ export class ListOrderComponent implements OnInit {
 
   }
   cancel(id:number){
-    this.OrderService.Cancel_byid(id).subscribe(data=>{
-  cancel(id: number) {
     this.OrderService.Cancel_byid(id).subscribe(data => {
       this.modalService.dismissAll();
       this.toast.success({ summary: 'Hủy Đơn thành công', duration: 2000 });
