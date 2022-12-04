@@ -101,15 +101,23 @@ import { ListRamComponent } from './component/Ram/list-ram/list-ram.component';
 import { ListImageComponent } from './component/image/list-image/list-image.component';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ListPaymentComponent } from './component/payment/list-payment/list-payment.component';
 import { AddPaymentComponent } from './component/payment/add-payment/add-payment.component';
 import { InfoOrderComponent } from './component/Oder/info-order/info-order.component';
-
+import { MatSelectModule } from '@angular/material/select';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { StatisticalComponent } from './component/statistical/statistical.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+
+    StatisticalComponent,
 
 
     GroupComponentComponent,
@@ -206,6 +214,18 @@ import { InfoOrderComponent } from './component/Oder/info-order/info-order.compo
     MatStepperModule,
     MatFormFieldModule,
     MatDialogModule,
+    MatSelectModule,
+    MatSortModule,
+    MatTabsModule,
+    MatTableModule,
+    MatSelectModule,
+    MatSortModule,
+    MatTableModule,
+
+    MatPaginatorModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
     CommonModule,
     MatTableModule,
     AngularFireStorageModule,
@@ -236,6 +256,7 @@ import { InfoOrderComponent } from './component/Oder/info-order/info-order.compo
     BrowserAnimationsModule
   ],
   providers: [
+    DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

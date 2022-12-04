@@ -58,6 +58,7 @@ import { RegisterComponent } from './component/Auth/register/register.component'
 import { EmailRegisterComponent } from './component/Auth/email-register/email-register.component';
 import { ForgotPasswordComponent } from './component/Auth/forgot-password/forgot-password.component';
 import { InfoOrderComponent } from './component/Oder/info-order/info-order.component';
+import { StatisticalComponent } from './component/statistical/statistical.component';
 
 
 const routes: Routes=[
@@ -72,6 +73,7 @@ const routes: Routes=[
   { path: 'list-orders', component: ListOrdersComponent},
   { path: 'info-order/:id', component: InfoOrderComponent},
 
+  { path: 'statistical', component: StatisticalComponent},
 
   { path: 'add-product', component: AddProductComponent},
   { path: 'list-product', component: ListProductComponent},

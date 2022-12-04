@@ -26,7 +26,7 @@ export class ChipApiService {
   }
 
   getAll(): Observable<any> {
-    return this.http.get(URL)
+    return this.http.get(URL+'/list');
   }
 
   create(chip: Chip): Observable<any> {
