@@ -12,6 +12,12 @@ export class AppComponent {
 
   items:MenuItem[] = [
     {
+      label: 'Statistical',
+      icon: '      bi bi-reception-4',
+      routerLink: '/statistical'
+
+  },
+    {
         label: 'Product',
         icon: 'pi pi-fw pi-calendar',
         routerLink: '/list-product'
@@ -20,7 +26,7 @@ export class AppComponent {
     {
       label: 'Order',
       icon: 'pi pi-fw pi-tablet',
-      routerLink: 'list-order'
+      routerLink: 'list-orders'
     },
     {
       label: 'Staff',
@@ -100,12 +106,13 @@ export class AppComponent {
         label: 'Review',
         icon: 'pi pi-fw pi-bookmark',
         routerLink: '/review/list'
-    },
-    {
-      label: 'Order Detail',
-      icon: 'pi pi-fw pi-tablet',
-      // routerLink: '/review/list'
     }
+    // ,
+    // {
+    //   label: 'Order Detail',
+    //   icon: 'pi pi-fw pi-tablet',
+    //   // routerLink: '/review/list'
+    // }
 ];
 }
 
