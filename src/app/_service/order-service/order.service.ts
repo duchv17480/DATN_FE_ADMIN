@@ -1,3 +1,4 @@
+import { Delivery } from './../../_model/DeliveryOrder';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -66,6 +67,30 @@ export class OrderService {
 
   confirmDeliveredOrder(id:number):Observable<any>{
     return this.http.get(URL_order + "/delivered/" + id);
+  }
+
+  confirmBeingShipperOrder(id:number):Observable<any>{
+    return this.http.get(URL_order + "/being-shipped/" + id);
+  }
+
+  getAllPaymentStatus(): Observable<any>{
+    return this.http.get(URL_order + "/list-status-payment");
+  }
+
+  // tạo hóa đơn tại quầy
+  createAnOrderAtTheCounter(): Observable<any>{
+    return this.http.get(URL_order + "/create-order");
+  }
+
+  // đặt hàng tại quầy
+  checkoutAnOrderAtTheCounter(id:any): Observable<any>{
+    return this.http.get(URL_order + "/checkout-order/" + id );
+  }
+
+  // tạo đơn hàng giao đi
+
+  createDeliveryOrder(delivery: Delivery): Observable<any>{
+    return this.http.post(URL_order + "/create-delivery-order",delivery);
   }
 
 

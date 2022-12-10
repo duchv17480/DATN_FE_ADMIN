@@ -78,7 +78,7 @@ export class AddProductComponent implements OnInit {
       this.imageformAdd.patchValue({
         product_id:
           this.id
-        
+
       })
 
 

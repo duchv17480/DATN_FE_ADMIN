@@ -26,7 +26,7 @@
             <th>Grand Total </th>
 
             <th><button class="btn btn-success p-1">Chờ Xác Nhận</button></th>
-            <th><button  class="btn btn-secondary p-1">Đang Sử Lý</button></th>
+            <th><button  class="btn btn-secondary p-1">Đang Xử Lý</button></th>
             <th><button  class="btn btn-warning p-1">Đang Vận Chuyển</button> </th>
             <th><button  class="btn btn-primary p-1">Đã Giao</button></th>
             <th><button class="btn btn-danger p-1">Đã Hủy</button> </th>
@@ -131,9 +131,9 @@
 
         <div class="form-group mb-3 mt-3">
            <label for="">Nhập Tiền Shipping: </label>
-          <input  class="form-control mt-2"
+          <input class="form-control mt-2"
           formControlName="shipping"
-          [ngModel]="shipping"
+          [(ngModel)]="shipping"
           placeholder="Tiền shipping">
           <small class="text-danger" *ngIf="validateFormO.controls['shipping'].errors?.['required']">
              Shipping không được để trống</small>
@@ -151,7 +151,8 @@
     </form>
       <div class="modal-footer">
         <button [disabled]="validateFormO.invalid"
-        class="btn btn-success" (click)="confirmOrder()" (click)="c('Close click')">Confirm</button>
+        class="btn btn-success" (click)="confirmOrder()"
+        (click)="c('Close click')">Confirm</button>
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
       </div>
 
@@ -172,7 +173,9 @@
           <div class="card-body bg-danger">
             <div class="form-group"></div>
             <label class="text-white"> Lý Do Hủy Đơn Hàng </label>
-                  <textarea class="form-control" formControlName="reason" [(ngModel)]="reason"></textarea>
+                  <textarea class="form-control"
+                   formControlName="reason"
+                   [(ngModel)]="reason"></textarea>
                   <div *ngIf="validFormCancelled.controls['reason'].invalid && validFormCancelled.controls['reason'].touched"
                     class="text-danger">
                     <small *ngIf="validFormCancelled.controls['reason'].errors?.['required']"> Lý do hủy đơn hàng không được để
@@ -190,7 +193,8 @@
       </div>
     </form>
       <div class="modal-footer">
-        <button class="btn btn-success" [disabled]="validFormCancelled.invalid" (click)="c('Close click')" (click)="confirmCancelled()">Confirm</button>
+        <button class="btn btn-success" [disabled]="validFormCancelled.invalid"
+        (click)="c('Close click')" (click)="confirmCancelled()">Confirm</button>
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cancel</button>
       </div>
 
@@ -218,7 +222,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-success" type="submit">Confirm</button>
+        <button class="btn btn-success"
+         (click)="confirmBeingShipper()" (click)="c('Close click')" type="submit">Confirm</button>
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cancel</button>
       </div>
     </ng-template>

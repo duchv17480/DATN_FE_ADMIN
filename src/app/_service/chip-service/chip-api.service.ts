@@ -45,5 +45,9 @@ export class ChipApiService {
     return this.http.get(URL,{params});
   }
 
+  getOneProductChipByProductId(id: number):Observable<any>{
+    return this.http.get(URL + '/get-one/' + id);
+  }
+
 
 }

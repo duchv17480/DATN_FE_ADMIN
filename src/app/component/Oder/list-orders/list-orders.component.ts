@@ -21,7 +21,7 @@ export class ListOrdersComponent implements OnInit {
   getOneOrder: Order = new Order();
   orderDetails: any[] = [];
   reason : any;
-  shipping : any;
+  shipping! : number;
   statusC : any;
 
   status = ['Tất cả','Chờ Xác Nhận', 'Đang Sử Lý',
@@ -107,6 +107,7 @@ export class ListOrdersComponent implements OnInit {
     })
   }
 
+
   confirmCancelled() {
     this.rest.canceledOrder(this.orderId,this.reason)
       .subscribe(response => {
@@ -147,6 +148,25 @@ export class ListOrdersComponent implements OnInit {
         this.ngOnInit();
         this.toast.success({ summary: 'Order confirm successfully', duration: 1000 });
       }
+    }, error => {
+      this.toast.error({ summary: 'Orders confirm fail', sticky: true });
+      console.log(error);
+      this.ngOnInit();
+    });
+  }
+
+  confirmBeingShipper(){
+    this.rest.confirmBeingShipperOrder(this.orderId)
+    .subscribe(response=>{
+      this.statusC = response.data.status;
+      if(this.statusC == 'DANGXULY'){
+        this.ngOnInit();
+        this.toast.error({ summary: 'Status is pending confirmation', sticky: true });
+      }else{
+        this.ngOnInit();
+        this.toast.success({ summary: 'Order confirm successfully', duration: 1000 });
+      }
+
     }, error => {
       this.toast.error({ summary: 'Orders confirm fail', sticky: true });
       console.log(error);

@@ -10,6 +10,11 @@ export class GroupComponentService {
   url = 'http://localhost:8080/api/v1/component';
 
   constructor(private httpClient: HttpClient) { }
+
+  getAllGroupComponet(): Observable<any> {
+      return this.httpClient.get(this.url + "/info");
+  }
+
   getHeader() {
     const token = localStorage.getItem("auth-token");
     return token ? new HttpHeaders().set('Authorization', 'Bearer ' + token) : null;}

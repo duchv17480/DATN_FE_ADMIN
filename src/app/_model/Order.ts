@@ -2,7 +2,7 @@ export class Order {
   id!: number;
   fullname!: string;
   phone!: string;
-  address!: number;
+  address!: string;
   payment_id!: number;
   createDate!: string;
   description!: string;

@@ -62,4 +62,8 @@ export class CategoryService {
     return this.httpClient.delete(this.url + '/delete/' + id);
   }
 
+  getAllCategoryByGroupId(id:number):Observable<any>{
+    return this.httpClient.get(this.url + "/list-group/" + id );
+  }
+
 }
