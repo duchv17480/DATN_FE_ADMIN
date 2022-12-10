@@ -112,6 +112,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { StatisticalComponent } from './component/statistical/statistical.component';
+import { GhnInterceptor } from './_helper/ghn.interceptor';
+import { ProductDetailComponent } from './component/product-detail/product-detail/product-detail.component';
+import { ProductChipDetailComponent } from './component/product-detail/product-chip-detail/product-chip-detail.component';
+import { BuyOfflineTestComponent } from './component/Buy-offline/buy-offline-test/buy-offline-test.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -194,6 +198,11 @@ import { StatisticalComponent } from './component/statistical/statistical.compon
     CreateStaffComponent,
     UpdateStaffComponent,
 
+    ProductDetailComponent,
+    ProductChipDetailComponent,
+
+    BuyOfflineTestComponent
+
   ],
   imports: [
     BrowserModule,
@@ -260,6 +269,11 @@ import { StatisticalComponent } from './component/statistical/statistical.compon
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: GhnInterceptor,
       multi: true,
     },
     MessageService

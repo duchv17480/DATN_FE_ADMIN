@@ -59,6 +59,8 @@ import { EmailRegisterComponent } from './component/Auth/email-register/email-re
 import { ForgotPasswordComponent } from './component/Auth/forgot-password/forgot-password.component';
 import { InfoOrderComponent } from './component/Oder/info-order/info-order.component';
 import { StatisticalComponent } from './component/statistical/statistical.component';
+import { ProductDetailComponent } from './component/product-detail/product-detail/product-detail.component';
+import { BuyOfflineTestComponent } from './component/Buy-offline/buy-offline-test/buy-offline-test.component';
 
 
 const routes: Routes=[
@@ -141,6 +143,8 @@ const routes: Routes=[
   { path: 'add-staff', component: CreateStaffComponent},
   { path: 'update-staff/:id', component: UpdateStaffComponent},
 
+  { path: 'buy-offline-test', component: BuyOfflineTestComponent},
+  { path: 'product-detail/:id', component: ProductDetailComponent},
 ];
 
 @NgModule({

@@ -52,6 +52,14 @@ export class ImageApiService {
     return this.rest.delete(URL + "/delete/" + id);
   }
 
+  getAllImages(): Observable<any> {
+    return this.rest.get(URL + "/list");
+  }
+
+  getImagesByProductId(id: number): Observable<any> {
+    return this.rest.get(URL + "/product-id/" + id);
+  }
+
 
 
 }

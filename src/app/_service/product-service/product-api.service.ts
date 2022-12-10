@@ -27,8 +27,12 @@ export class ProductApiService {
     return this.http.get(URL_PROUCT +'/category/'+id + "?page=" + page + "&page-size=" + pageNumber);
   }
 
-  getAllProductsAndSearch(params: any,page: number, pageNumber: number): Observable<any> {
-    return this.http.get(URL_PROUCT + '/search' + "?page=" + page + "&page-size=" + pageNumber, { params })
+  getProduct_byIdProduct(id: number,page: number, pageNumber: number): Observable<any> {
+    return this.http.get(URL_PROUCT +'/product-id/'+id + "?page=" + page + "&page-size=" + pageNumber);
+  }
+
+  getAllProductsAndSearch(name: any,page: number, pageNumber: number): Observable<any> {
+    return this.http.get(URL_PROUCT + '/search' + "?name=" + name + "&page=" + page + "&page-size=" + pageNumber)
    }
 
   getAllProductAndImage(params:any): Observable<any> {
@@ -53,6 +57,10 @@ export class ProductApiService {
 
   getOne(id:number) :Observable<any>{
     return this.http.get(URL_PROUCT + '/get-one/' + id);
+  }
+
+  getProductByCategory(id: number, page: number, pageNumber: number): Observable<any> {
+    return this.http.get(URL_PROUCT + "/category/" + id + '?page=' + page + '&page-size=' + pageNumber);
   }
 
 
