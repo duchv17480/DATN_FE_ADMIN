@@ -18,7 +18,7 @@ export class ChipApiService {
     page : number,
     pageNumber: number
     ): Observable<any>{
-    return this.http.get(URL_PRODUCT + '?page=' + page + '&page-number=' + pageNumber);
+    return this.http.get(URL_PRODUCT + '?page=' + page + '&page-size=' + pageNumber);
   }
 
   getByID(id :number): Observable<any>{

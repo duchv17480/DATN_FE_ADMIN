@@ -83,9 +83,6 @@ import { DataTablesModule } from 'angular-datatables';
 import { EditGroupComponentComponent } from './component/Group/edit-group-component/edit-group-component.component';
 import { ListFavouriteComponent } from './component/favourite/list-favourite/list-favourite.component';
 import { AddFavouriteComponent } from './component/favourite/add-favourite/add-favourite.component';
-import { ListVoucherComponent } from './component/voucher/list-voucher/list-voucher.component';
-import { CreateVoucherComponent } from './component/voucher/create-voucher/create-voucher.component';
-import { UpdateVoucherComponent } from './component/voucher/update-voucher/update-voucher.component';
 import { EditProductComponent } from './component/product/edit-product/edit-product.component';
 import { ListStaffComponent } from './component/staff/list-staff/list-staff.component';
 import { CreateStaffComponent } from './component/staff/create-staff/create-staff.component';
@@ -116,6 +113,8 @@ import { GhnInterceptor } from './_helper/ghn.interceptor';
 import { ProductDetailComponent } from './component/product-detail/product-detail/product-detail.component';
 import { ProductChipDetailComponent } from './component/product-detail/product-chip-detail/product-chip-detail.component';
 import { BuyOfflineTestComponent } from './component/Buy-offline/buy-offline-test/buy-offline-test.component';
+import { BuyOfflineComponent } from './component/Buy-offline/buy-offline/buy-offline.component';
+import { ProductPcDetailComponent } from './component/product-detail/product-pc-detail/product-pc-detail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -191,9 +190,6 @@ import { BuyOfflineTestComponent } from './component/Buy-offline/buy-offline-tes
     EditCategoryComponent,
     ListFavouriteComponent,
     AddFavouriteComponent,
-    ListVoucherComponent,
-    CreateVoucherComponent,
-    UpdateVoucherComponent,
     ListStaffComponent,
     CreateStaffComponent,
     UpdateStaffComponent,
@@ -201,7 +197,10 @@ import { BuyOfflineTestComponent } from './component/Buy-offline/buy-offline-tes
     ProductDetailComponent,
     ProductChipDetailComponent,
 
-    BuyOfflineTestComponent
+    BuyOfflineTestComponent,
+    BuyOfflineComponent,
+
+    ProductPcDetailComponent
 
   ],
   imports: [

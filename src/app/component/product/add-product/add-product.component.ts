@@ -6,7 +6,6 @@ import { Product } from 'src/app/_model/product';
 import { ProductApiService } from './../../../_service/product-service/product-api.service';
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/_service/category-service/category.service';
-import { VoucherService } from 'src/app/_service/voucher-service/voucher.service';
 import { BrandService } from 'src/app/_service/Brand-service/brand.service';
 import { ImageApiService } from 'src/app/_service/image-service/image-api.service';
 import { TokenStorageService } from 'src/app/_service/token-storage-service/token-storage.service';
@@ -31,7 +30,6 @@ export class AddProductComponent implements OnInit {
   isLoading:boolean =false;
   id: any;
   categories: any[] = [];
-  voucher: any[] = [];
   brand: any[] = [];
   selectedFiles?: FileList;
   currentFile?: File;
@@ -41,7 +39,6 @@ export class AddProductComponent implements OnInit {
   constructor(
     private restP: ProductApiService,
     private restC: CategoryService,
-    private restV: VoucherService,
     private restB: BrandService,
     private toast: NgToastService,
      private route: Router,
@@ -52,18 +49,16 @@ export class AddProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllCategory();
-    this.getAllVocher();
     this.getAllBrand();
 
     this.validateForm = new FormGroup({
-      'name': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(50)]),
+      'name': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(244)]),
       'price': new FormControl(null, [Validators.required]),
       'quantity': new FormControl(null, [Validators.required]),
       'discount': new FormControl(null, [Validators.required]),
       'status': new FormControl(STATUS.ACTIVE, [Validators.required]),
       'brandId': new FormControl(2, [Validators.required]),
       'categoryId': new FormControl(2, [Validators.required]),
-      'voucherId': new FormControl(2, [Validators.required]),
       'description': new FormControl(null, [Validators.required,Validators.minLength(6), Validators.maxLength(100)]),
     })
 
@@ -108,15 +103,6 @@ export class AddProductComponent implements OnInit {
     this.restC.getAllCategory(0, 999).subscribe(data => {
       this.isLoading = false;
       this.categories = data.data;
-    })
-  }
-
-  getAllVocher(){
-    this.isLoading = true;
-    this.restV.getAllVoucher().subscribe(data=>{
-      this.isLoading = false;
-      this.voucher = data.data;
-      console.log(data.data+"ghjk")
     })
   }
 

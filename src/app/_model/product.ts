@@ -7,6 +7,5 @@ export class Product {
   description!: string;
   status!: number;
   categoryId!: number;
-  voucherId!: number;
   brandId!: number;
 }

@@ -45,11 +45,8 @@ import { AddChipComponent } from './component/chip/add-chip/add-chip.component';
 import { EditCategoryComponent } from './component/Category/edit-category/edit-category.component';
 import { ListFavouriteComponent } from './component/favourite/list-favourite/list-favourite.component';
 import { AddFavouriteComponent } from './component/favourite/add-favourite/add-favourite.component';
-import { ListVoucherComponent } from './component/voucher/list-voucher/list-voucher.component';
 import { ListCategoryComponent } from './component/Category/list-category/list-category.component';
 import { AddProductComponent } from './component/product/add-product/add-product.component';
-import { CreateVoucherComponent } from './component/voucher/create-voucher/create-voucher.component';
-import { UpdateVoucherComponent } from './component/voucher/update-voucher/update-voucher.component';
 import { ListStaffComponent } from './component/staff/list-staff/list-staff.component';
 import { CreateStaffComponent } from './component/staff/create-staff/create-staff.component';
 import { UpdateStaffComponent } from './component/staff/update-staff/update-staff.component';
@@ -61,6 +58,7 @@ import { InfoOrderComponent } from './component/Oder/info-order/info-order.compo
 import { StatisticalComponent } from './component/statistical/statistical.component';
 import { ProductDetailComponent } from './component/product-detail/product-detail/product-detail.component';
 import { BuyOfflineTestComponent } from './component/Buy-offline/buy-offline-test/buy-offline-test.component';
+import { BuyOfflineComponent } from './component/Buy-offline/buy-offline/buy-offline.component';
 
 
 const routes: Routes=[
@@ -136,14 +134,12 @@ const routes: Routes=[
   { path: 'list-chip', component: ListChipComponent},
   { path: 'list-favourite', component: ListFavouriteComponent},
   { path: 'add-favourite', component: AddFavouriteComponent},
-  { path: 'list-voucher', component: ListVoucherComponent},
-  { path: 'add-voucher', component: CreateVoucherComponent},
-  { path: 'edit-voucher/:id', component: UpdateVoucherComponent},
   { path: 'list-staff', component: ListStaffComponent},
   { path: 'add-staff', component: CreateStaffComponent},
   { path: 'update-staff/:id', component: UpdateStaffComponent},
 
   { path: 'buy-offline-test', component: BuyOfflineTestComponent},
+  { path: 'buy-offline', component: BuyOfflineComponent},
   { path: 'product-detail/:id', component: ProductDetailComponent},
 ];
 

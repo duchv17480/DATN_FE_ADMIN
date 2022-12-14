@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OrderConfirm } from '../../_model/OrderConfirm';
+import { OrderTheCounter } from '../../_model/AtTheCounterOrder';
 const URL_order = "http://localhost:8080/api/v1/order"
 const URL_orderdetail = "http://localhost:8080/api/v1/orderDetail"
 @Injectable({
@@ -73,13 +74,28 @@ export class OrderService {
     return this.http.get(URL_order + "/being-shipped/" + id);
   }
 
+  getAllOrdersAndSearch(name: any): Observable<any> {
+    return this.http.get(URL_order + '/search' + "?name=" + name)
+   }
+
+  // list hóa đơn chưa thanh toán
   getAllPaymentStatus(): Observable<any>{
-    return this.http.get(URL_order + "/list-status-payment");
+    return this.http.get(URL_order + "/list-status-payment" );
+  }
+
+  // list hóa đơn đã thanh toán
+  getAllPaymentStatusPaid(): Observable<any>{
+    return this.http.get(URL_order + "/list-status-payment-paid");
+  }
+
+  // tạo đơn hàng bán lẻ
+  createRetailOrder(): Observable<any>{
+    return this.http.get(URL_order + "/create-retail-order");
   }
 
   // tạo hóa đơn tại quầy
-  createAnOrderAtTheCounter(): Observable<any>{
-    return this.http.get(URL_order + "/create-order");
+  createAnOrderAtTheCounter(order: OrderTheCounter): Observable<any>{
+    return this.http.post(URL_order + "/create-order",order);
   }
 
   // đặt hàng tại quầy
@@ -88,9 +104,18 @@ export class OrderService {
   }
 
   // tạo đơn hàng giao đi
-
   createDeliveryOrder(delivery: Delivery): Observable<any>{
     return this.http.post(URL_order + "/create-delivery-order",delivery);
+  }
+
+  // cập nhật đơn hang tại quầy
+  updateOrderAtTheCounter(id:any, order: OrderTheCounter):Observable<any>{
+    return this.http.put(URL_order + "/update-order/" + id,order);
+  }
+
+  // cập nhật đơn hang giao
+  updateDeliveryOrder(id:any, order: Delivery):Observable<any>{
+    return this.http.put(URL_order + "/update-delivery-order/" + id,order);
   }
 
 
