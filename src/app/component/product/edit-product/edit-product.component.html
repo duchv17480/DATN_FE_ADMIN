@@ -23,7 +23,7 @@
                 class="text-danger">
                 <small *ngIf="validateForm.controls['name'].errors?.['required']"> Name không được để trống</small>
                 <small *ngIf="validateForm.controls['name'].errors?.['minlength']"> Name phải lớn hơn 6 ký tự</small>
-                <small *ngIf="validateForm.controls['name'].errors?.['maxlength']"> Name không được quá 20 ký
+                <small *ngIf="validateForm.controls['name'].errors?.['maxlength']"> Name không được quá 244 ký
                   tự</small>
               </div>
             </div>
@@ -98,7 +98,7 @@
               </div>
             </div>
 
-            <div class="form-group mt-2">
+            <!-- <div class="form-group mt-2">
               <label for="">Voucher</label>
               <select class="form-select" [(ngModel)]="product.voucherId" formControlName="voucherId"
                 aria-label="Default select example">
@@ -109,7 +109,7 @@
                 <small *ngIf="validateForm.controls['voucherId'].errors?.['required']">Voucher không được để
                   trống</small>
               </div>
-            </div>
+            </div> -->
 
           </div>
         </div>

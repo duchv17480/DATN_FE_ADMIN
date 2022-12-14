@@ -53,9 +53,9 @@ export class CategoryService {
   getAllCategory(page: number, pageSize: number): Observable<any> {
     let param = new HttpParams();
     param = param.append('page', page);
-    param = param.append('page-number', pageSize);
+    param = param.append('page-size', pageSize);
 
-    return this.httpClient.get(this.url + '?page=' + page + '&page-number=' + pageSize, { params: param });
+    return this.httpClient.get(this.url + '?page=' + page + '&page-size=' + pageSize, { params: param });
   }
 
   deleteCategory(id: number):Observable<any>{

@@ -31,3 +31,6 @@ export class ProductChipDetailComponent implements OnInit {
   }
 
 }
+
+
+

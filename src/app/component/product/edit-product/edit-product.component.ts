@@ -1,7 +1,6 @@
 import { STATUS } from 'src/app/_model/status';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 
-import { VoucherService } from 'src/app/_service/voucher-service/voucher.service';
 import { CategoryService } from 'src/app/_service/category-service/category.service';
 import { NgToastService } from 'ng-angular-popup';
 import { ActivatedRoute } from '@angular/router';
@@ -33,7 +32,6 @@ export class EditProductComponent implements OnInit {
   constructor(
     private restP: ProductApiService,
     private restC: CategoryService,
-    private restV: VoucherService,
     private restB: BrandService,
     private rest: ProductApiService,
     private route: ActivatedRoute,
@@ -42,7 +40,6 @@ export class EditProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllCategory();
-    this.getAllVocher();
     this.getAllBrand();
 
     this.id = this.route.snapshot.params['id'];
@@ -52,14 +49,13 @@ export class EditProductComponent implements OnInit {
     })
 
     this.validateForm = new FormGroup({
-      'name': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
+      'name': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(244)]),
       'price': new FormControl(null, [Validators.required]),
       'quantity': new FormControl(null, [Validators.required]),
       'discount': new FormControl(null, [Validators.required]),
       'status': new FormControl(STATUS.ACTIVE, [Validators.required]),
       'brandId': new FormControl(1, [Validators.required]),
       'categoryId': new FormControl(1, [Validators.required]),
-      'voucherId': new FormControl(1, [Validators.required]),
       'description': new FormControl(null, [Validators.required,Validators.minLength(6), Validators.maxLength(100)]),
     })
 
@@ -81,14 +77,6 @@ export class EditProductComponent implements OnInit {
     this.restC.getAllCategory(0, 999).subscribe(data => {
       this.isLoading = false;
       this.categories = data.data;
-    })
-  }
-
-  getAllVocher() {
-    this.isLoading = true;
-    this.restV.getAllVoucher().subscribe(data => {
-      this.isLoading = false;
-      this.voucher = data.data;
     })
   }
 
