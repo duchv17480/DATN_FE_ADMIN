@@ -65,5 +65,8 @@ export class CategoryService {
   getAllCategoryByGroupId(id:number):Observable<any>{
     return this.httpClient.get(this.url + "/list-group/" + id );
   }
+  getAllCategoryByStatus(status:any):Observable<any>{
+    return this.httpClient.get(this.url + "/list-status/" + status );
+  }
 
 }

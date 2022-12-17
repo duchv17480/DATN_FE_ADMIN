@@ -106,6 +106,23 @@ export class ListCategoryComponent implements OnInit {
     this.getAllCategory();
   }
 
+  filterByStatusProduct(e: any) {
+    let condition = e.target.value;
+    if (condition) {
+      this.rest.getAllCategoryByStatus(condition).subscribe(data => {
+
+        const totalItem = data.pagination.totalItem;
+        this.categories = data.data;
+        // this.count = totalItem;
+        console.log(data);
+      },
+        error => {
+          this.toast.error({ summary: 'Không tìm thấy sản phẩm!' })
+        });
+    } else {
+      this.toast.error({ summary: 'Không tìm thấy sản phẩm!' })
+    }
+  }
 
 
 

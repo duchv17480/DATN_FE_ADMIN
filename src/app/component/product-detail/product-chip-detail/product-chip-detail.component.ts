@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ChipApiService } from '../../../_service/chip-service/chip-api.service';
+import { CartService } from '../../../_service/cart-service/cart.service';
+import { NgToastService } from 'ng-angular-popup';
+import { CartModel } from '../../../_model/CartModel';
 
 @Component({
   selector: 'app-product-chip-detail',
@@ -9,11 +12,15 @@ import { ChipApiService } from '../../../_service/chip-service/chip-api.service'
 })
 export class ProductChipDetailComponent implements OnInit {
 
+  cart: CartModel = new CartModel();
   productChip: any[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private restChip: ChipApiService
+    private restChip: ChipApiService,
+    private router: Router,
+    private restCart: CartService,
+    private toast: NgToastService
   ) { }
 
   ngOnInit() {
@@ -28,6 +35,18 @@ export class ProductChipDetailComponent implements OnInit {
       this.productChip = response.data;
       console.log(response.data, "product detail chip");
     })
+  }
+
+  // phần sản phẩm đặt
+  addToCart(pro: any) {
+    this.cart.productId = pro.productId;
+    console.log(pro.id);
+    this.restCart.createCart(this.cart)
+      .subscribe(data => {
+        this.cart = data.data;
+        this.toast.success({ summary: 'Thêm sản phẩm ' + pro.name + ' thành công!', duration: 3000 });
+        this.router.navigate(['/buy-offline']);
+      });
   }
 
 }

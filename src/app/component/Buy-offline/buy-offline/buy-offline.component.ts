@@ -12,6 +12,8 @@ import { NgToastService } from 'ng-angular-popup';
 import { GhnService } from '../../../_service/ghn-service/ghn.service';
 import Swal from 'sweetalert2';
 import { error } from 'jquery';
+import { ImageApiService } from '../../../_service/image-service/image-api.service';
+import { ProductImages } from '../../../_model/ProductImages';
 
 @Component({
   selector: 'app-buy-offline',
@@ -22,6 +24,7 @@ export class BuyOfflineComponent implements OnInit {
 
   //phần sản phẩm
   products: any[] = [];
+  productIamges: ProductImages = new ProductImages();
   // categories: any[] = [];
   title = '';
   // page = 0;
@@ -97,6 +100,7 @@ export class BuyOfflineComponent implements OnInit {
     private restProduct: ProductApiService,
     private toast: NgToastService,
     private restGhn: GhnService,
+    private restImages: ImageApiService
   ) { }
 
   ngOnInit() {
@@ -285,14 +289,14 @@ export class BuyOfflineComponent implements OnInit {
 
     }, error => {
       this.delivery = {
-        fullname : 'abc',
+        fullname: 'abc',
         province: '',
         district: '',
         ward: '',
         phone: '',
         description: '',
         shipping: '',
-        id : 0,
+        id: 0,
         paymentStatus: '',
         orderStatus: '',
         nameStaff: '',
@@ -372,7 +376,7 @@ export class BuyOfflineComponent implements OnInit {
   }
 
   // tạo đơn hang lẻ
-  createRetailOrder(){
+  createRetailOrder() {
     this.isLoading = true;
     this.restOrder.createRetailOrder().subscribe(res => {
       this.toast.success({ summary: 'Tạo Đơn hang thành công', duration: 3000 });
@@ -588,7 +592,7 @@ export class BuyOfflineComponent implements OnInit {
 
   }
 
-
+  // tìm kiếm theo mã id product
   filterByIdProduct(e: any) {
     let condition = e.target.value;
     if (condition) {
@@ -600,10 +604,26 @@ export class BuyOfflineComponent implements OnInit {
         console.log(data);
       },
         error => {
-          this.toast.error({ summary: 'Không tìm thấy sản phẩm!'})
+          this.toast.error({ summary: 'Không tìm thấy sản phẩm!' })
         });
     } else {
-      this.toast.error({ summary: 'Không tìm thấy sản phẩm!'})
+      this.toast.error({ summary: 'Không tìm thấy sản phẩm!' })
+    }
+  }
+
+  // tìm kiếm theo mã code sản phẩm
+  filterByCodeProduct(e: any) {
+    let condition = e.target.value;
+    if (condition) {
+      this.restImages.findByMaCodeProduct(condition).subscribe(data => {
+        this.productIamges = data.data;
+        console.log(data);
+      },
+        error => {
+          this.toast.error({ summary: 'Không tìm thấy sản phẩm!' })
+        });
+    } else {
+      this.toast.error({ summary: 'Không tìm thấy sản phẩm!' })
     }
   }
 
