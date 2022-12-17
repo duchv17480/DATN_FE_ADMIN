@@ -60,6 +60,10 @@ export class ImageApiService {
     return this.rest.get(URL + "/product-id/" + id);
   }
 
+  // tìm kiếm sản phẩm theo mã sp
+  findByMaCodeProduct(id:any): Observable<any>{
+    return this.rest.get(URL + "/product-maSP/" + id);
+  }
 
 
 }

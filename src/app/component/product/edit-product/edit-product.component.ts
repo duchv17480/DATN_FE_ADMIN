@@ -50,6 +50,7 @@ export class EditProductComponent implements OnInit {
 
     this.validateForm = new FormGroup({
       'name': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(244)]),
+      'code': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(10)]),
       'price': new FormControl(null, [Validators.required]),
       'quantity': new FormControl(null, [Validators.required]),
       'discount': new FormControl(null, [Validators.required]),

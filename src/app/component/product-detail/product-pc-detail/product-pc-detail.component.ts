@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PcService } from '../../../_service/Pc-service/pc.service';
+import { CartModel } from '../../../_model/CartModel';
+import { CartService } from '../../../_service/cart-service/cart.service';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-product-pc-detail',
@@ -9,11 +12,15 @@ import { PcService } from '../../../_service/Pc-service/pc.service';
 })
 export class ProductPcDetailComponent implements OnInit {
 
+  cart: CartModel = new CartModel();
   productPc: any[] = [];
 
   constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
-    private restPc: PcService
+    private restPc: PcService,
+    private restCart: CartService,
+    private toast: NgToastService
   ) { }
 
   ngOnInit() {
@@ -30,4 +37,18 @@ export class ProductPcDetailComponent implements OnInit {
       })
 
   }
+
+   // phần sản phẩm đặt
+   addToCart(pro: any) {
+    this.cart.productId = pro.productId;
+    console.log(pro.id);
+    this.restCart.createCart(this.cart)
+      .subscribe(data => {
+        this.cart = data.data;
+        this.toast.success({ summary: 'Thêm sản phẩm ' + pro.name + ' thành công!', duration: 3000 });
+        this.router.navigate(['/buy-offline']);
+      });
+  }
+
+
 }

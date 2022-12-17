@@ -13,7 +13,7 @@
               <div class="col">
                 <input type="text" class="form-control"
                   [(ngModel)]="idProduct"
-                  (change)="filterByIdProduct($event)"
+                  (change)="filterByCodeProduct($event)"
                   (change)="confirmAddProduct(cancelled)"
                    placeholder="Search by code" />
               </div>
@@ -331,7 +331,7 @@
                     <mdb-form-control>
                       <label mdbLabel class="form-label" for="phone">Số Điện Thoại</label>
                       <input mdbInput type="text"
-                      (change)="searchFullnameOrder($event)"
+
                       formControlName="phone"
                       [(ngModel)]="delivery.phone"
                         class="form-control" />
@@ -349,7 +349,8 @@
                   <div *ngIf="!doing">
                     <mdb-form-control>
                       <label mdbLabel class="form-label">Tiền Shipping</label>
-                      <input mdbInput formControlName="shipping" [(ngModel)]="delivery.shipping" [value]="shippingTotal"
+                      <input mdbInput formControlName="shipping" [(ngModel)]="delivery.shipping"
+                      [value]="shippingTotal"
                         class="form-control" />
                     </mdb-form-control>
                     <div
@@ -574,7 +575,7 @@
             <tbody class="align-middle">
               <tr *ngFor="let cart of carts; let i = index">
                 <td class="align-middle">{{ cart.name }}</td>
-                <td class="align-middle">{{ cart.price | number: '1.2' }}</td>
+                <td class="align-middle">{{ cart.price | currency:'VND' }}</td>
                 <td class="align-middle">
                   <div class="input-group quantity mx-auto" style="width: 100px;">
                     <div class="input-group-btn">
@@ -591,7 +592,7 @@
                     </div>
                   </div>
                 </td>
-                <td class="align-middle">${{ cart.total | number: '1.2' }}</td>
+                <td class="align-middle">{{ cart.total | currency:'VND' }}</td>
                 <td class="align-middle"><button (click)="deleteCart(cart)" class="btn btn-sm btn-primary"><i
                       class="fa fa-times"></i></button></td>
               </tr>
@@ -617,38 +618,39 @@
     </div>
     <div class="modal-body">
 
-      <div class="card mb-2" *ngFor="let pro of products">
+      <div class="card mb-2">
         <div class="card-body">
           <div class="row">
             <div class="d-flex flex-row">
-              <h1> {{pro.name}}</h1>
+              <h1> {{productIamges.name}}</h1>
             </div>
           </div>
           <div class="row">
             <div class="col-5">
-              <img src="{{pro.imageLink}}" class="img-fluid" alt="">
+              <img src="{{productIamges.imageLink}}" class="img-fluid" alt="">
             </div>
             <div class="col-7">
               <div class="d-flex flex-row">
                 <h1 class="">- Mã SP: </h1>
-                <h1> {{pro.id}}</h1>
+                <h1> {{productIamges.code}}</h1>
               </div>
               <div class="d-flex flex-row">
                 <h1 class="">- Giá: </h1>
-                <h1 class="text-danger"> {{pro.price | currency:'VND'}}</h1>
+                <h1 class="text-danger"> {{productIamges.price | currency:'VND'}}</h1>
               </div>
               <div class="d-flex flex-row">
                 <h1 class="">- Số lượng: </h1>
-                <h1> {{pro.quantity}}</h1>
+                <h1> {{productIamges.quantity}}</h1>
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4"></div>
+            <div class="col-5"></div>
+            <div class="col-3">
+              <button (click)="addToCart(productIamges)" (click)="c('Close click')" class="btn btn-success">Thêm</button>
+            </div>
             <div class="col-4">
-              <a [routerLink]="['/product-detail', pro.id]" (click)="c('Close click')" class="btn btn-primary">Xem chi tiết</a>
-              <button (click)="addToCart(pro)" (click)="c('Close click')" class="btn btn-success">Thêm</button>
+              <a [routerLink]="['/product-detail', productIamges.id]" (click)="c('Close click')" class="btn btn-primary">Xem chi tiết</a>
             </div>
           </div>
         </div>
