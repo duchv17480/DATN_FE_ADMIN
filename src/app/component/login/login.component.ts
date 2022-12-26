@@ -33,25 +33,21 @@ export class LoginComponent implements OnInit {
     };
   }
   submitForm(): void {
-
     this.auth.login(this.user).subscribe((data) => {
-
       if (data.success) {
-        this.tokenStorage.saveToken(data.data.token);
-        this.tokenStorage.saveUser(data.data.username);
-        this.tokenStorage.saveUser_id(data.data.id);
-        const role = data.data.role[0].authority;
-        console.log(role);
-        this.toast.success({ summary: 'Login success', duration: 3000 });
-        this.router.navigate(['/statistical']);
-        console.log(data)
+        if (data.data.role[0].authority === 'CUSTOMER') {
+          this.toast.error({ summary: 'Tài khoản không có quyền truy cập', sticky: true });
+        } else {
+          this.tokenStorage.saveToken(data.data.token);
+          this.tokenStorage.saveUser(data.data.username);
+          this.tokenStorage.saveUser_id(data.data.id);
+          const role = data.data.role[0].authority;
+          this.toast.success({summary: 'Đăng nhập thành công', duration: 3000});
+          this.router.navigate(['/statistical']);
+        }
       } else {
-        this.toast.error({ summary: 'Incorrect username or password', sticky: true });
+        this.toast.error({ summary: 'Thông tin đăng nhập không chính xác', sticky: true });
       }
-
     });
-
   }
-
-
 }
