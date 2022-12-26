@@ -18,6 +18,12 @@ export class AppComponent {
 
   },
     {
+      label: 'Buy offline',
+      icon: 'pi pi-fw pi-calendar',
+      routerLink: '/buy-offline'
+
+    },
+    {
         label: 'Product',
         icon: 'pi pi-fw pi-calendar',
         routerLink: '/list-product'
