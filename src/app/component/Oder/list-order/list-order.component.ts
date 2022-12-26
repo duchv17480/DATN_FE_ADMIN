@@ -6,6 +6,7 @@ import { SessionStorageService } from './../../../services/session-storage.servi
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { FormGroup, FormControl, Validators,FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-list-order',
   templateUrl: './list-order.component.html',
@@ -13,27 +14,74 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 })
 export class ListOrderComponent implements OnInit {
   order: any = [];
+  order1: any = [];
+  order2: any = [];
+  order3: any = [];
+  order4: any = [];
   orderdetaila: any = [];
+  orderdetaila1: any = [];
+  orderdetaila2: any = [];
   order_status: any = [];
   Id!: number;
-
-
+  validateFormO!: FormGroup;
+  validFormCancelled!: FormGroup;
+  Id1!: number;
+  reason : any;
+  order_status1: any[] = [];
+  order_status2: any[] = [];
+  count = 0;
   list_order: any = [];
-
+  isLoading: boolean = false;
   constructor(
     private toastr: ToastrService,
     private sessionService: SessionStorageService,
     private modalService: NgbModal,
+    private rest: OrderService,
     private toast: NgToastService,
+    private _formBuilder: FormBuilder,
     private OrderService: OrderService,
     private matdialog: MatDialog
   ) { }
 
+  firstFormGroup = this._formBuilder.group({
+    firstCtrl: ['', Validators.required],
+  });
+  secondFormGroup = this._formBuilder.group({
+    secondCtrl: ['', Validators.required],
+  });
+  thirdFormGroup = this._formBuilder.group({
+    thirdCtrl: ['', Validators.required],
+  });
+  fourthFormGroup = this._formBuilder.group({
+    fourthCtrl: ['', Validators.required],
+  });
+  fifthFormGroup = this._formBuilder.group({
+    fifthCtrl: ['', Validators.required],
+  });
+  sixthFormGroup = this._formBuilder.group({
+    sixthCtrl: ['', Validators.required],
+  });
+  confirmMessage = '';
+
   ngOnInit(): void {
-    this.getall();
-    this.getAllOrder();
+    // this.getall();
+    // this.getAllOrder();
+    this.getAll_choxacnhan();
+    // this.validateFormO = new FormGroup({
+    //   'shipping': new FormControl(null, [Validators.required]),
+    //   'check': new FormControl(null, [Validators.required])
+    // })
   }
 
+
+  getAllstatuss() {
+    this.isLoading = true;
+    this.rest.getAllstatus().subscribe(data => {
+      this.isLoading = false;
+      this.order_status1 = data.data;
+      console.log(this.order_status1);
+    })
+  }
 
   getAllOrder() {
     this.OrderService.getAllOrderStatus().subscribe(response => {
@@ -52,36 +100,59 @@ export class ListOrderComponent implements OnInit {
   }
   getAll_DANGXULY() {
     this.OrderService.getAll_DANGXULY().subscribe(data => {
-      this.order = data.data;
+      this.order1 = data.data;
       console.log(data);
     })
 
   }
+  filter(e: any) {
+    let condition = e.target.value;
 
+    if (condition) {
+      console.log(condition);
+      this.rest.getAllby_status(condition).subscribe(data => {
+
+        this.order_status2 = data.data;
+        console.log(this.order_status2);
+
+
+      })
+    }
+
+  }
   getAll_DANGVANCHUYEN() {
     this.OrderService.getAll_DANGVANCHUYEN().subscribe(data => {
-      this.order = data.data;
+      this.order2 = data.data;
       console.log(data);
     })
 
   }
   getAll_DAGIAO() {
     this.OrderService.getAll_DAGIAO().subscribe(data => {
-      this.order = data.data;
+      this.order3 = data.data;
       console.log(data);
     })
 
   }
-  orderdetail(confirmDialog: TemplateRef<any>, id: number, order: any) {
+   confirmDeleteProduct(confirmDialog: TemplateRef<any>, id: number) {
+    this.confirmMessage = `Chi tiết đơn hàng `;
+    this.Id = id;
+    console.log(this.Id);
+    this.modalService.open(confirmDialog,
+      { ariaDescribedBy: 'modal-basic-title' }).result.then((result) => {
+      }).catch((err) => {
+
+      })
+  }
+
+  orderdetail(confirmDialog: TemplateRef<any>, id: number) {
 
     this.Id = id;
+    console.log(this.Id);
     this.OrderService.getorderdetail_byid(this.Id).subscribe(data => {
       this.orderdetaila = data.data.content;
-      this.order_status = order;
-      console.log(this.order_status.status);
-      // this.matdialog.open(OrderDetailDialogComponent,{
-      //   data: this.orderdetaila
-      // })
+      console.log(this.orderdetaila);
+
     })
 
     this.modalService.open(confirmDialog,
@@ -91,39 +162,99 @@ export class ListOrderComponent implements OnInit {
       })
 
   }
-  Confilrm(id: number) {
-    // this.OrderService.confilrm_byid(id).subscribe(data => {
-    //   this.modalService.dismissAll();
-    //   this.toast.success({ summary: 'Xác Nhận Thành Công', duration: 2000 });
-    //   this.getAll_choxacnhan();
+  orderdetail1(confirmDialog: TemplateRef<any>, id: number) {
 
+    this.Id1 = id;
+    console.log(this.Id1);
+    this.OrderService.getorderdetail_byid(this.Id1).subscribe(data => {
+      console.log(this.Id1);
+      this.orderdetaila1 = data.data.content;
 
-    // })
-
-  }
-  transporting(id:number){
-    this.OrderService.transporting(id).subscribe(data=>{
-      this.modalService.dismissAll();
-      this.toast.success({ summary: 'Cập Nhật Thành Công', duration: 1000 });
-      this.toast.success({ summary: 'Đơn Đang Vận Chuyển', duration: 2000 });
-      this.getAll_DANGVANCHUYEN();
-
+      console.log(this.orderdetaila1);
 
     })
 
+    this.modalService.open(confirmDialog,
+      { ariaDescribedBy: 'modal-basic-title' }).result.then((result) => {
+      }).catch((err) => {
+
+      })
+
   }
-  cancel(id:number){
-    this.OrderService.Cancel_byid(id).subscribe(data => {
-      this.modalService.dismissAll();
-      this.toast.success({ summary: 'Hủy Đơn thành công', duration: 2000 });
-      this.getAll_choxacnhan();
+  orderdetail2(confirmDialog: TemplateRef<any>, id: number) {
+
+    this.Id1 = id;
+    console.log(this.Id1);
+    this.OrderService.getorderdetail_byid(this.Id1).subscribe(data => {
+      console.log(this.Id1);
+      this.orderdetaila2 = data.data.content;
+
+      console.log(this.orderdetaila2);
+
     })
+
+    this.modalService.open(confirmDialog,
+      { ariaDescribedBy: 'modal-basic-title' }).result.then((result) => {
+      }).catch((err) => {
+
+      })
+
+  }
+
+
+
+  Confilrm() {
+    if (this.Id != null) {
+
+      this.OrderService.confilrm_byidthao(this.Id).subscribe(data => {
+
+        this.modalService.dismissAll();
+        this.toast.success({ summary: 'Xác Nhận Thành Công', duration: 2000 });
+
+        this.getAll_choxacnhan();
+        this.getAll_DANGXULY();
+      })
+    }
+  }
+  transporting() {
+    if (this.Id1 != null) {
+
+      this.OrderService.transporting(this.Id1).subscribe(data => {
+
+        this.modalService.dismissAll();
+        this.toast.success({ summary: 'Cập Nhật Thành Công', duration: 2000 });
+        this.getAll_DANGVANCHUYEN();
+        this.getAll_DANGXULY();
+      })
+    }
+  }
+  delivered() {
+    if (this.Id1 != null) {
+
+      this.OrderService.confirmDeliveredOrder(this.Id1).subscribe(data => {
+
+        this.modalService.dismissAll();
+        this.toast.success({ summary: 'Cập Nhật Thành Công', duration: 2000 });
+        this.getAll_DANGVANCHUYEN();
+       this. getAll_DAGIAO();
+      })
+    }
+  }
+
+  cancel(confirmDialog: TemplateRef<any>){
+
+    this.modalService.open(confirmDialog,
+      { ariaDescribedBy: 'modal-basic-title' }).result.then((result) => {
+      }).catch((err) => {
+
+      })
+
 
   }
 
   getAll_DAHUY() {
     this.OrderService.getAll_DAHUY().subscribe(data => {
-      this.order = data.data;
+      this.order4 = data.data;
       console.log(data);
     })
 
@@ -134,4 +265,18 @@ export class ListOrderComponent implements OnInit {
       console.log(data);
   })
 
-}}
+}
+confirmCancelled() {
+  this.rest.canceledOrder(this.Id,this.reason)
+    .subscribe(response => {
+      this.toast.success({ summary: 'Order cancel successfully', duration: 1000 });
+      console.log(this.reason + "ádjkja");
+      this.ngOnInit();
+    }, error => {
+      this.toast.error({ summary: 'Orders cannot be canceled', sticky: true });
+      console.log(error);
+      this.ngOnInit();
+    });
+}
+
+}
