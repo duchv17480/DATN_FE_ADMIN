@@ -24,7 +24,7 @@ export class ListOrdersComponent implements OnInit {
   shipping! : number;
   statusC : any;
 
-  status = ['Tất cả','Chờ Xác Nhận', 'Đang Sử Lý',
+  status = ['Tất cả','Chờ Xác Nhận', 'Đang Xử Lý',
    'Đang Vận Chuyển','Đã Giao','Đã Hủy'];
 
   validateFormO!: FormGroup;
