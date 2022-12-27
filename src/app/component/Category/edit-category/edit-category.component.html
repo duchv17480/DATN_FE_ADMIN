@@ -4,8 +4,11 @@
     </div>
   </div>
 
-  <form [formGroup]="categoryformEdit" (ngSubmit)="updateCategory()">
+  <div>
+    <a [routerLink]="'/list-category'" class="btn btn-info mb-3 mt-3">List Category</a>
+  </div>
 
+  <form [formGroup]="categoryformEdit" (ngSubmit)="updateCategory()">
     <div class="card">
       <div class="card-header">
         <h5>Update category</h5>
@@ -21,19 +24,19 @@
 
             <div class="form-group mt-2">
               <div class="mb-3">
-                <label for="formFile" class="form-label">Choosse file</label>
+                <label class="form-label">Choosse file</label>
                 <input class="form-control" type="file" formControlName="file" (change)="onFileChange($event)">
               </div>
             </div>
           </div>
           <div class="col">
             <div class="form-group mt-2">
-              <label for="">Name</label>
+              <label>Name</label>
               <input type="text" class="form-control" [ngModel]="category.name" formControlName="name">
             </div>
 
             <div class="form-group mt-2">
-              <label for="">Status</label>
+              <label>Status</label>
               <select class="form-select" [ngModel]="category.status" formControlName="status"
                 aria-label="Default select example">
                 <option value="INACTIVE">Inactive</option>
@@ -43,7 +46,7 @@
             </div>
 
             <div class="form-group mt-2">
-              <label for="">Group component</label>
+              <label>Group component</label>
               <select class="form-select" [ngModel]="category.groupId" formControlName="groupId"
                 aria-label="Default select example">
                 <option *ngFor="let item of groupC" value="{{item.id}}">{{item.name}}</option>
@@ -56,8 +59,6 @@
       <div class="card-footer">
         <button [disabled]="categoryformEdit.invalid" class="btn btn-success" type="submit">Update</button>
       </div>
-
     </div>
-
   </form>
 </div>

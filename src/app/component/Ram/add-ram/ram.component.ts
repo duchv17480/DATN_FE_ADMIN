@@ -29,7 +29,7 @@ export class RamComponent implements OnInit {
     this.AddForm = new FormGroup({
       'ddr': new FormControl(null,[Validators.required, Validators.pattern("^[0-9_-]{1,3}$")]),
       'bus': new FormControl(null,[Validators.required, Validators.pattern("^[0-9_-]{1,3}$")]),
-      'productId': new FormControl(2,[Validators.required]),
+      'productId': new FormControl(null,[Validators.required]),
 
     });
     this.title.setTitle('Admin | case - Add');

@@ -31,8 +31,19 @@
               </div>
             </div>
           </div>
-          <div class="col-4 float-end">
-            <select class="form-select w-25 float-end" (change)="handlePageSizeChange($event)">
+          <div class="col-5 row">
+            <div class="col">
+              <select  class="form-select" (change)="filter($event)"   formControlName="categoryId">
+                <option [value]="item.id"  *ngFor="let item of categories">
+                {{ item.name }}
+                </option>
+               </select>
+            </div>
+            <div class="col"><label mdbLabel class="form-label" style="font-weight:bold; font-size:15px;">Filter by Category</label></div>
+          </div>
+          <div class="col-2 ">
+            <select class="form-select w-25 float-end"
+            (change)="handlePageSizeChange($event)">
               <option *ngFor="let size of pageSizes" [ngValue]="size">
                 {{ size }}
               </option>
@@ -61,20 +72,17 @@
                 currentPage: page,
                 totalItems: count}
                 ">
-              <td>{{pro.code}}</td>
-              <td class="name">{{pro.name}}</td>
-              <td>{{pro.price}}</td>
-              <td>{{pro.quantity}}</td>
-              <td>{{pro.createDate | date: "dd/MM/yyyy"}}</td>
-              <td>{{pro.updateDate | date: "dd/MM/yyyy"}}</td>
-              <td>{{pro.description}}</td>
-              <td>{{pro.status}}</td>
-              <td>
-                <img src="{{pro.imageLink}}" class="img-fluid" alt="">
-              </td>
-
-
-
+            <td>{{pro.code}}</td>
+            <td class="name">{{pro.name}}</td>
+            <td>{{pro.price}}</td>
+            <td>{{pro.quantity}}</td>
+            <td>{{pro.createDate | date: "dd/MM/yyyy"}}</td>
+            <td>{{pro.updateDate | date: "dd/MM/yyyy"}}</td>
+            <td>{{pro.description}}</td>
+            <td>{{pro.status}}</td>
+            <td>
+              <img src="{{pro.imageLink}}" class="img-fluid w-image" alt="">
+            </td>
               <td>
                 <!-- <button [routerLink]="['/review/create/' + pro.id]" pButton pRipple icon="pi pi-pencil"
                   class="p-button-rounded p-button-primary "></button> -->

@@ -14,12 +14,17 @@ export class OrderService {
   constructor(
     private http: HttpClient
   ) { }
-
+  getAllstatus(): Observable<any> {
+    return this.http.get(URL_order +'/status');
+  }
+  getAllby_status(status:any): Observable<any> {
+    return this.http.get(URL_order +'/list-status/'+status);
+  }
   getAll_CHOXACNHAN(): Observable<any> {
     return this.http.get(URL_order +'/list-status/CHOXACNHAN');
   }
   getAll_DANGXULY(): Observable<any> {
-    return this.http.get(URL_order +'/list-status/DANGSULY');
+    return this.http.get(URL_order +'/list-status/DANGXULY');
   }
 
   getAll_DANGVANCHUYEN(): Observable<any> {
@@ -38,9 +43,7 @@ export class OrderService {
   transporting(id: any): Observable<any> {
     return this.http.get(URL_order +'/being-shipped/'+id );
   }
-  Cancel_byid(id: any): Observable<any> {
-    return this.http.get(URL_order +'/cancelled/'+id );
-  }
+  
   getall(): Observable<any> {
     return this.http.get(URL_order  );
   }
@@ -64,6 +67,9 @@ export class OrderService {
 
   confilrm_byid(id: number, shipping :any): Observable<any> {
     return this.http.get(URL_order + '/order-confirm/' + id + '?shipping=' + shipping);
+  }
+  confilrm_byidthao(id: number): Observable<any> {
+    return this.http.get(URL_order + '/order-confirm/' + id );
   }
 
   confirmDeliveredOrder(id:number):Observable<any>{

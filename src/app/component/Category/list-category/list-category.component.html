@@ -1,11 +1,11 @@
 <div>
-  <div class="row m-5 p-0">
+  <div class="row m-0 p-0">
     <div *ngIf="isLoading" class="loading">
       <div class="spinner-border text-primary spinner-center" role="status">
       </div>
     </div>
-    <div>
-      <a [routerLink]="['/add-category']" class="btn btn-success mb-2">Create Category</a>
+    <div class="mt-2">
+      <a [routerLink]="['/add-category']" class="btn btn-info mb-2">Create Category</a>
     </div>
     <div class="card p-0">
       <div class="card-header">
@@ -55,8 +55,8 @@
             <td>{{cate.updateDate}}</td>
             <td>{{cate.status}}</td>
             <td>{{cate.groupId}}</td>
-            <td class="w-25">
-              <img src="{{cate.images}}" class="img-fluid w-25" alt="">
+            <td>
+              <img src="{{cate.images}}" class="img-fluid w-image" alt="">
             </td>
 
             <td>

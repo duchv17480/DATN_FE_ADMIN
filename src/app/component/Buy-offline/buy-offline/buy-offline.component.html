@@ -30,7 +30,7 @@
   </div>
 
   <div class="row mt-3">
-    <div class="col-6">
+    <div class="col-6 ps-0">
 
       <!-- Thông tin hoa don đặt hàng -->
       <div class="card">
@@ -135,7 +135,7 @@
                 <div class="col-4">
                   <div>
                     <mdb-form-control>
-                      <label mdbLabel class="form-label" for="fullname">Họ Và Tên</label>
+                      <label mdbLabel class="form-label">Họ Và Tên</label>
                       <input mdbInput type="text" formControlName="fullname" [(ngModel)]="orderAt.fullname"
                         class="form-control" [value]="nameKh" />
                     </mdb-form-control>
@@ -327,7 +327,6 @@
                       <label mdbLabel class="form-label" for="fullname">Họ Và Tên</label>
                       <input mdbInput type="text" formControlName="fullname" [(ngModel)]="delivery.fullname"
                         class="form-control" [value]="delivery.fullname" />
-
                     </mdb-form-control>
                     <div
                       *ngIf="validFormDeliveryOrder.controls['fullname'].invalid && validFormDeliveryOrder.controls['fullname'].touched"
@@ -341,7 +340,7 @@
                 <div class="col-4">
                   <div>
                     <mdb-form-control>
-                      <label mdbLabel class="form-label" for="phone">Số Điện Thoại</label>
+                      <label mdbLabel class="form-label">Số Điện Thoại</label>
                       <input mdbInput type="text"
                       formControlName="phone"
                       [(ngModel)]="delivery.phone"

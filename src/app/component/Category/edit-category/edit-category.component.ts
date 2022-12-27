@@ -1,5 +1,5 @@
 import { Category } from './../../../_model/Category';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { STATUS } from 'src/app/_model/status';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
@@ -33,7 +33,8 @@ export class EditCategoryComponent implements OnInit {
   constructor(
     private rest: CategoryService,
     private toast: NgToastService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -82,9 +83,8 @@ export class EditCategoryComponent implements OnInit {
     this.rest.editCategory(this.id,this.categoryformEdit.value, this.currentFile)
       .subscribe(data => {
         this.isLoading = false;
-        this.toast.success({ summary: 'Updated category successfuly', duration: 3000 });
-        console.log(data.data);
-
+        this.toast.success({ summary: 'Cập nhập danh mục thành công', duration: 3000 });
+        this.router.navigate(['/list-category'])
       })
 
   }

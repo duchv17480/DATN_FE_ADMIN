@@ -36,6 +36,8 @@ export class AddProductComponent implements OnInit {
   preview = '';
   validateForm!: FormGroup;
 
+  regex: string = '^[\\w\'\\-,.][^_!¡?÷?¿/\\\\+=@#$%ˆ&*{}|~<>;:[\\]]{2,}$'
+
   constructor(
     private restP: ProductApiService,
     private restC: CategoryService,
@@ -52,44 +54,29 @@ export class AddProductComponent implements OnInit {
     this.getAllBrand();
 
     this.validateForm = new FormGroup({
-      'name': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(244)]),
+      'name': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(244), Validators.pattern(this.regex)]),
       'code': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(10)]),
-      'price': new FormControl(null, [Validators.required]),
-      'quantity': new FormControl(null, [Validators.required]),
-      'discount': new FormControl(null, [Validators.required]),
+      'price': new FormControl(null, [Validators.required,Validators.pattern('^[0-9]*$')]),
+      'quantity': new FormControl(null, [Validators.required, Validators.pattern('^[0-9]*$')]),
+      'discount': new FormControl(null, [Validators.required, Validators.pattern('^[0-9]*$')]),
       'status': new FormControl(STATUS.ACTIVE, [Validators.required]),
       'brandId': new FormControl(2, [Validators.required]),
       'categoryId': new FormControl(2, [Validators.required]),
-      'description': new FormControl(null, [Validators.required,Validators.minLength(6), Validators.maxLength(100)]),
     })
-
   }
 
   createProduct() {
     this.isLoading = true;
     this.restP.createProduct(this.product).subscribe(data => {
       this.isLoading = false;
-      this.toast.success({ summary: 'Create product successfuly', duration: 1000 });
+      this.toast.success({ summary: 'Thêm sản phẩm thành công', duration: 1000 });
       this.id=data.data.id;
       this.imageformAdd.patchValue({
         product_id:
           this.id
-
       })
-
-
-      console.log(this.tokenStorage.getidpro());
-      // setTimeout(() => {
-      //   this.route.navigate(['/list-product']);
-
-      // });
     })
-
-
   }
-
-
-
   imageformAdd = new FormGroup({
 
     'name': new FormControl('', [Validators.required]),
@@ -97,7 +84,6 @@ export class AddProductComponent implements OnInit {
     'product_id': new FormControl(1, [Validators.required]),
     'file': new FormControl('', [Validators.required]),
   })
-
 
   getAllCategory() {
     this.isLoading = true;
@@ -146,7 +132,7 @@ export class AddProductComponent implements OnInit {
     this.isLoading = true;
     this.restI.create(this.imageformAdd.value, this.currentFile).subscribe(response => {
       this.isLoading = false;
-      this.toast.success({ summary: 'Create category successfuly', duration: 3000 });
+      this.toast.success({ summary: 'Thêm thành công ảnh cho sản phẩm', duration: 3000 });
       console.log(response.data);
     })
   }

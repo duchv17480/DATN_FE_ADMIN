@@ -18,7 +18,7 @@ export class EditBrandComponent implements OnInit {
 
   id!:number;
   groupForm: FormGroup;
-
+  regex: string = '^[\\w\'\\-,.][^0-9_!¡?÷?¿/\\\\+=@#$%ˆ&*(){}|~<>;:[\\]]{2,}$'
   brands : any;
   constructor(private activatedRoute: ActivatedRoute,
     private messageService: MessageService,
@@ -30,9 +30,10 @@ export class EditBrandComponent implements OnInit {
   ) {
     this.id = activatedRoute.snapshot.params['id'];
     this.groupForm = new FormGroup({
-      'brandName': new FormControl(null,[Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
-      'description': new FormControl(null,[Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
-
+      'brandName': new FormControl(null,[Validators.required,
+                                                            Validators.minLength(2),
+                                                            Validators.maxLength(50),
+                                                            Validators.pattern(this.regex)]),
     });
     this.title.setTitle('Admin | Category - Edit');
   }

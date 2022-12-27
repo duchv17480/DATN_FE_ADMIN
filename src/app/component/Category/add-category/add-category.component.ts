@@ -4,6 +4,7 @@ import { CategoryService } from 'src/app/_service/category-service/category.serv
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { STATUS } from 'src/app/_model/status';
 import { NgToastService } from 'ng-angular-popup';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-category',
@@ -30,7 +31,8 @@ export class AddCategoryComponent implements OnInit {
 
   constructor(
     private rest: CategoryService,
-    private toast: NgToastService
+    private toast: NgToastService,
+    private router: Router,
   ) {
 
   }
@@ -71,9 +73,8 @@ export class AddCategoryComponent implements OnInit {
     this.rest.createCategory(this.categoryform.value, this.currentFile)
       .subscribe(data => {
         this.isLoading = false;
-        this.toast.success({ summary: 'Create category successfuly', duration: 3000 });
-        console.log(data.data);
-
+        this.toast.success({ summary: 'Thêm danh mục thành công', duration: 3000 });
+        this.router.navigate(['/list-category'])
       })
 
   }
