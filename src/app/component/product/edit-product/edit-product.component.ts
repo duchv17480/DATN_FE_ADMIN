@@ -3,7 +3,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { CategoryService } from 'src/app/_service/category-service/category.service';
 import { NgToastService } from 'ng-angular-popup';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ProductApiService } from 'src/app/_service/product-service/product-api.service';
 import { Product } from 'src/app/_model/product';
@@ -28,6 +28,7 @@ export class EditProductComponent implements OnInit {
 
   validateForm!: FormGroup;
 
+  regex: string = '^[\\w\'\\-,.][^_!¡?÷?¿/\\\\+=@#$%ˆ&*{}|~<>;:[\\]]{2,}$'
 
   constructor(
     private restP: ProductApiService,
@@ -35,7 +36,8 @@ export class EditProductComponent implements OnInit {
     private restB: BrandService,
     private rest: ProductApiService,
     private route: ActivatedRoute,
-    private toast: NgToastService
+    private toast: NgToastService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -49,27 +51,23 @@ export class EditProductComponent implements OnInit {
     })
 
     this.validateForm = new FormGroup({
-      'name': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(244)]),
+      'name': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(244), Validators.pattern(this.regex)]),
       'code': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(10)]),
-      'price': new FormControl(null, [Validators.required]),
-      'quantity': new FormControl(null, [Validators.required]),
-      'discount': new FormControl(null, [Validators.required]),
+      'price': new FormControl(null, [Validators.required,Validators.pattern('^[0-9]*$')]),
+      'quantity': new FormControl(null, [Validators.required, Validators.pattern('^[0-9]*$')]),
+      'discount': new FormControl(null, [Validators.required, Validators.pattern('^[0-9]*$')]),
       'status': new FormControl(STATUS.ACTIVE, [Validators.required]),
-      'brandId': new FormControl(1, [Validators.required]),
-      'categoryId': new FormControl(1, [Validators.required]),
-      'description': new FormControl(null, [Validators.required,Validators.minLength(6), Validators.maxLength(100)]),
+      'brandId': new FormControl(2, [Validators.required]),
+      'categoryId': new FormControl(2, [Validators.required]),
     })
-
-
-
   }
-
 
   updateProduct() {
     this.isLoading = true;
     this.rest.updateProduct(this.id, this.product).subscribe(data => {
       this.isLoading = false;
-      this.toast.success({ summary: 'Update product successfuly', duration: 3000 });
+      this.toast.success({ summary: 'Cập nhập sản phẩm thành công', duration: 3000 });
+      this.router.navigate(['/list-product'])
     })
   }
 

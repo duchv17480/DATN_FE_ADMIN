@@ -9117,7 +9117,10 @@ button.list-group-item-gray.active {
 .w-auto {
   width: auto !important;
 }
-
+.w-image {
+  width: 100% !important;
+  height:120px !important;
+}
 .w-25 {
   width: 35% !important;
 }
