@@ -100,8 +100,10 @@
 
             <div class="form-group mt-2">
               <label for="">Cateogry</label>
-              <select class="form-select" [(ngModel)]="product.categoryId" formControlName="categoryId"
+              <select class="form-select" [(ngModel)]="product.categoryId"
+              formControlName="categoryId"
                 aria-label="Default select example">
+                <!-- <option value="{{product.id}}" selected>{{product.name}}</option> -->
                 <option *ngFor="let cate of categories" value="{{cate.id}}">{{cate.name}}</option>
               </select>
               <div *ngIf="validateForm.controls['categoryId'].invalid && validateForm.controls['categoryId'].touched"
