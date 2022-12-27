@@ -29,8 +29,6 @@ export class ListRamComponent implements OnInit {
   this.getAll();
   }
 
-
-
   logout() {
     this.sessionService.deleteSession();
     window.location.href = '/login';
@@ -45,7 +43,7 @@ export class ListRamComponent implements OnInit {
 
     }
     confirmDeleteStaff(confirmDialog: TemplateRef<any>, id: number){
-      this.confirmMessage = `Do you want to delete?`;
+      this.confirmMessage = `Bạn có chắc chắn muốn xoá`;
       this.deleteId = id;
       this.modalService.open(confirmDialog,
         {ariaDescribedBy:'modal-basic-title'}).result.then((result)=>{
@@ -59,7 +57,7 @@ export class ListRamComponent implements OnInit {
         this.RamService.delete(this.deleteId)
         .subscribe(data => {
           this.modalService.dismissAll();
-          this.toast.success({ summary: 'Xóa ram thành công', duration: 3000 });
+          this.toast.success({ summary: 'Xóa thành công', duration: 3000 });
           this.ngOnInit();
         });
       }

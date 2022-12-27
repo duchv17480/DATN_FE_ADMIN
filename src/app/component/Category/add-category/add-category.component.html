@@ -5,6 +5,10 @@
     </div>
   </div>
 
+  <div>
+    <a [routerLink]="'/list-category'" class="btn btn-info mb-3 mt-3">List Category</a>
+  </div>
+
   <form [formGroup]="categoryform" (ngSubmit)="createCategory()">
 
     <div class="card">
@@ -16,16 +20,16 @@
         <div class="row">
           <div class="col">
             <div class="text-center">
-              <img [src]="img_url" class="img-thumbnail w-25" alt="...">
+              <img [src]="img_url" class="img-thumbnail w-25">
             </div>
 
             <div class="form-group mt-2">
               <div class="mb-3">
-                <label for="formFile" class="form-label">Choosse</label>
+                <label class="form-label">Choosse</label>
                 <input class="form-control" type="file" formControlName="file" (change)="onFileChange($event)">
                 <div *ngIf="categoryform.controls['file'].invalid && categoryform.controls['file'].touched"
                   class="text-danger">
-                  <small *ngIf="categoryform.controls['file'].errors?.['required']"> Name không được để trống</small>
+                  <small *ngIf="categoryform.controls['file'].errors?.['required']"> Image không được để trống</small>
                 </div>
               </div>
             </div>
@@ -35,7 +39,7 @@
           <div class="col">
 
             <div class="form-group mt-2">
-              <label for="">Name</label>
+              <label>Name</label>
               <input type="text" class="form-control" formControlName="name">
               <div *ngIf="categoryform.controls['name'].invalid && categoryform.controls['name'].touched"
                 class="text-danger">
@@ -44,7 +48,7 @@
             </div>
 
             <div class="form-group mt-2">
-              <label for="">Status</label>
+              <label>Status</label>
               <select class="form-select" formControlName="status" id="status" aria-label="Default select example">
                 <option value="INACTIVE">Inactive</option>
                 <option value="ACTIVE">Active</option>
@@ -57,7 +61,7 @@
             </div>
 
             <div class="form-group mt-2">
-              <label for="">Group component</label>
+              <label>Group component</label>
               <select class="form-select" formControlName="groupId" id="groupId" aria-label="Default select example">
                 <option *ngFor="let item of groupC" value="{{item.id}}">{{item.name}}</option>
               </select>
