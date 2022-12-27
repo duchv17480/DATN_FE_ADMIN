@@ -2,6 +2,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ProductApiService } from '../../../_service/product-service/product-api.service';
 import { CategoryService } from 'src/app/_service/category-service/category.service';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-list-product',
@@ -29,6 +30,7 @@ export class ListProductComponent implements OnInit {
     private rest: ProductApiService,
     private modalService: NgbModal,
     private restC: CategoryService,
+    private toast: NgToastService,
   ) { }
 
   ngOnInit(): void {
@@ -122,6 +124,37 @@ export class ListProductComponent implements OnInit {
       })
     }
 
+  }
+
+  // tìm kiếm sản phẩm theo mã code,tên,giá
+  filterByProduct(e: any) {
+    let condition = e.target.value;
+    if (condition) {
+      this.rest.getAllProductsAndSearch(condition,0,10).subscribe(data => {
+        this.products = data.data;
+        console.log(data);
+      },
+        error => {
+          this.toast.error({ summary: 'Không tìm thấy sản phẩm!' })
+        });
+    } else {
+      this.getAllProduct();
+    }
+  }
+
+  filterProductByStatus(e: any) {
+    let condition = e.target.value;
+    if (condition) {
+      this.rest.getProductByStatus(condition,0,10).subscribe(data => {
+        this.products = data.data;
+        console.log(data);
+      },
+        error => {
+          this.toast.error({ summary: 'Không tìm thấy sản phẩm!' })
+        });
+    } else {
+      this.getAllProduct();
+    }
   }
 
   confirmDeleteProduct(confirmDialog: TemplateRef<any>, id: number, name: string) {

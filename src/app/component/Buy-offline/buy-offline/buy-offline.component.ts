@@ -11,7 +11,7 @@ import { ProductApiService } from '../../../_service/product-service/product-api
 import { NgToastService } from 'ng-angular-popup';
 import { GhnService } from '../../../_service/ghn-service/ghn.service';
 import Swal from 'sweetalert2';
-import { error } from 'jquery';
+import { error, data } from 'jquery';
 import { ImageApiService } from '../../../_service/image-service/image-api.service';
 import { ProductImages } from '../../../_model/ProductImages';
 
@@ -78,6 +78,7 @@ export class BuyOfflineComponent implements OnInit {
 
   shippingTotal: any;
   serviceId: any;
+  addressName: any;
 
   ship: any;
   sdt: any;
@@ -124,14 +125,16 @@ export class BuyOfflineComponent implements OnInit {
       'check-payment': new FormControl(null, [Validators.required]),
     })
 
+    const ship = this.shippingTotal;
 
+    console.log(ship + " shipahahahah");
     this.validFormDeliveryOrder = new FormGroup({
       'fullname': new FormControl(null, [Validators.required]),
       'province': new FormControl(null, [Validators.required]),
       'district': new FormControl(null, [Validators.required]),
       'ward': new FormControl(null, [Validators.required]),
-      'phone': new FormControl(null, [Validators.required]),
-      'shipping': new FormControl(null, [Validators.required]),
+      'phone': new FormControl(null, [Validators.required, Validators.pattern("(\\+84|0)([0-9]{9}|[0-9]{10})")]),
+      'shipping': new FormControl(null),
       'description': new FormControl(null, [Validators.required]),
     })
 
@@ -140,11 +143,11 @@ export class BuyOfflineComponent implements OnInit {
       'province': new FormControl(null, [Validators.required]),
       'district': new FormControl(null, [Validators.required]),
       'ward': new FormControl(null, [Validators.required]),
-      'phone': new FormControl(null, [Validators.required]),
+      'address': new FormControl(null),
+      'phone': new FormControl(null, [Validators.required,Validators.pattern("(\\+84|0)([0-9]{9}|[0-9]{10})")]),
       'description': new FormControl(null, [Validators.required]),
     })
   }
-
 
   // phần api giao hang nhanh
 
@@ -203,6 +206,8 @@ export class BuyOfflineComponent implements OnInit {
 
   getWardName(wardName: any) {
     this.wardName = wardName;
+    this.addressName = this.wardName + ', ' + this.districtName + ', ' + this.provinceName;
+
   }
   // phần api giao hang nhanh
 
@@ -211,8 +216,11 @@ export class BuyOfflineComponent implements OnInit {
     this.ngOnInit();
   }
 
+  // tạo đơn hàng tại quầy
   createOrder() {
     this.isLoading = true;
+    this.orderAt.address = this.addressName;
+    console.log(this.orderAt.address + "test 01");
     this.restOrder.createAnOrderAtTheCounter(this.orderAt).subscribe(res => {
       this.toast.success({ summary: 'Tạo Đơn hang thành công', duration: 3000 });
       this.isLoading = false;
@@ -223,8 +231,14 @@ export class BuyOfflineComponent implements OnInit {
     });
   }
 
+  // tạo hóa đơn giao
   createDeliveryOrder() {
     this.isLoading = true;
+
+    this.delivery.address = this.addressName;
+    this.delivery.shipping = this.shippingTotal;
+    console.log(this.delivery.address + "test address");
+    console.log(this.delivery.shipping + "test ship");
     this.restOrder.createDeliveryOrder(this.delivery).subscribe(res => {
       this.toast.success({ summary: 'Tạo Đơn hang thành công', duration: 3000 });
       this.isLoading = false;
@@ -280,32 +294,12 @@ export class BuyOfflineComponent implements OnInit {
     let condition = even.target.value;
     this.restOrder.getAllOrdersAndSearch(condition).subscribe(res => {
       this.isLoading = false;
-      // this.listOrderPaid = res.data;
       this.delivery = res.data[0];
       this.orderAt = res.data[0];
       this.toast.success({ summary: 'Tìm thấy một khách hàng trước đó !', duration: 3000 });
-      // const totalItem = res.pagination.totalItem;
-      // this.countOrder = totalItem;
-
     }, error => {
-      this.delivery = {
-        fullname: 'abc',
-        province: '',
-        district: '',
-        ward: '',
-        phone: '',
-        description: '',
-        shipping: '',
-        id: 0,
-        paymentStatus: '',
-        orderStatus: '',
-        nameStaff: '',
-        createDate: '',
-        updateDate: '',
-      }
-
-
-      console.log(error);
+      this.toast.success({ summary: 'Khách hàng mới !'});
+      this.orderAt
       this.isLoading = false;
     });
   }
@@ -404,6 +398,8 @@ export class BuyOfflineComponent implements OnInit {
   // cập nhật hóa đơn giao
   updateDeliveryOrders() {
     this.isLoading = true;
+    this.delivery.address = this.addressName;
+    this.delivery.shipping = this.shippingTotal;
     this.restOrder.updateDeliveryOrder(this.delivery.id, this.delivery).subscribe(res => {
       this.isLoading = false;
       this.toast.success({ summary: 'Cập nhật thành công', duration: 3000 });
@@ -417,7 +413,7 @@ export class BuyOfflineComponent implements OnInit {
 
   // cap nhat don hang tai quay
   updateAtTheCounter() {
-    {
+    this.delivery.address = this.addressName;
       this.isLoading = true;
       this.restOrder.updateOrderAtTheCounter(this.delivery.id, this.orderAt).subscribe(res => {
         this.isLoading = false;
@@ -427,7 +423,7 @@ export class BuyOfflineComponent implements OnInit {
         console.log(error);
         this.isLoading = false;
       });
-    }
+
   }
 
   //phần hóa đơn

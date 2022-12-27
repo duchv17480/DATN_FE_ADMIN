@@ -63,5 +63,11 @@ export class ProductApiService {
     return this.http.get(URL_PROUCT + "/category/" + id + '?page=' + page + '&page-size=' + pageNumber);
   }
 
+  // load product theo status
+  getProductByStatus(status: any,page: number, pageNumber: number): Observable<any> {
+    return this.http.get(URL_PROUCT + "/list-status/" + status + '?page=' + page + '&page-size=' + pageNumber);
+  }
+
+
 
 }

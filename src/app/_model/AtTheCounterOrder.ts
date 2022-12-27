@@ -3,6 +3,7 @@ export class OrderTheCounter {
     province!: string;
     district!: string;
     ward!: string;
+    address!:string;
     phone!: string;
     description!: string;
   }
