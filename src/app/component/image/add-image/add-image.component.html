@@ -21,7 +21,7 @@
 
             <div class="form-group mt-2">
               <div class="mb-3">
-                <label for="formFile" class="form-label">Choosse file</label>
+                <label class="form-label">Choosse file</label>
                 <input class="form-control" type="file" formControlName="file" (change)="onFileChange($event)">
                 <div *ngIf="imageformAdd.controls['file'].invalid && imageformAdd.controls['file'].touched"
                   class="text-danger">

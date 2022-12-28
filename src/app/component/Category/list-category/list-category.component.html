@@ -5,7 +5,7 @@
       </div>
     </div>
     <div class="mt-2">
-      <a [routerLink]="['/add-category']" class="btn btn-info mb-2">Create Category</a>
+      <a [routerLink]="['/add-category']" class="btn btn-info mb-2">Add new</a>
     </div>
     <div class="card p-0">
       <div class="card-header">
@@ -34,7 +34,7 @@
       <table class="table table-bordered" id="category">
         <thead>
           <tr>
-            <th>No</th>
+            <th>Id</th>
             <th>Name</th>
             <th>Create Date</th>
             <th>Update Date</th>
@@ -61,7 +61,7 @@
 
             <td>
               <button [routerLink]="['/edit-category/' + cate.id]" pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" ></button>
-              <button (click)="confirmDeleteCategory(content, cate.id,cate.name)" pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"  ></button>
+              <button (click)="confirmDeleteCategory(content, cate.id,cate.name)" pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" ></button>
             </td>
 
           </tr>

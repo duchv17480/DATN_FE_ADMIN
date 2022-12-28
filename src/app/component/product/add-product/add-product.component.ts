@@ -36,7 +36,7 @@ export class AddProductComponent implements OnInit {
   preview = '';
   validateForm!: FormGroup;
 
-  regex: string = '^[\\w\'\\-,.][^_!¡?÷?¿/\\\\+=@#$%ˆ&*{}|~<>;:[\\]]{2,}$'
+  regex: string = '^[\\w\'\\-,.a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\ ][^_!¡?÷?¿/\\\\+=@#$%ˆ&*{}~<>;:[\\]]{2,}$'
 
   constructor(
     private restP: ProductApiService,

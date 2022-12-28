@@ -1,16 +1,14 @@
 <div class="col">
     <div class="m-2">
       <div>
-        <a [routerLink]="'/brand/add'" class="btn btn-info mb-3 mt-3">Create new Brand</a>
+        <a [routerLink]="'/brand/add'" class="btn btn-info mb-3 mt-3">Add new</a>
       </div>
       <div class="card">
 
         <p-table #dt [value]="brands" [rows]="5" [paginator]="true"  responsiveLayout="scroll" [rowHover]="true"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
-
             <ng-template pTemplate="header">
                 <tr>
-
                     <th pSortableColumn="brandName">Brand name<p-sortIcon ></p-sortIcon></th>
                     <th pSortableColumn="description">Description <p-sortIcon ></p-sortIcon></th>
                  <th>Action</th>

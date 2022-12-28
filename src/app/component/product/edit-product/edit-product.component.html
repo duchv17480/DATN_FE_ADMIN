@@ -1,11 +1,11 @@
-<div id="productAdd" class="mt-5">
-
-
+<div id="productAdd" class="mt-2">
+  <div>
+    <a [routerLink]="'/list-product'" class="btn btn-info mb-2 mt-2">List Products</a>
+  </div>
   <div *ngIf="isLoading" class="loading">
     <div class="spinner-border text-primary spinner-center" role="status">
     </div>
   </div>
-
 
   <form [formGroup]="validateForm">
 

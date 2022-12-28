@@ -24,6 +24,7 @@ export class AddGroupComponentComponent implements OnInit {
     { name: 'active', value: 'active' },
     { name: 'hidden', value: 'hidden' },
   ];
+  regex: string = '^[\\w\'\\-,.a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\ ][^_!¡?÷?¿/\\\\+=@#$%ˆ&*{}~<>;:[\\]]{2,}$'
 
   grSelect:any;
   constructor(
@@ -35,9 +36,8 @@ export class AddGroupComponentComponent implements OnInit {
     private title: Title
   ) {
     this.AddForm = new FormGroup({
-      'name': new FormControl(null,[Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
-      'brandId': new FormControl(null,[Validators.required]),
-
+      'name': new FormControl(null,[Validators.required, Validators.minLength(6), Validators.maxLength(50), Validators.pattern(this.regex)]),
+      // 'brandId': new FormControl(null,[Validators.required]),
     });
     this.title.setTitle('Admin | GroupComponent - Add');
   }

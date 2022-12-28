@@ -5,6 +5,7 @@ import { ProductApiService } from './../../../_service/product-service/product-a
 import { RamService } from './../../../_service/ram-service/ram.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import {NgToastService} from "ng-angular-popup";
 
 @Component({
   selector: 'app-ram',
@@ -24,7 +25,8 @@ export class RamComponent implements OnInit {
     private ProductApiService: ProductApiService,
     private messageService: MessageService,
     private route: Router,
-    private title: Title
+    private title: Title,
+    private toast: NgToastService
   ) {
     this.AddForm = new FormGroup({
       'ddr': new FormControl(null,[Validators.required, Validators.pattern("^[0-9_-]{1,3}$")]),
@@ -54,19 +56,12 @@ export class RamComponent implements OnInit {
       'productId': + this.grSelect,
 
     }
-    setTimeout(() => {
-      this.RamService.post(upload).subscribe({
-        next: (data: any) => {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Add success' });
-          setTimeout(() => {
-            this.route.navigate(['/ram']);
-
-          });
-        }
-
-      });
-    }, 6000);
-
+    this.RamService.post(upload).subscribe({
+      next: (data: any) => {
+        this.toast.success({ summary: 'Thêm mới thành công', duration: 3000 });
+        this.route.navigate(['/ram']);
+      }
+    });
   }
 
 }
