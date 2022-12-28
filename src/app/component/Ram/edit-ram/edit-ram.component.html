@@ -1,10 +1,12 @@
-<a [routerLink]="'/categories'" mat-raised-button>List Category</a>
+<div class="mt-2 mb-2">
+  <a  [routerLink]="'/ram'" class="btn btn-info" >List Ram</a>
+</div>
 <p-toast position="top-right"></p-toast>
 <p-card>
   <form action="" [formGroup]="groupForm" (ngSubmit)="editcolor()">
     <div class="mb-4">
       <mdb-form-control>
-        <label mdbLabel class="form-label" for="ddr">Ddr</label>
+        <label mdbLabel class="form-label">Ddr</label>
         <input
           mdbInput
           type="text"
@@ -20,7 +22,7 @@
     </div>
     <div class="mb-4">
       <mdb-form-control>
-        <label mdbLabel class="form-label" for="bus">Bus</label>
+        <label mdbLabel class="form-label">Bus</label>
         <input
           mdbInput
           type="text"
@@ -38,7 +40,7 @@
 
     <div class="mb-3">
       <div class="form-group">
-        <label for="">Choose Product</label>
+        <label>Choose Product</label>
         <select
           class="form-control"
           (change)="changeGroup($event)"
@@ -54,7 +56,7 @@
 
 
       <div class="d-flex justify-content-between">
-      <button class="btn btn-primary btn-sm">Submit</button>
+      <button class="btn btn-success" [disabled]="groupForm.invalid">Update</button>
     </div>
   </form>
 </p-card>

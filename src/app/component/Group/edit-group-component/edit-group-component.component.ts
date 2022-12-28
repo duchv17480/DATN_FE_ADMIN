@@ -20,6 +20,9 @@ export class EditGroupComponentComponent implements OnInit {
   groupForm: FormGroup;
   groupSelect: any
   groupOne : any;
+
+  regex: string = '^[\\w\'\\-,.a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\ ][^_!¡?÷?¿/\\\\+=@#$%ˆ&*{}~<>;:[\\]]{2,}$'
+
   constructor(private activatedRoute: ActivatedRoute,
     private messageService: MessageService,
     private route: Router,
@@ -29,8 +32,8 @@ export class EditGroupComponentComponent implements OnInit {
   ) {
     this.id = activatedRoute.snapshot.params['id'];
     this.groupForm = new FormGroup({
-      'name': new FormControl(null,[Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
-      'brandId': new FormControl(null,[Validators.required]),
+      'name': new FormControl(null,[Validators.required, Validators.minLength(6), Validators.maxLength(50), Validators.pattern(this.regex)]),
+      // 'brandId': new FormControl(null,[Validators.required]),
     });
     this.title.setTitle('Admin | Category - Edit');
   }
@@ -65,7 +68,7 @@ export class EditGroupComponentComponent implements OnInit {
         setTimeout(() => {
            this.Group.put( this.id,groupForm).subscribe({
           next: (data: any) => {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Edit success' })
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Cập nhập thành công'})
             setTimeout(() => {
               this.route.navigate(['/groupcomponent']);
 

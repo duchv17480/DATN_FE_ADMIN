@@ -1,5 +1,7 @@
-<div id="productAdd" class="mt-5">
-
+<div id="productAdd" class="mt-2">
+  <div>
+    <a [routerLink]="'/list-product'" class="btn btn-info mb-2 mt-2">List Products</a>
+  </div>
   <div *ngIf="isLoading" class="loading">
     <div class="spinner-border text-primary spinner-center" role="status">
     </div>
@@ -9,7 +11,6 @@
     <mat-step [stepControl]="firstFormGroup" [editable]="false">
       <ng-template matStepLabel>
         Add product
-
       </ng-template>
       <form [formGroup]="validateForm">
         <div class="card">
@@ -134,7 +135,7 @@
         </div>
       </form>
       <div>
-        <button mat-button [disabled]="validateForm.invalid" class="btn btn-success mt-2" (click)="createProduct()" matStepperNext >Create</button>
+        <button mat-button [disabled]="validateForm.invalid" class="btn btn-success mt-2" (click)="createProduct()" matStepperNext >Create and next</button>
       </div>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup"  [editable]="false">

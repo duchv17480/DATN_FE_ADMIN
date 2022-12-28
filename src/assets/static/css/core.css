@@ -9121,6 +9121,9 @@ button.list-group-item-gray.active {
   width: 100% !important;
   height:120px !important;
 }
+.w-10 {
+  width: 10px !important;
+}
 .w-25 {
   width: 35% !important;
 }
