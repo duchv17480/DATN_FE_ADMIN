@@ -13,7 +13,7 @@ export class AppComponent {
   items:MenuItem[] = [
     {
       label: 'Statistical',
-      icon: '      bi bi-reception-4',
+      icon: 'bi bi-reception-4',
       routerLink: '/statistical'
 
   },
@@ -32,7 +32,7 @@ export class AppComponent {
     {
       label: 'Order',
       icon: 'pi pi-fw pi-tablet',
-      routerLink: 'list-orders'
+      routerLink: 'list-order'
     },
     {
       label: 'Staff',
@@ -43,21 +43,18 @@ export class AppComponent {
     {
         label: 'Category',
         icon: 'pi pi-fw pi-calendar',
-
         routerLink: '/list-category'
 
     },
     {
       label: 'Group-component',
       icon: 'pi pi-fw pi-calendar',
-
       routerLink: '/groupcomponent'
 
   },
   {
     label: 'Brand',
     icon: 'pi pi-fw pi-calendar',
-
     routerLink: '/brand'
 
 },
