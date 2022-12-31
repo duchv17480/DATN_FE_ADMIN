@@ -13,8 +13,9 @@
             <div class="row">
               <h2>Tìm kiếm sản phẩm</h2>
               <div class="col">
-                <input type="text" class="form-control" [(ngModel)]="idProduct" (change)="filterByCodeProduct($event)"
-                  (change)="confirmAddProduct(cancelled)" placeholder="Search by code" />
+                <input type="text" class="form-control" [(ngModel)]="idProduct"
+                 (change)="filterByCodeProduct($event)"
+                  (change)="confirmAddProduct(cancelled)" [value]="resetFilterByCode"  placeholder="Search by code" />
               </div>
               <div class="col">
                 <input type="text" class="form-control" [(ngModel)]="title" (change)="searchTitle($event)"
@@ -137,15 +138,13 @@
                     <mdb-form-control>
                       <label mdbLabel class="form-label">Họ Và Tên</label>
                       <input mdbInput type="text" formControlName="fullname" [(ngModel)]="orderAt.fullname"
-                        class="form-control" [value]="nameKh" />
+                        class="form-control"/>
                     </mdb-form-control>
                     <div
                       *ngIf="validFormAtTheCounterOrder.controls['fullname'].invalid && validFormAtTheCounterOrder.controls['fullname'].touched"
                       class="text-danger">
-                      <small *ngIf="validFormAtTheCounterOrder.controls['fullname'].errors?.['required']"> fullname
-                        không
-                        được
-                        để trống</small>
+                      <small *ngIf="validFormAtTheCounterOrder.controls['fullname'].errors?.['required']">Họ và tên không được để trống</small>
+                        <small *ngIf="validFormAtTheCounterOrder.controls['fullname'].errors?.['pattern']"> Họ và tên không được nhập số</small>
                     </div>
                   </div>
                 </div>
@@ -156,7 +155,7 @@
                       <input mdbInput formControlName="phone"
                        [(ngModel)]="orderAt.phone"
                         (change)="searchFullnameOrder($event)"
-                        class="form-control" [value]="sdt" />
+                        class="form-control" />
                     </mdb-form-control>
                     <div
                       *ngIf="validFormAtTheCounterOrder.controls['phone'].invalid && validFormAtTheCounterOrder.controls['phone'].touched"
@@ -181,10 +180,11 @@
                     <mat-form-field appearance="outline">
                       <mat-label>Chọn Tỉnh/Thành phố *</mat-label>
                       <mat-select formControlName="province"
+                      (selectionChange)="getDistrict(provinceId,provinceName)"
                        [(ngModel)]="orderAt.province">
-                        <mat-option *ngFor="let p of province" [value]="p.ProvinceID"
-                          (onSelectionChange)="getDistrict(p.ProvinceID,p.ProvinceName);"
-                          (click)="getDistrict(p.ProvinceID,p.ProvinceName); ">
+                       <mat-option *ngFor="let p of province" [value]="p.ProvinceID"
+                          (click)="getDistrict(p.ProvinceID,p.ProvinceName)"
+                          >
                           {{p.ProvinceName}}
                         </mat-option>
                       </mat-select>
@@ -205,7 +205,6 @@
                     <mat-label>Chọn Quận/Huyện *</mat-label>
                     <mat-select formControlName="district" [(ngModel)]="orderAt.district">
                       <mat-option *ngFor="let d of district" [value]="d.DistrictID"
-                        (onSelectionChange)="getWard(d.DistrictID, d.DistrictName)"
                         (click)="getWard(d.DistrictID, d.DistrictName);">
                         {{d.DistrictName}}
                       </mat-option>
@@ -218,7 +217,9 @@
                     <mat-form-field appearance="outline">
                       <mat-label>Chọn Phường/Xã *</mat-label>
                       <mat-select formControlName="ward" [(ngModel)]="orderAt.ward">
-
+                        <mat-option [value]="orderAt.ward" >
+                          {{provinceName}}
+                        </mat-option>
                         <mat-option *ngFor="let w of ward" [value]="w.WardCode" (click)="getWardName(w.WardName)">
                           {{w.WardName}}
                         </mat-option>
@@ -240,15 +241,7 @@
                 <div class="form-group">
                   <label for="">Mo ta</label>
                   <textarea matInputc class="form-control" formControlName="description"
-                    [(ngModel)]="orderAt.description" [value]="des"></textarea>
-                  <div
-                    *ngIf="validFormAtTheCounterOrder.controls['description'].invalid && validFormAtTheCounterOrder.controls['description'].touched"
-                    class="text-danger">
-                    <small *ngIf="validFormAtTheCounterOrder.controls['description'].errors?.['required']"> phone không
-                      được
-                      để
-                      trống</small>
-                  </div>
+                    [(ngModel)]="orderAt.description"></textarea>
                 </div>
               </div>
 
@@ -298,8 +291,7 @@
                     <h2>Đơn: {{delivery.orderStatus == 'DONGIAO' ? 'Đơn Giao':'Tại Quầy'}} </h2>
                   </div>
                   <div>
-                    <h2>Trạng Thái: {{delivery.paymentStatus == 'CHUATHANHTOAN' ? 'Chưa Thanh Toán' : 'Đã Thanh
-                      Toán'}}</h2>
+                    <h2>Trạng Thái: {{delivery.paymentStatus == 'CHUATHANHTOAN' ? 'Chưa Thanh Toán' : 'Đã Thanh Toán'}}</h2>
                   </div>
                 </div>
                 <div class="col-6">
@@ -326,10 +318,9 @@
                     <mdb-form-control>
                       <label mdbLabel class="form-label" for="fullname">Họ Và Tên</label>
                       <input mdbInput type="text" formControlName="fullname" [(ngModel)]="delivery.fullname"
-                        class="form-control" [value]="delivery.fullname" />
+                        class="form-control" />
                     </mdb-form-control>
-                    <div
-                      *ngIf="validFormDeliveryOrder.controls['fullname'].invalid && validFormDeliveryOrder.controls['fullname'].touched"
+                    <div *ngIf="validFormDeliveryOrder.controls['fullname'].invalid && validFormDeliveryOrder.controls['fullname'].touched"
                       class="text-danger">
                       <small *ngIf="validFormDeliveryOrder.controls['fullname'].errors?.['required']"> fullname không
                         được
@@ -376,7 +367,8 @@
                   <div *ngIf="doing">
                     <mdb-form-control>
                       <label mdbLabel class="form-label">Tiền Shipping</label>
-                      <input mdbInput formControlName="shipping" [(ngModel)]="delivery.shipping" [value]="shippingTotal"
+                      <input mdbInput formControlName="shipping"
+                       [(ngModel)]="delivery.shipping" [value]="shippingTotal"
                         class="form-control" />
                     </mdb-form-control>
                     <div
@@ -400,7 +392,6 @@
                       <mat-label>Chọn Tỉnh/Thành phố *</mat-label>
                       <mat-select formControlName="province" [(ngModel)]="delivery.province">
                         <mat-option *ngFor="let p of province" [value]="p.ProvinceID"
-                          (onSelectionChange)="getDistrict(p.ProvinceID,p.ProvinceName);"
                           (click)="getDistrict(p.ProvinceID,p.ProvinceName); ">
                           {{p.ProvinceName}}
                         </mat-option>
@@ -420,8 +411,8 @@
                   <mat-form-field appearance="outline">
                     <mat-label>Chọn Quận/Huyện *</mat-label>
                     <mat-select formControlName="district" [(ngModel)]="delivery.district">
-                      <mat-option *ngFor="let d of district" [value]="d.DistrictID"
-                        (onSelectionChange)="getWard(d.DistrictID, d.DistrictName)"
+                      <mat-option *ngFor="let d of district"
+                       [value]="d.DistrictID"
                         (click)="getWard(d.DistrictID, d.DistrictName);">
                         {{d.DistrictName}}
                       </mat-option>
@@ -459,18 +450,9 @@
               </div>
               <div class="row">
                 <div class="form-group">
-
                   <label for="">Mo ta</label>
                   <textarea matInputc class="form-control" formControlName="description"
                     [(ngModel)]="delivery.description"></textarea>
-                  <div
-                    *ngIf="validFormDeliveryOrder.controls['description'].invalid && validFormDeliveryOrder.controls['description'].touched"
-                    class="text-danger">
-                    <small *ngIf="validFormDeliveryOrder.controls['description'].errors?.['required']"> phone không
-                      được
-                      để
-                      trống</small>
-                  </div>
                 </div>
               </div>
               <div class="row mt-3">
