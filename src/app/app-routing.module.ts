@@ -59,88 +59,102 @@ import { StatisticalComponent } from './component/statistical/statistical.compon
 import { ProductDetailComponent } from './component/product-detail/product-detail/product-detail.component';
 import { BuyOfflineTestComponent } from './component/Buy-offline/buy-offline-test/buy-offline-test.component';
 import { BuyOfflineComponent } from './component/Buy-offline/buy-offline/buy-offline.component';
+import { AuthGuard } from './_helper/auth.guard';
+import { PublicComponent } from './component/public/public.component';
+import { AuthenticatedComponent } from './component/authenticated/authenticated.component';
 
 
 const routes: Routes=[
   { path: '', pathMatch: 'full', redirectTo: 'login' },
-  { path: 'login', component: LoginComponent },
+  { path: '', component: PublicComponent, children: [
+    {
+      path: 'login',
+      component: LoginComponent
+    }
+  ] },
+  {
+    path: '', component: AuthenticatedComponent,
+    children: [
+      { path: 'add-category', component: AddCategoryComponent, canActivate: [AuthGuard] },
+      { path: 'list-category', component: ListCategoryComponent, canActivate: [AuthGuard]},
+      { path: 'edit-category/:id', component: EditCategoryComponent, canActivate: [AuthGuard]},
 
-  { path: 'add-category', component: AddCategoryComponent },
-  { path: 'list-category', component: ListCategoryComponent},
-  { path: 'edit-category/:id', component: EditCategoryComponent},
+      { path: 'list-order', component: ListOrderComponent, canActivate: [AuthGuard]},
+      { path: 'list-orders', component: ListOrdersComponent, canActivate: [AuthGuard]},
+      { path: 'info-order/:id', component: InfoOrderComponent, canActivate: [AuthGuard]},
 
-  { path: 'list-order', component: ListOrderComponent},
-  { path: 'list-orders', component: ListOrdersComponent},
-  { path: 'info-order/:id', component: InfoOrderComponent},
+      { path: 'statistical', component: StatisticalComponent, canActivate: [AuthGuard]},
 
-  { path: 'statistical', component: StatisticalComponent},
+      { path: 'add-product', component: AddProductComponent, canActivate: [AuthGuard]},
+      { path: 'list-product', component: ListProductComponent, canActivate: [AuthGuard]},
+      { path: 'edit-product/:id', component: EditProductComponent, canActivate: [AuthGuard]},
 
-  { path: 'add-product', component: AddProductComponent},
-  { path: 'list-product', component: ListProductComponent},
-  { path: 'edit-product/:id', component: EditProductComponent},
+      { path: 'ram', component: ListRamComponent, canActivate: [AuthGuard]},
+      { path: 'ram/create', component: RamComponent, canActivate: [AuthGuard]},
+      { path: 'ram/update/:id', component: EditRamComponent, canActivate: [AuthGuard]},
 
-  { path: 'ram', component: ListRamComponent},
-  { path: 'ram/create', component: RamComponent},
-  { path: 'ram/update/:id', component: EditRamComponent},
+      { path:'register', component: RegisterComponent, canActivate: [AuthGuard]},
+      { path:'emailRegister', component: EmailRegisterComponent, canActivate: [AuthGuard]},
+      { path:'forgotPassword', component: ForgotPasswordComponent, canActivate: [AuthGuard]},
 
-  { path:'register', component: RegisterComponent},
-  { path:'emailRegister', component: EmailRegisterComponent},
-  { path:'forgotPassword', component: ForgotPasswordComponent},
+      { path: 'hd', component: ListHdComponent, canActivate: [AuthGuard]},
+      { path: 'hd/create', component: AddHdComponent, canActivate: [AuthGuard]},
+      { path: 'hd/update/:id', component: EditHdComponent, canActivate: [AuthGuard]},
 
-  { path: 'hd', component: ListHdComponent},
-  { path: 'hd/create', component: AddHdComponent},
-  { path: 'hd/update/:id', component: EditHdComponent},
+      { path: 'psu', component: ListPsuComponent, canActivate: [AuthGuard]},
+      { path: 'psu/create', component: AddPsuComponent, canActivate: [AuthGuard]},
+      { path: 'psu/update/:id', component: EditPsuComponent, canActivate: [AuthGuard]},
 
-  { path: 'psu', component: ListPsuComponent},
-  { path: 'psu/create', component: AddPsuComponent},
-  { path: 'psu/update/:id', component: EditPsuComponent},
+      { path: 'main', component: ListMainComponent, canActivate: [AuthGuard]},
+      { path: 'main/create', component: AddMainComponent, canActivate: [AuthGuard]},
+      { path: 'main/update/:id', component: EditMainComponent, canActivate: [AuthGuard]},
 
-  { path: 'main', component: ListMainComponent},
-  { path: 'main/create', component: AddMainComponent},
-  { path: 'main/update/:id', component: EditMainComponent},
+      { path: 'case', component: ListCaseComponent , canActivate: [AuthGuard]},
+      { path: 'case/create', component: AddCaseComponent , canActivate: [AuthGuard]},
+      { path: 'case/update/:id', component: EditCaseComponent , canActivate: [AuthGuard]},
 
-  { path: 'case', component: ListCaseComponent },
-  { path: 'case/create', component: AddCaseComponent },
-  { path: 'case/update/:id', component: EditCaseComponent },
+      { path: 'groupcomponent', component: GroupComponentComponent , canActivate: [AuthGuard]},
+      { path: 'groupcomponent/add', component: AddGroupComponentComponent, canActivate: [AuthGuard]},
+      { path: 'groupcomponent/:id', component: EditGroupComponentComponent , canActivate: [AuthGuard]},
 
-  { path: 'groupcomponent', component: GroupComponentComponent },
-  { path: 'groupcomponent/add', component: AddGroupComponentComponent},
-  { path: 'groupcomponent/:id', component: EditGroupComponentComponent },
+      { path: 'brand', component: BrandsComponent, canActivate: [AuthGuard]},
+      { path: 'brand/add', component: AddBrandComponent, canActivate: [AuthGuard]},
+      { path: 'brand/edit/:id', component: EditBrandComponent, canActivate: [AuthGuard]},
 
-  { path: 'brand', component: BrandsComponent},
-  { path: 'brand/add', component: AddBrandComponent},
-  { path: 'brand/edit/:id', component: EditBrandComponent},
+      { path: 'color', component: ColorComponent , canActivate: [AuthGuard]},
+      { path: 'color/add', component: AddColorComponent , canActivate: [AuthGuard]},
+      { path: 'color/edit/:id', component: EditColorComponent , canActivate: [AuthGuard]},
 
-  { path: 'color', component: ColorComponent },
-  { path: 'color/add', component: AddColorComponent },
-  { path: 'color/edit/:id', component: EditColorComponent },
+      { path: 'review/list', component: ReviewListComponent , canActivate: [AuthGuard]},
+      { path: 'review/create/:id', component: AddReviewComponent , canActivate: [AuthGuard]},
+      { path: 'review/update/:id', component: EditReviewComponent , canActivate: [AuthGuard]},
 
-  { path: 'review/list', component: ReviewListComponent },
-  { path: 'review/create/:id', component: AddReviewComponent },
-  { path: 'review/update/:id', component: EditReviewComponent },
+      { path: 'list-image', component: ListImageComponent, canActivate: [AuthGuard]},
+      { path: 'add-image', component: AddImageComponent, canActivate: [AuthGuard]},
+      { path: 'edit-image/:id', component: EditImageComponent, canActivate: [AuthGuard]},
 
-  { path: 'list-image', component: ListImageComponent},
-  { path: 'add-image', component: AddImageComponent},
-  { path: 'edit-image/:id', component: EditImageComponent},
-
-  { path: 'list-payment', component: ListPaymentComponent},
-  { path: 'add-payment', component: AddPaymentComponent},
-  { path: 'edit-payment/:id', component: EditPaymentComponent},
+      { path: 'list-payment', component: ListPaymentComponent, canActivate: [AuthGuard]},
+      { path: 'add-payment', component: AddPaymentComponent, canActivate: [AuthGuard]},
+      { path: 'edit-payment/:id', component: EditPaymentComponent, canActivate: [AuthGuard]},
 
 
 
-  // { path: 'users', component: UsersComponent },
-  { path: 'add-chip', component: AddChipComponent},
-  { path: 'list-chip', component: ListChipComponent},
-  { path: 'list-favourite', component: ListFavouriteComponent},
-  { path: 'add-favourite', component: AddFavouriteComponent},
-  { path: 'list-staff', component: ListStaffComponent},
-  { path: 'add-staff', component: CreateStaffComponent},
-  { path: 'update-staff/:id', component: UpdateStaffComponent},
+      // { path: 'users', component: UsersComponent },
+      { path: 'add-chip', component: AddChipComponent, canActivate: [AuthGuard]},
+      { path: 'list-chip', component: ListChipComponent, canActivate: [AuthGuard]},
+      { path: 'list-favourite', component: ListFavouriteComponent, canActivate: [AuthGuard]},
+      { path: 'add-favourite', component: AddFavouriteComponent, canActivate: [AuthGuard]},
+      { path: 'list-staff', component: ListStaffComponent, canActivate: [AuthGuard]},
+      { path: 'add-staff', component: CreateStaffComponent, canActivate: [AuthGuard]},
+      { path: 'update-staff/:id', component: UpdateStaffComponent, canActivate: [AuthGuard]},
 
-  { path: 'buy-offline-test', component: BuyOfflineTestComponent},
-  { path: 'buy-offline', component: BuyOfflineComponent},
-  { path: 'product-detail/:id', component: ProductDetailComponent},
+      { path: 'buy-offline-test', component: BuyOfflineTestComponent, canActivate: [AuthGuard]},
+      { path: 'buy-offline', component: BuyOfflineComponent, canActivate: [AuthGuard]},
+      { path: 'product-detail/:id', component: ProductDetailComponent, canActivate: [AuthGuard]},
+    ]
+  }
+
+
 ];
 
 @NgModule({

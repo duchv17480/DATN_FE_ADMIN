@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators,FormBuilder } from '@angular/forms';
+import { CancelDialogComponent } from '../cancel-dialog/cancel-dialog.component';
+import { OrderInfoComponent } from '../order-info/order-info.component';
 @Component({
   selector: 'app-list-order',
   templateUrl: './list-order.component.html',
@@ -66,7 +68,8 @@ export class ListOrderComponent implements OnInit {
   ngOnInit(): void {
     // this.getall();
     // this.getAllOrder();
-    this.getAll_choxacnhan();
+    // this.getAll_choxacnhan();
+    this.getAllInit();
     // this.validateFormO = new FormGroup({
     //   'shipping': new FormControl(null, [Validators.required]),
     //   'check': new FormControl(null, [Validators.required])
@@ -143,6 +146,25 @@ export class ListOrderComponent implements OnInit {
       }).catch((err) => {
 
       })
+  }
+
+  openOrderInfo(order: any){
+    this.matdialog.open(OrderInfoComponent,{
+      width: '700px',
+      data: order
+    }).afterClosed().subscribe(res=>{
+      if (res=='submit') {
+        this.getAllInit();
+      }
+    })
+  }
+
+  getAllInit(){
+    this.getAll_choxacnhan();
+    this.getAll_DANGXULY();
+    this.getAll_DANGVANCHUYEN();
+    this.getAll_DAGIAO();
+    this.getAll_DAHUY();
   }
 
   orderdetail(confirmDialog: TemplateRef<any>, id: number) {
@@ -241,14 +263,11 @@ export class ListOrderComponent implements OnInit {
     }
   }
 
-  cancel(confirmDialog: TemplateRef<any>){
+  cancel(){
 
-    this.modalService.open(confirmDialog,
-      { ariaDescribedBy: 'modal-basic-title' }).result.then((result) => {
-      }).catch((err) => {
-
-      })
-
+    this.matdialog.open(CancelDialogComponent,{
+      width: '700px'
+    })
 
   }
 

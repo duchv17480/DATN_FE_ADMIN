@@ -38,10 +38,17 @@ export class LoginComponent implements OnInit {
         if (data.data.role[0].authority === 'CUSTOMER') {
           this.toast.error({ summary: 'Tài khoản không có quyền truy cập', sticky: true });
         } else {
+          console.log(data.data);
+
           this.tokenStorage.saveToken(data.data.token);
-          this.tokenStorage.saveUser(data.data.username);
+          this.tokenStorage.saveUser(data.data.name);
           this.tokenStorage.saveUser_id(data.data.id);
           const role = data.data.role[0].authority;
+          this.tokenStorage.saveRole(role);
+          console.log(role);
+          console.log(this.tokenStorage.getUserRole());
+
+
           this.toast.success({summary: 'Đăng nhập thành công', duration: 3000});
           this.router.navigate(['/statistical']);
         }
