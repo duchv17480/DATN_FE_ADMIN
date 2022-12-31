@@ -1,26 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import {MatStepperModule} from '@angular/material/stepper';
-import { AuthenticationService } from './_service/auth-service/authentication.service';
-import { TokenStorageService } from './_service/token-storage-service/token-storage.service';
+import { AuthenticationService } from '../../_service/auth-service/authentication.service';
+import { TokenStorageService } from '../../_service/token-storage-service/token-storage.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../_helper/confirm-dialog/confirm-dialog.component';
+import { Constant } from '../../_constant/Constant';
+import { NgToastService } from 'ng-angular-popup';
+
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-authenticated',
+  templateUrl: './authenticated.component.html',
+  styleUrls: ['../../../../src/assets/static/css/core.css']
 })
-export class AppComponent implements OnInit{
-  title = 'Admin';
-  isLogin: any = false;
-
-  constructor(
-    private authService: AuthenticationService,
-    private tokenService: TokenStorageService
-  ){}
-  ngOnInit(): void {
-    // throw new Error('Method not implemented.');
-    console.log('App.com');
-
-  }
+export class AuthenticatedComponent implements OnInit {
 
   items:MenuItem[] = [
     {
@@ -128,16 +120,40 @@ export class AppComponent implements OnInit{
     //   icon: 'pi pi-fw pi-tablet',
     //   // routerLink: '/review/list'
     // }
-];
+  ];
 
-  logout(){
-    this.authService.logout();
+  user: any = {
+    fullname: '',
+    role: ''
+  };
+
+  constructor(
+      private authService: AuthenticationService,
+      private tokenService: TokenStorageService,
+      private matDialog: MatDialog,
+    ) { }
+
+  ngOnInit() {
+    this.getUser();
   }
 
-  checkLogin(){
-    this.isLogin = this.tokenService.isLoggedIn();
+  getUser(){
+    this.user.fullname = this.tokenService.getUser();
+    this.user.role = this.tokenService.getUserRole();
+  }
+
+  logout(){
+    this.matDialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      hasBackdrop: true,
+      data: {
+          message: 'Bạn có muốn đăng xuất?'
+      }
+    }).afterClosed().subscribe(result => {
+        if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
+          this.authService.logout();
+        }
+    })
   }
 
 }
-
-

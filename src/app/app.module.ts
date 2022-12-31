@@ -115,10 +115,18 @@ import { ProductChipDetailComponent } from './component/product-detail/product-c
 import { BuyOfflineTestComponent } from './component/Buy-offline/buy-offline-test/buy-offline-test.component';
 import { BuyOfflineComponent } from './component/Buy-offline/buy-offline/buy-offline.component';
 import { ProductPcDetailComponent } from './component/product-detail/product-pc-detail/product-pc-detail.component';
+import { CancelDialogComponent } from './component/Oder/cancel-dialog/cancel-dialog.component';
+import { OrderInfoComponent } from './component/Oder/order-info/order-info.component';
+import { ConfirmDialogComponent } from './_helper/confirm-dialog/confirm-dialog.component';
+import { EditOrderComponent } from './component/Oder/edit-order/edit-order.component';
+import { PublicComponent } from './component/public/public.component';
+import { AuthenticatedComponent } from './component/authenticated/authenticated.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    PublicComponent,
+    AuthenticatedComponent,
 
     StatisticalComponent,
 
@@ -130,6 +138,11 @@ import { ProductPcDetailComponent } from './component/product-detail/product-pc-
     ListOrderComponent,
     ListOrdersComponent,
     InfoOrderComponent,
+    CancelDialogComponent,
+    OrderInfoComponent,
+    EditOrderComponent,
+
+    ConfirmDialogComponent,
 
 
     ListRamComponent,
