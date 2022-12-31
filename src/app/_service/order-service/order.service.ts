@@ -43,7 +43,7 @@ export class OrderService {
   transporting(id: any): Observable<any> {
     return this.http.get(URL_order +'/being-shipped/'+id );
   }
-  
+
   getall(): Observable<any> {
     return this.http.get(URL_order  );
   }

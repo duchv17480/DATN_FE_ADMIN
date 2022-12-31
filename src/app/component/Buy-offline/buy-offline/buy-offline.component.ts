@@ -1,7 +1,7 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, Inject, OnInit, TemplateRef } from '@angular/core';
 import { Delivery } from '../../../_model/DeliveryOrder';
 import { OrderTheCounter } from '../../../_model/AtTheCounterOrder';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { CartModel } from '../../../_model/CartModel';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CategoryService } from '../../../_service/category-service/category.service';
@@ -14,6 +14,8 @@ import Swal from 'sweetalert2';
 import { error, data } from 'jquery';
 import { ImageApiService } from '../../../_service/image-service/image-api.service';
 import { ProductImages } from '../../../_model/ProductImages';
+import { ExportOrderServiceService } from '../../../_service/export-service/export-order-service.service';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-buy-offline',
@@ -33,6 +35,7 @@ export class BuyOfflineComponent implements OnInit {
   // pageSizes = [10, 20, 30];
   idProduct: any;
   message: any;
+  resetFilterByCode:any;
   //phần sản phẩm
 
   isLoading: boolean = false;
@@ -70,6 +73,7 @@ export class BuyOfflineComponent implements OnInit {
 
   //phan api GHN
   provinceName: any;
+  provinceId: any;
   districtName: any;
   wardName: any;
   province: any[] = [];
@@ -94,6 +98,7 @@ export class BuyOfflineComponent implements OnInit {
   // trang thai huy
 
   constructor(
+
     private modalService: NgbModal,
     private restC: CategoryService,
     private restOrder: OrderService,
@@ -101,7 +106,8 @@ export class BuyOfflineComponent implements OnInit {
     private restProduct: ProductApiService,
     private toast: NgToastService,
     private restGhn: GhnService,
-    private restImages: ImageApiService
+    private restImages: ImageApiService,
+    private restExport: ExportOrderServiceService
   ) { }
 
   ngOnInit() {
@@ -125,27 +131,24 @@ export class BuyOfflineComponent implements OnInit {
       'check-payment': new FormControl(null, [Validators.required]),
     })
 
-    const ship = this.shippingTotal;
-
-    console.log(ship + " shipahahahah");
     this.validFormDeliveryOrder = new FormGroup({
-      'fullname': new FormControl(null, [Validators.required]),
+      'fullname': new FormControl(null, [Validators.required,Validators.pattern("^[a-zA-Z ]+$")]),
       'province': new FormControl(null, [Validators.required]),
       'district': new FormControl(null, [Validators.required]),
       'ward': new FormControl(null, [Validators.required]),
       'phone': new FormControl(null, [Validators.required, Validators.pattern("(\\+84|0)([0-9]{9}|[0-9]{10})")]),
       'shipping': new FormControl(null),
-      'description': new FormControl(null, [Validators.required]),
+      'description': new FormControl(null),
     })
 
     this.validFormAtTheCounterOrder = new FormGroup({
-      'fullname': new FormControl(null, [Validators.required]),
+      'fullname': new FormControl(null, [Validators.required,Validators.pattern("^[a-zA-Z ]+$")]),
       'province': new FormControl(null, [Validators.required]),
       'district': new FormControl(null, [Validators.required]),
       'ward': new FormControl(null, [Validators.required]),
       'address': new FormControl(null),
       'phone': new FormControl(null, [Validators.required,Validators.pattern("(\\+84|0)([0-9]{9}|[0-9]{10})")]),
-      'description': new FormControl(null, [Validators.required]),
+      'description': new FormControl(null),
     })
   }
 
@@ -194,7 +197,10 @@ export class BuyOfflineComponent implements OnInit {
       this.district = res.data;
     })
     this.provinceName = provinceName;
+    this.provinceId = provinceId;
+    console.log(this.provinceName + "test provinceName");
   }
+
 
   getWard(districtId: any, districtName: any) {
     this.getShipping(districtId);
@@ -202,6 +208,7 @@ export class BuyOfflineComponent implements OnInit {
       this.ward = res.data;
     })
     this.districtName = districtName;
+    console.log(this.districtName + "test districtName")
   }
 
   getWardName(wardName: any) {
@@ -218,13 +225,29 @@ export class BuyOfflineComponent implements OnInit {
 
   // tạo đơn hàng tại quầy
   createOrder() {
+    // this.validFormDeliveryOrder.markAllAsTouched();
+    // if (this.validFormDeliveryOrder.getRawValue().provinceId === -1 ||
+    //     this.validFormDeliveryOrder.getRawValue().districtId === -1 ||
+    //     this.validFormDeliveryOrder.getRawValue().wardId === -1
+    // ) {
+    //   // this.toast.warning("Vui lòng chọn đầy đủ thông tin !")
+    //   return;
+    // }
+    // this.validFormDeliveryOrder.patchValue({
+    //   wardName: this.wardName,
+    //   districtName: this.districtName,
+    //   provinceName: this.provinceName
+    // })
     this.isLoading = true;
     this.orderAt.address = this.addressName;
     console.log(this.orderAt.address + "test 01");
     this.restOrder.createAnOrderAtTheCounter(this.orderAt).subscribe(res => {
       this.toast.success({ summary: 'Tạo Đơn hang thành công', duration: 3000 });
       this.isLoading = false;
-      this.ngOnInit();
+      this.orderAt = res.data;
+      this.getAllPaymentStatus();
+
+      // this.ngOnInit();
     }, error => {
       console.log(error);
       this.isLoading = false;
@@ -242,28 +265,31 @@ export class BuyOfflineComponent implements OnInit {
     this.restOrder.createDeliveryOrder(this.delivery).subscribe(res => {
       this.toast.success({ summary: 'Tạo Đơn hang thành công', duration: 3000 });
       this.isLoading = false;
-
-      this.ngOnInit();
+      this.delivery = res.data;
+      this.getAllPaymentStatus();
     }, error => {
       console.log(error);
       this.isLoading = false;
+      this.toast.error({ summary: 'Tạo đơn hàng thất bại'});
     });
   }
 
   getAllPaymentStatus() {
     this.restOrder.getAllPaymentStatus().subscribe(res => {
       this.listOrder = res.data;
-      this.nameStaff = res.data[0].nameStaff;
-      this.shippingTotal = res.data[0].shipping;
-      this.ship = res.data[0].shipping;
 
+      // this.nameStaff = res.data[0].nameStaff;
+      // this.shippingTotal = res.data[0].shipping;
+      // this.ship = res.data[0].shipping;
 
-      this.sdt = res.data[0].phone;
-      this.nameKh = res.data[0].fullname;
-      this.des = res.data[0].description;
-      this.tinh = res.data[0].province;
-      this.quan = res.data[0].district;
-      this.xa = res.data[0].ward;
+      // this.orderAt = res.data[0];
+
+      // this.sdt = res.data[0].phone;
+      // this.nameKh = res.data[0].fullname;
+      // this.des = res.data[0].description;
+      // this.tinh = res.data[0].province;
+      // this.quan = res.data[0].district;
+      // this.xa = res.data[0].ward;
 
     })
   }
@@ -386,9 +412,14 @@ export class BuyOfflineComponent implements OnInit {
   checkoutAtTheCounter() {
     this.isLoading = true;
     this.restOrder.checkoutAnOrderAtTheCounter(this.idOrder).subscribe(res => {
-      this.ngOnInit();
       this.isLoading = false;
       this.toast.success({ summary: 'Đặt hàng thành công', duration: 3000 });
+
+      this.ngOnInit();
+      // this.clickReset();
+      // this.restExport.exportOrder(this.idOrder).subscribe(response =>{
+      //   console.log("export order success");
+      // })
     }, error => {
       console.log(error);
       this.isLoading = false;
@@ -437,8 +468,11 @@ export class BuyOfflineComponent implements OnInit {
       .subscribe(data => {
         this.isLoading = false;
         this.cart = data.data;
-        this.toast.success({ summary: 'Thêm sản phẩm ' + pro.name + ' thành công!', duration: 3000 });
-        this.ngOnInit();
+        this.toast.success({ summary: 'Thêm sản phẩm thành công!', duration: 3000 });
+        // this.ngOnInit();
+        this.resetFilterByCode = '';
+        this.getCartByUser();
+        this.getSumTotal();
 
       });
   }
@@ -468,11 +502,12 @@ export class BuyOfflineComponent implements OnInit {
       .subscribe(data => {
         if (cart.quantity > data.data.quantity) {
           this.toast.warning({ summary: 'Số lượng vượt quá số lượng trong kho!', duration: 3000 });
-          this.ngOnInit();
+          // this.ngOnInit();
+          this.getSumTotal();
         } else {
           this.restCart.updateCart(cart.product_id, cart)
             .subscribe(data => {
-              this.ngOnInit();
+              this.getSumTotal();
             });
         }
       });
@@ -483,11 +518,11 @@ export class BuyOfflineComponent implements OnInit {
     cart.quantity--;
     if (cart.quantity < 1) {
       this.toast.warning({ summary: 'Số lượng sản phẩm phải lớn hơn 0!', duration: 3000 });
-      this.ngOnInit();
+      this.getSumTotal();
     } else {
       this.restCart.updateCart(cart.product_id, cart)
         .subscribe(data => {
-          this.ngOnInit();
+          this.getSumTotal();
         });
     }
   }
@@ -537,7 +572,8 @@ export class BuyOfflineComponent implements OnInit {
         this.restCart.deleteCart(cart.product_id)
           .subscribe(data => {
             this.toast.success({ summary: 'Xóa sản phẩm khỏi giỏ hàng thành công!', duration: 3000 });
-            this.ngOnInit();
+            this.getCartByUser();
+            this.getSumTotal();
           });
         swalWithBootstrapButtons.fire('Deleted!', 'Xóa Sản Phẩm Khỏi Giỏ Hàng Thành Công', 'success')
       }
