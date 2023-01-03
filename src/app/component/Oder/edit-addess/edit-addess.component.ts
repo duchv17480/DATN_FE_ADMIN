@@ -1,9 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { GhnService } from '../../../_service/ghn-service/ghn.service';
 import { OrderTheCounter } from '../../../_model/AtTheCounterOrder';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
+import { OrderService } from '../../../_service/order-service/order.service';
+import { ConfirmDialogComponent } from '../../../_helper/confirm-dialog/confirm-dialog.component';
+import { Constant } from '../../../_constant/Constant';
 
 @Component({
   selector: 'app-edit-addess',
@@ -32,7 +35,9 @@ export class EditAddessComponent implements OnInit {
     private matDialogRef: MatDialogRef<EditAddessComponent>,
     @Inject(MAT_DIALOG_DATA) public dataDialog: any,
     private ghnService: GhnService,
+    private orderService: OrderService,
     private toast: NgToastService,
+    private matDialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -110,14 +115,37 @@ export class EditAddessComponent implements OnInit {
     // console.log(this.validFormAtTheCounterOrder.value);
     // console.log(this.addressName);
     // console.log(this.shippingTotal);
-    this.dataDialog.address = this.addressName;
-    this.dataDialog.province = this.validFormAtTheCounterOrder.value.province;
-    this.dataDialog.district = this.validFormAtTheCounterOrder.value.district;
-    this.dataDialog.ward = this.validFormAtTheCounterOrder.value.ward;
-    this.dataDialog.shipping = this.shippingTotal;
-    console.log(this.dataDialog);
+    this.matDialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      hasBackdrop: true,
+      data: {
+          message: 'Bạn có muốn cập nhật đơn hàng?'
+      }
+    }).afterClosed().subscribe(result => {
+        if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
 
-    this.toast.error({ summary: 'Đợi API cập nhật đơn', duration: 2000 });
+          this.dataDialog.address = this.addressName;
+          this.dataDialog.province = this.validFormAtTheCounterOrder.value.province;
+          this.dataDialog.district = this.validFormAtTheCounterOrder.value.district;
+          this.dataDialog.ward = this.validFormAtTheCounterOrder.value.ward;
+          this.dataDialog.shipping = this.shippingTotal;
+          console.log(this.dataDialog);
+          this.orderService.updateOrder(this.dataDialog).subscribe({
+            next: res =>{
+              console.log(res);
+              this.toast.success({ summary: 'Cập nhật thông tin thành công', duration: 2000 });
+              this.matDialogRef.close('submit');
+            },
+            error: e =>{
+              console.log(e);
+              this.toast.error({ summary: 'Cập nhật thông tin thất bại', duration: 2000 });
+              this.matDialogRef.close('submit');
+            }
+          })
+        }
+    })
+
+    // this.toast.error({ summary: 'Đợi API cập nhật đơn', duration: 2000 });
 
   }
 

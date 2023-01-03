@@ -61,6 +61,7 @@ export class CancelDialogComponent implements OnInit {
             },
             error: e =>{
               this.toast.error({summary:'Hủy đơn thất bại', duration:3000});
+              this.matDialogRef.close('submit')
             }
           })
         }
