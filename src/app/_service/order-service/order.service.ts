@@ -43,7 +43,7 @@ export class OrderService {
   transporting(id: any): Observable<any> {
     return this.http.get(URL_order +'/being-shipped/'+id );
   }
-  
+
   getall(): Observable<any> {
     return this.http.get(URL_order  );
   }
@@ -124,6 +124,10 @@ export class OrderService {
     return this.http.put(URL_order + "/update-delivery-order/" + id,order);
   }
 
+  // cập nhật số lượng đơn hàng chi tiết
+  updateOrderDetail(id: any, data: any){
+    return this.http.put(URL_orderdetail + '/update/' + id, data);
+  }
 
 
 }

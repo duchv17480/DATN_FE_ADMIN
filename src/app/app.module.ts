@@ -121,6 +121,9 @@ import { ConfirmDialogComponent } from './_helper/confirm-dialog/confirm-dialog.
 import { EditOrderComponent } from './component/Oder/edit-order/edit-order.component';
 import { PublicComponent } from './component/public/public.component';
 import { AuthenticatedComponent } from './component/authenticated/authenticated.component';
+import {MatMenuModule} from '@angular/material/menu';
+import { EditAddessComponent } from './component/Oder/edit-addess/edit-addess.component';
+import { EditShipNameComponent } from './component/Oder/edit-ship-name/edit-ship-name.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -141,6 +144,8 @@ import { AuthenticatedComponent } from './component/authenticated/authenticated.
     CancelDialogComponent,
     OrderInfoComponent,
     EditOrderComponent,
+    EditAddessComponent,
+    EditShipNameComponent,
 
     ConfirmDialogComponent,
 
@@ -248,6 +253,7 @@ import { AuthenticatedComponent } from './component/authenticated/authenticated.
     MatFormFieldModule,
     MatButtonModule,
     CommonModule,
+    MatMenuModule,
     MatTableModule,
     AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebase),

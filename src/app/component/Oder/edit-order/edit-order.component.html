@@ -4,7 +4,7 @@
 <div class="order-detail2">
   <div mat-dialog-content class="scroll-order-detail">
 
-    <table mat-table [dataSource]="dataSource" matSort>
+    <table mat-table [dataSource]="list">
 
       <!-- ID Column -->
       <ng-container matColumnDef="price">
@@ -65,5 +65,6 @@
   </div>
 </div>
 <div mat-dialog-actions class="d-flex justify-content-end">
-    <button type="button" class="btn btn-success" >Xác nhận</button>
+  <button type="button" class="btn btn-success m-2" (click)="onSubmit()" >Xác nhận</button>
+  <button type="button" class="btn btn-secondary" (click)="close()">Hủy</button>
 </div>
