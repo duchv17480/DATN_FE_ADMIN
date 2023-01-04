@@ -124,6 +124,11 @@ export class OrderService {
     return this.http.put(URL_order + "/update-delivery-order/" + id,order);
   }
 
+  // cập nhật thông tin đơn hàng
+  updateOrder(data: any){
+    return this.http.put(URL_order + "/update",data);
+  }
+
   // cập nhật số lượng đơn hàng chi tiết
   updateOrderDetail(id: any, data: any){
     return this.http.put(URL_orderdetail + '/update/' + id, data);

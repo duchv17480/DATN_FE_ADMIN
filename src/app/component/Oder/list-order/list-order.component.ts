@@ -288,6 +288,10 @@ export class ListOrderComponent implements OnInit {
 
     this.matdialog.open(CancelDialogComponent,{
       width: '700px'
+    }).afterClosed().subscribe(res=>{
+      if (res=='submit') {
+        this.getAllInit();
+      }
     })
 
   }
