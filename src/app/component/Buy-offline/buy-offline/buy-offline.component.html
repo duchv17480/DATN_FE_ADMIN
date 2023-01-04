@@ -41,7 +41,7 @@
           </div>
         </div>
 
-        <div class="card-body mt-3">
+        <div class="card-body mt-3" style="overflow-x:auto;">
           <!-- bang thong tin hoa don -->
           <table class="table table-bordered text-center mb-0">
             <thead>
@@ -173,7 +173,7 @@
                 </div>
 
               </div>
-              <div class="row">
+              <div class="row" style="overflow-x:auto;">
                 <div class="col-4">
                   <!--======TỈNH / THÀNH PHỐ ======-->
                   <div>
@@ -322,7 +322,7 @@
                     </mdb-form-control>
                     <div *ngIf="validFormDeliveryOrder.controls['fullname'].invalid && validFormDeliveryOrder.controls['fullname'].touched"
                       class="text-danger">
-                      <small *ngIf="validFormDeliveryOrder.controls['fullname'].errors?.['required']"> fullname không
+                      <small *ngIf="validFormDeliveryOrder.controls['fullname'].errors?.['required']"> Họ và tên không
                         được
                         để trống</small>
                     </div>
@@ -341,7 +341,7 @@
                     <div
                       *ngIf="validFormDeliveryOrder.controls['phone'].invalid && validFormDeliveryOrder.controls['phone'].touched"
                       class="text-danger">
-                      <small *ngIf="validFormDeliveryOrder.controls['phone'].errors?.['required']"> phone không được
+                      <small *ngIf="validFormDeliveryOrder.controls['phone'].errors?.['required']"> Số điện thoại không được
                         để
                         trống</small>
                     </div>
@@ -374,7 +374,7 @@
                     <div
                       *ngIf="validFormDeliveryOrder.controls['shipping'].invalid && validFormDeliveryOrder.controls['shipping'].touched"
                       class="text-danger">
-                      <small *ngIf="validFormDeliveryOrder.controls['shipping'].errors?.['required']"> phone không
+                      <small *ngIf="validFormDeliveryOrder.controls['shipping'].errors?.['required']">Không
                         được
                         để
                         trống</small>
@@ -384,7 +384,7 @@
                 </div>
 
               </div>
-              <div class="row">
+              <div class="row" style="overflow-x:auto;">
                 <div class="col-4">
                   <!--======TỈNH / THÀNH PHỐ ======-->
                   <div>
@@ -550,7 +550,7 @@
             <h1 class="text-white">THÔNG TIN SẢN PHẨM ĐẶT HÀNG</h1>
           </div>
         </div>
-        <div class="card-body mt-3">
+        <div class="card-body mt-3" style="overflow-x:auto;">
           <table class="table table-bordered text-center mb-0">
             <thead>
               <tr>
