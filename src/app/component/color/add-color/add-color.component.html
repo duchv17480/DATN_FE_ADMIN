@@ -19,6 +19,7 @@
                           </mdb-form-control>
                           <div *ngIf="AddForm.controls['colorName'].invalid && AddForm.controls['colorName'].touched" class="text-danger">
                             <small *ngIf="AddForm.controls['colorName'].errors?.['required']"> colorName không được để trống</small>
+                            <small *ngIf="AddForm.controls['colorName'].errors?.['pattern']"> colorName không hợp lệ</small>
                             <small *ngIf="AddForm.controls['colorName'].hasError('minlength')"> colorName phải lớn hơn 1 ký tự </small>
                             <small *ngIf="AddForm.controls['colorName'].hasError('maxlength')"> colorName phải nhỏ hơn 50 ký tự </small>
                           </div>

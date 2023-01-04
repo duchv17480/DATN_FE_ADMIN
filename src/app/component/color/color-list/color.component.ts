@@ -55,7 +55,7 @@ export class ColorComponent implements OnInit {
         this.ColorService.delete(this.deleteId)
         .subscribe(data => {
           this.modalService.dismissAll();
-          this.toast.success({ summary: 'Xóa psu thành công', duration: 3000 });
+          this.toast.success({ summary: 'Xóa color thành công', duration: 3000 });
           this.ngOnInit();
         });
       }
