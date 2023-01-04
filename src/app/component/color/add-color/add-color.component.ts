@@ -6,6 +6,7 @@ import { ProductApiService } from 'src/app/_service/product-service/product-api.
 
 import { Component, OnInit } from '@angular/core';
 import { ColorService } from 'src/app/_service/color-service/color.service';
+import {NgToastService} from "ng-angular-popup";
 
 @Component({
   selector: 'app-add-color',
@@ -18,15 +19,18 @@ export class AddColorComponent implements OnInit {
   Product: any;
   AddForm: FormGroup;
   grSelect:any;
+  regex: string = '^[\\w\'\\-,.a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\ ][^_!¡?÷?¿/\\\\+=@#$%ˆ&*{}~<>;:[\\]]{2,}$'
   constructor(
     private ColorService: ColorService,
     private ProductApiService: ProductApiService,
     private messageService: MessageService,
     private route: Router,
+    private toast: NgToastService,
     private title: Title
   ) {
+    const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
     this.AddForm = new FormGroup({
-      'colorName': new FormControl(null,[Validators.required, Validators.minLength(1), Validators.maxLength(50)]),
+      'colorName': new FormControl(null,[Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern(this.regex), Validators.pattern(nonWhitespaceRegExp)]),
       'productId': new FormControl(null,[Validators.required]),
 
     });
@@ -53,19 +57,12 @@ export class AddColorComponent implements OnInit {
       'productId': + this.grSelect,
 
     }
-    setTimeout(() => {
-      this.ColorService.post(upload).subscribe({
-        next: (data: any) => {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Add success' });
-          setTimeout(() => {
-            this.route.navigate(['/color']);
-
-          });
-        }
-
-      });
-    }, 6000);
-
+    this.ColorService.post(upload).subscribe({
+      next: (data: any) => {
+        this.toast.success({ summary: 'Thêm Color thành công', duration: 3000 })
+        this.route.navigate(['/color']);
+      }
+    });
   }
 
 }
