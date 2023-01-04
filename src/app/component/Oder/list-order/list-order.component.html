@@ -38,29 +38,42 @@
         <ng-template pTemplate="header">
             <tr>
 
-                <th pSortableColumn="shipping">shipping<p-sortIcon ></p-sortIcon></th>
-                <th pSortableColumn="createDate">createDate <p-sortIcon ></p-sortIcon></th>
-                <th pSortableColumn="status">status <p-sortIcon ></p-sortIcon></th>
-                <th pSortableColumn="grandTotal">grandTotal <p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="shipping">Người nhận<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="createDate">Địa chỉ<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="status">Trạng thái<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="grandTotal">Giá trị<p-sortIcon ></p-sortIcon></th>
 
 
-                <th>Action</th>
+                <th>Thao tác</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-order>
             <tr>
 
-              <td>{{order?.shipping}}</td>
-              <td >{{order?.createDate}}</td>
+              <td>{{order?.fullname}}</td>
+              <td >{{order?.address}}</td>
               <td style="font-weight:bold ; color: rgb(69, 188, 4);">{{order?.status}}</td>
-              <td >{{order?.grandTotal}}</td>
+              <td >{{order?.grandTotal| currency:'VND':'symbol':'0.0-2'}}</td>
 
                  <td>
-
-                    <button (click)="openOrderInfo(order)" pButton pRipple  class="  mr-2"  ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ticket-detailed" viewBox="0 0 16 16">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                  <i class="pi pi-ellipsis-v"></i>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item>
+                    <span (click)="openOrderInfo(order)">Chi tiết đơn</span>
+                  </button>
+                  <button mat-menu-item>
+                    <span (click)="editAddress(order)">Đổi địa chỉ</span>
+                  </button>
+                  <button mat-menu-item>
+                    <span (click)="editShipName(order)">Đổi người nhận</span>
+                  </button>
+                </mat-menu>
+                    <!-- <button (click)="openOrderInfo(order)" pButton pRipple  class="  mr-2"  ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ticket-detailed" viewBox="0 0 16 16">
                       <path d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5ZM5 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H5Z"/>
                       <path d="M0 4.5A1.5 1.5 0 0 1 1.5 3h13A1.5 1.5 0 0 1 16 4.5V6a.5.5 0 0 1-.5.5 1.5 1.5 0 0 0 0 3 .5.5 0 0 1 .5.5v1.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 11.5V10a.5.5 0 0 1 .5-.5 1.5 1.5 0 1 0 0-3A.5.5 0 0 1 0 6V4.5ZM1.5 4a.5.5 0 0 0-.5.5v1.05a2.5 2.5 0 0 1 0 4.9v1.05a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-1.05a2.5 2.5 0 0 1 0-4.9V4.5a.5.5 0 0 0-.5-.5h-13Z"/>
-                    </svg></button>
+                    </svg></button> -->
                 </td>
             </tr>
         </ng-template>
@@ -139,29 +152,42 @@
         <ng-template pTemplate="header">
             <tr>
 
-                <th pSortableColumn="shipping">shipping<p-sortIcon ></p-sortIcon></th>
-                <th pSortableColumn="createDate">createDate <p-sortIcon ></p-sortIcon></th>
-                <th pSortableColumn="status">status <p-sortIcon ></p-sortIcon></th>
-                <th pSortableColumn="grandTotal">grandTotal <p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="shipping">Người nhận<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="createDate">Địa chỉ<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="status">Trạng thái<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="grandTotal">Giá trị<p-sortIcon ></p-sortIcon></th>
 
 
-                <th>Action</th>
+                <th>Thao tác</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-order1>
             <tr>
 
-              <td>{{order1?.shipping}}</td>
-              <td >{{order1?.createDate}}</td>
+              <td>{{order1?.fullname}}</td>
+              <td >{{order1?.address}}</td>
               <td style="font-weight:bold ; color: rgb(244, 41, 1);">{{order1?.status}}</td>
-              <td >{{order1?.grandTotal}}</td>
+              <td >{{order1?.grandTotal| currency:'VND':'symbol':'0.0-2'}}</td>
 
                  <td>
-
-                    <button (click)="openOrderInfo(order1)"  pButton pRipple  class="  mr-2"  ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ticket-detailed" viewBox="0 0 16 16">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                  <i class="pi pi-ellipsis-v"></i>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item>
+                    <span (click)="openOrderInfo(order1)">Chi tiết đơn</span>
+                  </button>
+                  <button mat-menu-item>
+                    <span (click)="editAddress(order1)">Đổi địa chỉ</span>
+                  </button>
+                  <button mat-menu-item>
+                    <span (click)="editShipName(order1)">Đổi người nhận</span>
+                  </button>
+                </mat-menu>
+                    <!-- <button (click)="openOrderInfo(order1)"  pButton pRipple  class="  mr-2"  ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ticket-detailed" viewBox="0 0 16 16">
                       <path d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5ZM5 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H5Z"/>
                       <path d="M0 4.5A1.5 1.5 0 0 1 1.5 3h13A1.5 1.5 0 0 1 16 4.5V6a.5.5 0 0 1-.5.5 1.5 1.5 0 0 0 0 3 .5.5 0 0 1 .5.5v1.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 11.5V10a.5.5 0 0 1 .5-.5 1.5 1.5 0 1 0 0-3A.5.5 0 0 1 0 6V4.5ZM1.5 4a.5.5 0 0 0-.5.5v1.05a2.5 2.5 0 0 1 0 4.9v1.05a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-1.05a2.5 2.5 0 0 1 0-4.9V4.5a.5.5 0 0 0-.5-.5h-13Z"/>
-                    </svg></button>
+                    </svg></button> -->
                 </td>
             </tr>
         </ng-template>
@@ -238,29 +264,42 @@
         <ng-template pTemplate="header">
             <tr>
 
-                <th pSortableColumn="shipping">shipping<p-sortIcon ></p-sortIcon></th>
-                <th pSortableColumn="createDate">createDate <p-sortIcon ></p-sortIcon></th>
-                <th pSortableColumn="status">status <p-sortIcon ></p-sortIcon></th>
-                <th pSortableColumn="grandTotal">grandTotal <p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="shipping">Người nhận<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="createDate">Địa chỉ<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="status">Trạng thái<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="grandTotal">Giá trị<p-sortIcon ></p-sortIcon></th>
 
 
-                <th>Action</th>
+                <th>Thao tác</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-order2>
             <tr>
 
-              <td>{{order2?.shipping}}</td>
-              <td >{{order2?.createDate}}</td>
+              <td>{{order2?.fullname}}</td>
+              <td >{{order2?.address}}</td>
               <td style="font-weight:bold ; color: rgb(247, 113, 2);">{{order2?.status}}</td>
-              <td >{{order2?.grandTotal}}</td>
+              <td >{{order2?.grandTotal| currency:'VND':'symbol':'0.0-2'}}</td>
 
                  <td>
-
-                    <button (click)="openOrderInfo(order2)" pButton pRipple  class="  mr-2"  ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ticket-detailed" viewBox="0 0 16 16">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                  <i class="pi pi-ellipsis-v"></i>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item>
+                    <span (click)="openOrderInfo(order2)">Chi tiết đơn</span>
+                  </button>
+                  <button mat-menu-item>
+                    <span (click)="editAddress(order2)">Đổi địa chỉ</span>
+                  </button>
+                  <button mat-menu-item>
+                    <span (click)="editShipName(order2)">Đổi người nhận</span>
+                  </button>
+                </mat-menu>
+                    <!-- <button (click)="openOrderInfo(order2)" pButton pRipple  class="  mr-2"  ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ticket-detailed" viewBox="0 0 16 16">
                       <path d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5ZM5 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H5Z"/>
                       <path d="M0 4.5A1.5 1.5 0 0 1 1.5 3h13A1.5 1.5 0 0 1 16 4.5V6a.5.5 0 0 1-.5.5 1.5 1.5 0 0 0 0 3 .5.5 0 0 1 .5.5v1.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 11.5V10a.5.5 0 0 1 .5-.5 1.5 1.5 0 1 0 0-3A.5.5 0 0 1 0 6V4.5ZM1.5 4a.5.5 0 0 0-.5.5v1.05a2.5 2.5 0 0 1 0 4.9v1.05a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-1.05a2.5 2.5 0 0 1 0-4.9V4.5a.5.5 0 0 0-.5-.5h-13Z"/>
-                    </svg></button>
+                    </svg></button> -->
                 </td>
             </tr>
         </ng-template>
@@ -383,29 +422,42 @@
         <ng-template pTemplate="header">
             <tr>
 
-                <th pSortableColumn="shipping">shipping<p-sortIcon ></p-sortIcon></th>
-                <th pSortableColumn="createDate">createDate <p-sortIcon ></p-sortIcon></th>
-                <th pSortableColumn="status">status <p-sortIcon ></p-sortIcon></th>
-                <th pSortableColumn="grandTotal">grandTotal <p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="shipping">Người nhận<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="createDate">Địa chỉ<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="status">Trạng thái<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="grandTotal">Giá trị<p-sortIcon ></p-sortIcon></th>
 
 
-                <th>Action</th>
+                <th>Thao tác</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-order3>
             <tr>
 
-              <td>{{order3?.shipping}}</td>
-              <td >{{order3?.createDate}}</td>
+              <td>{{order3?.fullname}}</td>
+              <td >{{order3?.address}}</td>
               <td style="font-weight:bold ; color: rgb(5, 50, 129);">{{order3?.status}}</td>
-              <td >{{order3?.grandTotal}}</td>
+              <td >{{order3?.grandTotal| currency:'VND':'symbol':'0.0-2'}}</td>
 
                  <td>
-
-                    <button (click)="openOrderInfo(order3)"  pButton pRipple  class="  mr-2"  ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ticket-detailed" viewBox="0 0 16 16">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                  <i class="pi pi-ellipsis-v"></i>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item>
+                    <span (click)="openOrderInfo(order3)">Chi tiết đơn</span>
+                  </button>
+                  <button mat-menu-item>
+                    <span (click)="editAddress(order3)">Đổi địa chỉ</span>
+                  </button>
+                  <button mat-menu-item>
+                    <span (click)="editShipName(order3)">Đổi người nhận</span>
+                  </button>
+                </mat-menu>
+                    <!-- <button (click)="openOrderInfo(order3)"  pButton pRipple  class="  mr-2"  ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ticket-detailed" viewBox="0 0 16 16">
                       <path d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5ZM5 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H5Z"/>
                       <path d="M0 4.5A1.5 1.5 0 0 1 1.5 3h13A1.5 1.5 0 0 1 16 4.5V6a.5.5 0 0 1-.5.5 1.5 1.5 0 0 0 0 3 .5.5 0 0 1 .5.5v1.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 11.5V10a.5.5 0 0 1 .5-.5 1.5 1.5 0 1 0 0-3A.5.5 0 0 1 0 6V4.5ZM1.5 4a.5.5 0 0 0-.5.5v1.05a2.5 2.5 0 0 1 0 4.9v1.05a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-1.05a2.5 2.5 0 0 1 0-4.9V4.5a.5.5 0 0 0-.5-.5h-13Z"/>
-                    </svg></button>
+                    </svg></button> -->
                 </td>
             </tr>
         </ng-template>
@@ -436,7 +488,7 @@
                       <th pSortableColumn="orderId">orderId</th>
                       <th pSortableColumn="userId">userId</th>
 
-                      <th>Action</th>
+                      <th>Thao tác</th>
                   </tr>
               </ng-template>
               <ng-template pTemplate="body" let-orderdetaila>
@@ -480,29 +532,42 @@
         <ng-template pTemplate="header">
             <tr>
 
-                <th pSortableColumn="shipping">shipping<p-sortIcon ></p-sortIcon></th>
-                <th pSortableColumn="createDate">createDate <p-sortIcon ></p-sortIcon></th>
-                <th pSortableColumn="status">status <p-sortIcon ></p-sortIcon></th>
-                <th pSortableColumn="grandTotal">grandTotal <p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="shipping">Người nhận<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="createDate">Địa chỉ<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="status">Trạng thái<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="grandTotal">Giá trị<p-sortIcon ></p-sortIcon></th>
 
 
-                <th>Action</th>
+                <th>Thao tác</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-order4>
             <tr>
 
-              <td>{{order4?.shipping}}</td>
-              <td >{{order4?.createDate}}</td>
+              <td>{{order4?.fullname}}</td>
+              <td >{{order4?.address}}</td>
               <td style="font-weight:bold ; color: rgb(188, 4, 4);">{{order4?.status}}</td>
-              <td >{{order4?.grandTotal}}</td>
+              <td >{{order4?.grandTotal| currency:'VND':'symbol':'0.0-2'}}</td>
 
                  <td>
-
-                    <button  (click)="openOrderInfo(order4)" pButton pRipple  class="  mr-2"  ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ticket-detailed" viewBox="0 0 16 16">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                  <i class="pi pi-ellipsis-v"></i>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item>
+                    <span (click)="openOrderInfo(order4)">Chi tiết đơn</span>
+                  </button>
+                  <button mat-menu-item>
+                    <span (click)="editAddress(order4)">Đổi địa chỉ</span>
+                  </button>
+                  <button mat-menu-item>
+                    <span (click)="editShipName(order4)">Đổi người nhận</span>
+                  </button>
+                </mat-menu>
+                    <!-- <button  (click)="openOrderInfo(order4)" pButton pRipple  class="  mr-2"  ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ticket-detailed" viewBox="0 0 16 16">
                       <path d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5ZM5 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H5Z"/>
                       <path d="M0 4.5A1.5 1.5 0 0 1 1.5 3h13A1.5 1.5 0 0 1 16 4.5V6a.5.5 0 0 1-.5.5 1.5 1.5 0 0 0 0 3 .5.5 0 0 1 .5.5v1.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 11.5V10a.5.5 0 0 1 .5-.5 1.5 1.5 0 1 0 0-3A.5.5 0 0 1 0 6V4.5ZM1.5 4a.5.5 0 0 0-.5.5v1.05a2.5 2.5 0 0 1 0 4.9v1.05a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-1.05a2.5 2.5 0 0 1 0-4.9V4.5a.5.5 0 0 0-.5-.5h-13Z"/>
-                    </svg></button>
+                    </svg></button> -->
                 </td>
             </tr>
         </ng-template>
@@ -533,7 +598,7 @@
                       <th pSortableColumn="orderId">orderId</th>
                       <th pSortableColumn="userId">userId</th>
 
-                      <th>Action</th>
+                      <th>Thao tác</th>
                   </tr>
               </ng-template>
               <ng-template pTemplate="body" let-orderdetaila>

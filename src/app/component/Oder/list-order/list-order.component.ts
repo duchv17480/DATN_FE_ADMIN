@@ -9,6 +9,8 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators,FormBuilder } from '@angular/forms';
 import { CancelDialogComponent } from '../cancel-dialog/cancel-dialog.component';
 import { OrderInfoComponent } from '../order-info/order-info.component';
+import { EditAddessComponent } from '../edit-addess/edit-addess.component';
+import { EditShipNameComponent } from '../edit-ship-name/edit-ship-name.component';
 @Component({
   selector: 'app-list-order',
   templateUrl: './list-order.component.html',
@@ -223,7 +225,26 @@ export class ListOrderComponent implements OnInit {
 
   }
 
-
+  editAddress(data: any){
+    this.matdialog.open(EditAddessComponent,{
+      width: '700px',
+      data: data
+    }).afterClosed().subscribe(res=>{
+      if (res=='submit') {
+        this.getAllInit();
+      }
+    })
+  }
+  editShipName(data: any){
+    this.matdialog.open(EditShipNameComponent,{
+      width: '700px',
+      data: data
+    }).afterClosed().subscribe(res=>{
+      if (res=='submit') {
+        this.getAllInit();
+      }
+    })
+  }
 
   Confilrm() {
     if (this.Id != null) {
