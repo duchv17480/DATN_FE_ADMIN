@@ -86,6 +86,10 @@ export class OrderInfoComponent implements OnInit {
       width: '700px',
       autoFocus: false,
       data: order
+    }).afterClosed().subscribe(res=>{
+      if (res == 'submit') {
+        this.matDialogRef.close('submit');
+      }
     })
   }
 

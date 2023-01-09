@@ -129,7 +129,7 @@ export class OrderService {
     return this.http.put(URL_order + "/update",data);
   }
 
-  // cập nhật số lượng đơn hàng chi tiết
+  // cập nhật đơn hàng chi tiết
   updateOrderDetail(id: any, data: any){
     return this.http.put(URL_orderdetail + '/update/' + id, data);
   }
@@ -160,5 +160,14 @@ export class OrderService {
   }
 
 
+  // cập nhật số lượng đơn hàng chi tiết
+  updateQuantityOrderDetail(productId: any, orderId: any, quantity: any, data: any){
+    return this.http.put(URL_orderdetail + '/updateQuantity/' + productId + '/order/' + orderId + '?quantity=' + quantity,data);
+  }
+
+  //Xóa chi tiết đơn
+  deleteOrderDetail(id: any){
+    return this.http.delete(URL_orderdetail + '/delete/' + id);
+  }
 
 }

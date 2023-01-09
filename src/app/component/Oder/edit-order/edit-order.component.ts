@@ -57,11 +57,39 @@ export class EditOrderComponent implements OnInit {
     })
   }
 
+  deleteOrderDetail(id: any){
+    if (this.list.length <=1) {
+      this.toast.warning({summary:'Không được xóa hết sản phẩm', duration:3000});
+      return;
+    }
+    this.matDialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      hasBackdrop: true,
+      data: {
+          message: 'Bạn có muốn xóa sản phẩm?'
+      }
+    }).afterClosed().subscribe(result => {
+        if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
+          console.log('xóa: '+ id);
+          this.OrderService.deleteOrderDetail(id).subscribe({
+            next: res=>{
+              // console.log(res);
+              this.toast.success({summary: 'Xóa thành công!' , duration:3000});
+            },
+            error: e =>{
+              console.log(e);
+              this.toast.error({summary: 'Xóa thất bại!' , duration:3000});
+
+            }
+          })
+        }
+    })
+  }
+
   setQuantity(event: any, index: any, data: any){
     // data lấy số lượng còn lại trên db nhưng không có id của product mà chỉ có name của product
     console.log(data);
     console.log('event');
-    console.log(event.target.value);
     console.log(parseInt(event.target.value));
 
 
@@ -112,23 +140,19 @@ export class EditOrderComponent implements OnInit {
     }).afterClosed().subscribe(result => {
         if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
           for (let i = 0; i < this.list.length; i++) {
-            console.log('Vòng: ' + i);
-            console.log('ID: ' + this.list[i].id);
-            console.log('List: ');
-            console.log(this.list[i]);
-
-            // this.service.updateOrderDetail(this.list[i].id,this.list[i]).subscribe({
-            //   next: res =>{
-            //     check++;
-            //     if (check==this.list.length) {
-            //       this.toast.success({summary:'Cập nhật đơn thành công', duration:3000});
-            //     }
-            //   },
-            //   error: e=>{
-            //     console.log(e);
-            //     this.toast.error({summary:'Cập nhật đơn thất bại', duration:3000});
-            //   }
-            // })
+            this.service.updateOrderDetail(this.list[i].id,this.list[i]).subscribe({
+              next: res =>{
+                check++;
+                if (check==this.list.length) {
+                  this.toast.success({summary:'Cập nhật đơn thành công', duration:3000});
+                  this.matDialogRef.close('submit');
+                }
+              },
+              error: e=>{
+                console.log(e);
+                this.toast.error({summary:'Cập nhật đơn thất bại', duration:3000});
+              }
+            })
           }
         }
     })
