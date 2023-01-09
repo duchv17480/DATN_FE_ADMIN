@@ -165,9 +165,5 @@ export class OrderService {
     return this.http.put(URL_orderdetail + '/updateQuantity/' + productId + '/order/' + orderId + '?quantity=' + quantity,data);
   }
 
-  //Xóa chi tiết đơn
-  deleteOrderDetail(id: any){
-    return this.http.delete(URL_orderdetail + '/delete/' + id);
-  }
 
 }
