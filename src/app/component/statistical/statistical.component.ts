@@ -22,6 +22,7 @@ export class StatisticalComponent implements OnInit {
   listDataDate!: MatTableDataSource<ThongKeTheoNgay>;
   lengthDate!: number;
   columnsDate: string[] = ['index', 'totalOrder', 'totalMoney'];
+  columnsTopProduct: string[] = ['index', 'code', 'name', 'quantity', 'total'];
 
   statisticalMonths!: ThongKeTheoThang[];
   statisticalMonthsTable!: Statistical[];
@@ -37,6 +38,10 @@ export class StatisticalComponent implements OnInit {
   columnsYears: string[] = ['index', 'year', 'totalOrder', 'totalMoney'];
   statisticalYear!: Statistical[];
 
+  topProduct: any[] = [];
+  labelsTopProduct:  any[] = [];
+  dataTopProduct:  any[] = [];
+
   @ViewChild('sortMonth') sortMonth!: MatSort;
   @ViewChild('MatPaginatorMonth') paginatorMonth!: MatPaginator;
   @ViewChild('sortDate') sortDate!: MatSort;
@@ -46,6 +51,7 @@ export class StatisticalComponent implements OnInit {
 
 
   labelsDate: any[] = [];
+  labelsProduct: any[] = [];
   dataDate: number[] = [];
 
   labelsMonth: any[] = [];
@@ -71,9 +77,19 @@ export class StatisticalComponent implements OnInit {
     this.getStatisticalYear();
     this.getdate();
     this.getStatisticalAllDate();
+    this.getTopProduct();
   }
 
-
+  getTopProduct(){
+    this.statisticalService.getTopProduct(10).subscribe(res=>{
+      this.topProduct = res.data;
+      this.topProduct.forEach(item => {
+        this.dataTopProduct.push(item.quantity)
+          this.labelsTopProduct.push(item.code);
+      })
+      this.loadChartLineTopProduct();
+    })
+  }
 
   getStatisticalAllDate() {
     this.statisticalService.getDate().subscribe(data => {
@@ -169,6 +185,62 @@ export class StatisticalComponent implements OnInit {
     })
   }
 
+  loadChartLineTopProduct() {
+    this.myChartBar = new Chart('chartTopProduct', {
+      type: 'bar',
+      data: {
+        labels: this.labelsTopProduct,
+        datasets: [{
+          // label: '# of Votes',
+          data: this.dataTopProduct,
+          // borderColor: 'rgb(75, 192, 192)',
+          // pointBorderColor: 'rgba(54, 162, 235, 0.2)',
+          // backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(201, 203, 207, 0.2)',
+            'rgba(0, 162, 71, 0.2)',
+            'rgba(82, 0, 36, 0.2)',
+            'rgba(82, 164, 36, 0.2)',
+            'rgba(255, 158, 146, 0.2)',
+            'rgba(123, 39, 56, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(201, 203, 207, 1)',
+            'rgba(0, 162, 71, 1)',
+            'rgba(82, 0, 36, 1)',
+            'rgba(82, 164, 36, 1)',
+            'rgba(255, 158, 146, 1)',
+            'rgba(123, 39, 56, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          }
+        }
+      }
+    });
+  }
 
   loadChartLineDate() {
     this.myChartBar = new Chart('chart', {

@@ -32,4 +32,10 @@ export class StatisticalService {
   getall():Observable<any> {
     return this.http.get(this.url+'/list');
   }
+
+  //top product
+  getTopProduct(top: any):Observable<any> {
+    return this.http.get(this.url+'/top-product/'+top);
+  }
+
 }
