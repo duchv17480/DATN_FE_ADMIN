@@ -18,7 +18,8 @@
                   (change)="confirmAddProduct(cancelled)" [value]="resetFilterByCode"  placeholder="Search by code" />
               </div>
               <div class="col">
-                <input type="text" class="form-control" [(ngModel)]="title" (change)="searchTitle($event)"
+                <input type="text" class="form-control" [(ngModel)]="title"
+                (change)="searchTitle($event)"
                   (change)="confirmAddProduct(cancelled)" placeholder="Search by name and price" />
               </div>
             </div>
@@ -30,8 +31,24 @@
     </div>
   </div>
 
+  <div>
+    <button class="btn btn-secondary mt-3" (click)="createO()">Tạo đơn hàng</button>
+  </div>
+
   <div class="row mt-3">
-    <div class="col-6 ps-0">
+    <div class="card">
+      <div class="card-header">
+        <button class="btn btn-success mx-2"
+        *ngFor="let item of listOrder let i = index"
+        (click)="getOneOrder(item.id)"
+        >Hóa đơn {{i + 1}}</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row mt-3 mb-5">
+    <div class="col-6 ps-0 mb-5">
 
       <!-- Thông tin hoa don đặt hàng -->
       <div class="card">
@@ -43,7 +60,7 @@
 
         <div class="card-body mt-3" style="overflow-x:auto;">
           <!-- bang thong tin hoa don -->
-          <table class="table table-bordered text-center mb-0">
+          <!-- <table class="table table-bordered text-center mb-0">
             <thead>
               <tr>
                 <th></th>
@@ -68,16 +85,59 @@
                 <td>{{order.phone}}</td>
                 <td>{{order.nameStaff}}</td>
                 <td>
-                  <!-- <app-view-order-detail [id]="order.id" (viewOrderFinished)="finishAndAlert($event)" ></app-view-order-detail> -->
                   <button pButton pRipple icon="pi pi-pencil" (click)="getOneOrder(order.id)"
                     class="p-button-rounded p-button-success mr-2"></button>
                 </td>
               </tr>
             </tbody>
-          </table>
+          </table> -->
+          <div class="row" *ngIf="doing">
+
+            <div class="col-6">
+              <div class="d-flex flex-row">
+                <h1 class="">Mã Hóa Đơn:</h1>
+                <h1 class="text-danger"> {{delivery.id}}</h1>
+              </div>
+
+              <div class="d-flex flex-row">
+                <h1 class="">Số điện thoại:</h1>
+                <h1 class="text-danger"> {{delivery.phone}}</h1>
+              </div>
+              <div class="d-flex flex-row">
+                <h1 class="">Trạng Thái:</h1>
+                <h1 class="text-danger"> {{delivery.paymentStatus == 'CHUATHANHTOAN' ? 'Chưa Thanh Toán' : 'Đã Thanh Toán'}}</h1>
+              </div>
+            </div>
+
+            <div class="col-6">
+              <div class="d-flex flex-row">
+                <h1 class="">Nhân Viên:</h1>
+                <h1 class="text-danger"> {{delivery.nameStaff}}</h1>
+              </div>
+
+              <div class="d-flex flex-row">
+                <h1 class="">Đơn:</h1>
+                <h1 class="text-danger"> {{delivery.orderStatus}}</h1>
+              </div>
+              <div class="d-flex flex-row">
+                <h1 class="">Ngày tạo:</h1>
+                <h1 class="text-danger"> {{delivery.createDate | date: "dd/MM/yyyy"}}</h1>
+              </div>
+            </div>
+            <div class="row">
+              <div class="d-flex flex-row">
+                <h1 class="">Tên Khách hàng:</h1>
+                <h1 class="text-danger"> {{delivery.fullname}}</h1>
+              </div>
+            </div>
+            <div class="row">
+              <div class="d-flex flex-row">
+                <h1 class="">Địa chỉ:</h1>
+                <h1 class="text-danger"> {{delivery.address}}</h1>
+              </div>
+            </div>
+          </div>
         </div>
-
-
       </div>
 
 
@@ -103,35 +163,7 @@
           <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
             tabindex="0">
             <form [formGroup]="validFormAtTheCounterOrder">
-              <div class="row" *ngIf="doing">
-                <div class="col-6">
-                  <div>
-                    <h2>Mã Hóa Đơn: {{delivery.id}}</h2>
-                  </div>
-                  <div>
-                    <h2>Đơn: {{delivery.orderStatus == 'DONGIAO' ? 'Đơn Giao':'Tại Quầy'}} </h2>
-                  </div>
-                  <div>
-                    <h2>Trạng Thái: {{delivery.paymentStatus == 'CHUATHANHTOAN' ? 'Chưa Thanh Toán' : 'Đã Thanh Toán'}}</h2>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div>
-                    <h2>Nhân Viên: {{delivery.nameStaff}}</h2>
-                  </div>
-                  <div>
-                    <h2>Ngày tạo: {{delivery.createDate | date: "dd/MM/yyyy"}} </h2>
-                  </div>
-                  <div>
-                    <h2>Ngày cập nhật: {{delivery.updateDate | date: "dd/MM/yyyy"}} </h2>
-                  </div>
-                </div>
 
-                <div class="row">
-                  <h2>Địa chỉ: {{delivery.address}}</h2>
-                </div>
-
-              </div>
               <div class="row">
                 <div class="col-4">
                   <div>
@@ -282,36 +314,6 @@
           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
             tabindex="0">
             <form [formGroup]="validFormDeliveryOrder">
-              <div class="row" *ngIf="doing">
-                <div class="col-6">
-                  <div>
-                    <h2>Mã Hóa Đơn: {{delivery.id}}</h2>
-                  </div>
-                  <div>
-                    <h2>Đơn: {{delivery.orderStatus == 'DONGIAO' ? 'Đơn Giao':'Tại Quầy'}} </h2>
-                  </div>
-                  <div>
-                    <h2>Trạng Thái: {{delivery.paymentStatus == 'CHUATHANHTOAN' ? 'Chưa Thanh Toán' : 'Đã Thanh Toán'}}</h2>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div>
-                    <h2>Nhân Viên: {{delivery.nameStaff}}</h2>
-                  </div>
-                  <div>
-                    <h2>Ngày tạo: {{delivery.createDate | date: "dd/MM/yyyy"}} </h2>
-                  </div>
-                  <div>
-                    <h2>Ngày cập nhật: {{delivery.updateDate | date: "dd/MM/yyyy"}} </h2>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <h2>Address: {{delivery.address}}</h2>
-                </div>
-
-              </div>
-
               <div class="row">
                 <div class="col-4">
                   <div>
@@ -505,38 +507,7 @@
 
       </div>
 
-      <!-- Thong tin san pham dat hang -->
-      <div class="card mt-3 mb-5">
-        <div class="row p-0 m-0">
-          <div class="col-6">
-            <div class="d-flex flex-row">
-              <h1 class="">Tổng tiền:</h1>
-              <h1 class="text-danger"> {{ totalAmount | currency:'VND' }}</h1>
-            </div>
 
-            <div class="d-flex flex-row">
-              <h1 class="">Tiền shipping:</h1>
-              <h1 class="text-danger"> {{ ship | currency:'VND'}}</h1>
-            </div>
-            <hr />
-            <div class="d-flex flex-row">
-              <h1 class="">Thành Tiền:</h1>
-              <h1 class="text-danger"> {{ total | currency:'VND'}}</h1>
-            </div>
-          </div>
-          <div class="col-3">
-            <!-- <div class="form-group mt-2">
-              <input class="form-control" placeholder="Tiền khách trả">
-            </div> -->
-          </div>
-          <div class="col-3">
-            <div class="mt-2">
-              <button [disabled]="validateFormCheckPayment.invalid" (click)="checkoutAtTheCounter()"
-                class="btn btn-primary">Thanh Toán</button>
-            </div>
-          </div>
-        </div>
-      </div>
 
     </div>
 
@@ -562,27 +533,27 @@
               </tr>
             </thead>
             <tbody class="align-middle">
-              <tr *ngFor="let cart of carts; let i = index">
-                <td class="align-middle">{{ cart.name }}</td>
-                <td class="align-middle">{{ cart.price | currency:'VND' }}</td>
+              <tr *ngFor="let orderD of orderDetails">
+                <td class="align-middle">{{ orderD.name }}</td>
+                <td class="align-middle">{{ orderD.price | currency:'VND' }}</td>
                 <td class="align-middle">
                   <div class="input-group quantity mx-auto" style="width: 100px;">
                     <div class="input-group-btn">
-                      <button (click)="minusQuantityCart(cart)" class="btn btn-sm btn-primary btn-minus">
+                      <button (click)="minusQuantity(orderD.product_id,orderD.order_id,orderD.quantity)" class="btn btn-sm btn-primary btn-minus">
                         <i class="fa fa-minus"></i>
                       </button>
                     </div>
-                    <input type="text" class="form-control form-control-sm bg-secondary text-center"
-                      (change)="updateCart(cart)" [(ngModel)]="cart.quantity">
+                    <input type="text" class="form-control form-control-sm bg-white text-dark text-center"
+                      (change)="updateQuantity(orderD.product_id,orderD.order_id,orderD.quantity)" [(ngModel)]="orderD.quantity">
                     <div class="input-group-btn">
-                      <button (click)="plusQuantityCart(cart)" class="btn btn-sm btn-primary btn-plus">
+                      <button (click)="plusQuantity(orderD.product_id,orderD.order_id,orderD.quantity)" class="btn btn-sm btn-primary btn-plus">
                         <i class="fa fa-plus"></i>
                       </button>
                     </div>
                   </div>
                 </td>
-                <td class="align-middle">{{ cart.total | currency:'VND' }}</td>
-                <td class="align-middle"><button (click)="deleteCart(cart)" class="btn btn-sm btn-primary"><i
+                <td class="align-middle">{{ orderD.total | currency:'VND' }}</td>
+                <td class="align-middle"><button (click)="deleteOrderDetail(orderD.id)" class="btn btn-sm btn-primary"><i
                       class="fa fa-times"></i></button></td>
               </tr>
             </tbody>
@@ -590,6 +561,38 @@
         </div>
       </div>
 
+       <!-- Thong tin san pham dat hang -->
+       <div class="card mt-3 mb-5">
+        <div class="row p-0 mt-3 m-0">
+          <div class="col-6 ">
+            <div class="d-flex flex-row">
+              <h1 class="">Tổng tiền:</h1>
+              <h1 class="text-danger"> {{ totalAmount | currency:'VND' }}</h1>
+            </div>
+
+            <div class="d-flex flex-row">
+              <h1 class="">Tiền shipping:</h1>
+              <h1 class="text-danger"> {{ ship | currency:'VND'}}</h1>
+            </div>
+            <hr />
+            <div class="d-flex flex-row">
+              <h1 class="">Thành Tiền:</h1>
+              <h1 class="text-danger"> {{ total | currency:'VND'}}</h1>
+            </div>
+          </div>
+          <div class="col-3">
+            <!-- <div class="form-group mt-2">
+              <input class="form-control" placeholder="Tiền khách trả">
+            </div> -->
+          </div>
+          <div class="col-3">
+            <div class="mt-2">
+              <button  (click)="checkoutAtTheCounter()"
+                class="btn btn-primary">Thanh Toán</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
     </div>
@@ -607,7 +610,7 @@
     </div>
     <div class="modal-body">
 
-      <div class="card mb-2">
+      <div class="card mb-2" *ngIf="doing">
         <div class="card-body">
           <div class="row">
             <div class="d-flex flex-row">
@@ -636,7 +639,7 @@
           <div class="row">
             <div class="col-5"></div>
             <div class="col-3">
-              <button (click)="addToCart(productIamges)" (click)="c('Close click')"
+              <button (click)="createOrderDetail()" (click)="c('Close click')"
                 class="btn btn-success">Thêm</button>
             </div>
             <div class="col-4">
@@ -646,6 +649,53 @@
           </div>
         </div>
       </div>
+
+      <div *ngIf="!doing">
+        <h1 class="text-danger">Không tìm thấy sản phẩm</h1>
+      </div>
+
+      <div *ngIf="isDoing">
+      <div class="card mb-2" *ngFor="let item of products">
+        <div class="card-body">
+          <div class="row">
+            <div class="d-flex flex-row">
+              <h1> {{item.name}}</h1>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-5">
+              <img src="{{item.imageLink}}" class="img-fluid" alt="">
+            </div>
+            <div class="col-7">
+              <div class="d-flex flex-row">
+                <h1 class="">- Mã SP: </h1>
+                <h1> {{item.code}}</h1>
+              </div>
+              <div class="d-flex flex-row">
+                <h1 class="">- Giá: </h1>
+                <h1 class="text-danger"> {{item.price | currency:'VND'}}</h1>
+              </div>
+              <div class="d-flex flex-row">
+                <h1 class="">- Số lượng: </h1>
+                <h1> {{item.quantity}}</h1>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-5"></div>
+            <div class="col-3">
+              <button (click)="createOrderDetail()" (click)="c('Close click')"
+                class="btn btn-success">Thêm</button>
+            </div>
+            <div class="col-4">
+              <a [routerLink]="['/product-detail', item.id]" (click)="c('Close click')"
+                class="btn btn-primary">Xem chi tiết</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     </div>
     <div class="modal-footer">

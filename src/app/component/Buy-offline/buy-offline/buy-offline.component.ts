@@ -16,6 +16,8 @@ import { ImageApiService } from '../../../_service/image-service/image-api.servi
 import { ProductImages } from '../../../_model/ProductImages';
 import { ExportOrderServiceService } from '../../../_service/export-service/export-order-service.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { OrderDetail } from '../../../_model/OrderDetail';
+import { TokenStorageService } from '../../../_service/token-storage-service/token-storage.service';
 
 @Component({
   selector: 'app-buy-offline',
@@ -35,7 +37,7 @@ export class BuyOfflineComponent implements OnInit {
   // pageSizes = [10, 20, 30];
   idProduct: any;
   message: any;
-  resetFilterByCode:any;
+  resetFilterByCode: any;
   //phần sản phẩm
 
   isLoading: boolean = false;
@@ -54,6 +56,7 @@ export class BuyOfflineComponent implements OnInit {
   createDate!: any;
   total!: any;
   doing = false;
+  isDoing = false;
   pageOrder = 0;
   countOrder = 0;
   pageSizeOrder = 6;
@@ -97,6 +100,12 @@ export class BuyOfflineComponent implements OnInit {
   orderId!: number;
   // trang thai huy
 
+
+  // order detail
+  orderDetails: any[] = [];
+  // order detail
+
+
   constructor(
 
     private modalService: NgbModal,
@@ -107,7 +116,8 @@ export class BuyOfflineComponent implements OnInit {
     private toast: NgToastService,
     private restGhn: GhnService,
     private restImages: ImageApiService,
-    private restExport: ExportOrderServiceService
+    private restExport: ExportOrderServiceService,
+    private tokenStorageService: TokenStorageService
   ) { }
 
   ngOnInit() {
@@ -116,10 +126,12 @@ export class BuyOfflineComponent implements OnInit {
     // this.getAll();
 
     //phần hóa đơn
+
     // this.getAllPaymentStatusPaid();
     this.getAllPaymentStatus();
-    this.getCartByUser();
-    this.getSumTotal();
+    // this.getCartByUser();
+    // this.getSumTotal();
+
 
     //phần hóa đơn
 
@@ -132,7 +144,7 @@ export class BuyOfflineComponent implements OnInit {
     })
 
     this.validFormDeliveryOrder = new FormGroup({
-      'fullname': new FormControl(null, [Validators.required,Validators.pattern("^[a-zA-Z ]+$")]),
+      'fullname': new FormControl(null, [Validators.required, Validators.pattern("^[a-zA-Z ]+$")]),
       'province': new FormControl(null, [Validators.required]),
       'district': new FormControl(null, [Validators.required]),
       'ward': new FormControl(null, [Validators.required]),
@@ -142,12 +154,12 @@ export class BuyOfflineComponent implements OnInit {
     })
 
     this.validFormAtTheCounterOrder = new FormGroup({
-      'fullname': new FormControl(null, [Validators.required,Validators.pattern("^[a-zA-Z ]+$")]),
+      'fullname': new FormControl(null, [Validators.required, Validators.pattern("^[a-zA-Z ]+$")]),
       'province': new FormControl(null, [Validators.required]),
       'district': new FormControl(null, [Validators.required]),
       'ward': new FormControl(null, [Validators.required]),
       'address': new FormControl(null),
-      'phone': new FormControl(null, [Validators.required,Validators.pattern("(\\+84|0)([0-9]{9}|[0-9]{10})")]),
+      'phone': new FormControl(null, [Validators.required, Validators.pattern("(\\+84|0)([0-9]{9}|[0-9]{10})")]),
       'description': new FormControl(null),
     })
   }
@@ -214,7 +226,6 @@ export class BuyOfflineComponent implements OnInit {
   getWardName(wardName: any) {
     this.wardName = wardName;
     this.addressName = this.wardName + ', ' + this.districtName + ', ' + this.provinceName;
-
   }
   // phần api giao hang nhanh
 
@@ -270,9 +281,10 @@ export class BuyOfflineComponent implements OnInit {
     }, error => {
       console.log(error);
       this.isLoading = false;
-      this.toast.error({ summary: 'Tạo đơn hàng thất bại'});
+      this.toast.error({ summary: 'Tạo đơn hàng thất bại' });
     });
   }
+
 
   getAllPaymentStatus() {
     this.restOrder.getAllPaymentStatus().subscribe(res => {
@@ -324,7 +336,7 @@ export class BuyOfflineComponent implements OnInit {
       this.orderAt = res.data[0];
       this.toast.success({ summary: 'Tìm thấy một khách hàng trước đó !', duration: 3000 });
     }, error => {
-      this.toast.success({ summary: 'Khách hàng mới !'});
+      this.toast.success({ summary: 'Khách hàng mới !' });
       this.orderAt
       this.isLoading = false;
     });
@@ -357,14 +369,29 @@ export class BuyOfflineComponent implements OnInit {
       this.idOrder = res.data.id;
       console.log(res.data.id + "id order");
 
+      this.tokenStorageService.set('id_order', res.data.id)
+
       this.restOrder.getOneOrder(res.data.id).subscribe(res => {
         this.delivery = res.data;
         this.orderAt = res.data;
+
+        // this.totalAmount = res.data.total;
+        // this.ship = res.data.shipping;
+        // this.total = this.totalAmount * this.ship;
+        this.sumPriceOrderDetail();
+
         console.log(res.data + "hihi");
       })
 
+      this.restOrder.getOneOrderDetail(res.data.id).subscribe(res => {
+        this.orderDetails = res.data;
+      })
+
+
+
     })
   }
+
 
   getOneOrderKh(id: any) {
     this.getAllPaymentStatus();
@@ -398,10 +425,10 @@ export class BuyOfflineComponent implements OnInit {
   // tạo đơn hang lẻ
   createRetailOrder() {
     this.isLoading = true;
-    this.restOrder.createRetailOrder().subscribe(res => {
+    this.restOrder.createRetailOrder(this.delivery.id).subscribe(res => {
       this.toast.success({ summary: 'Tạo Đơn hang thành công', duration: 3000 });
       this.isLoading = false;
-      this.ngOnInit();
+      this.getAllPaymentStatus();
     }, error => {
       console.log(error);
       this.isLoading = false;
@@ -415,7 +442,7 @@ export class BuyOfflineComponent implements OnInit {
       this.isLoading = false;
       this.toast.success({ summary: 'Đặt hàng thành công', duration: 3000 });
 
-      this.ngOnInit();
+      window.location.reload();
       // this.clickReset();
       // this.restExport.exportOrder(this.idOrder).subscribe(response =>{
       //   console.log("export order success");
@@ -423,6 +450,10 @@ export class BuyOfflineComponent implements OnInit {
     }, error => {
       console.log(error);
       this.isLoading = false;
+      if (error == false) {
+        return this.toast.error({ summary: 'Bạn chưa chọn san pham' });
+      }
+      this.toast.error({ summary: 'Bạn chưa chọn hóa đơn thanh toán' });
     });
   }
 
@@ -436,121 +467,67 @@ export class BuyOfflineComponent implements OnInit {
       this.toast.success({ summary: 'Cập nhật thành công', duration: 3000 });
       console.log(res.data + "update");
       // this.getOneOrder(this.delivery.id);
+      this.getAllPaymentStatus();
     }, error => {
       console.log(error);
       this.isLoading = false;
     });
   }
 
+
+  // tạo đơn hàng chở
+  createO() {
+    this.isLoading = true;
+    this.restOrder.createO().subscribe((res: any) => {
+      this.isLoading = false;
+      this.toast.success({ summary: 'Tạo đơn hàng chờ thành công', duration: 3000 });
+      this.getAllPaymentStatus();
+    }, error => {
+      console.log(error);
+      this.isLoading = false;
+      this.toast.error({ summary: 'Chỉ được tạo tối đa 10 đơn hàng chờ' });
+    });
+  }
+
   // cap nhat don hang tai quay
   updateAtTheCounter() {
     this.delivery.address = this.addressName;
-      this.isLoading = true;
-      this.restOrder.updateOrderAtTheCounter(this.delivery.id, this.orderAt).subscribe(res => {
-        this.isLoading = false;
-        this.toast.success({ summary: 'Cập Nhật thành công', duration: 3000 });
-        this.getAllPaymentStatus();
-      }, error => {
-        console.log(error);
-        this.isLoading = false;
-      });
+    this.isLoading = true;
+    this.restOrder.updateOrderAtTheCounter(this.delivery.id, this.orderAt).subscribe(res => {
+      this.isLoading = false;
+      this.toast.success({ summary: 'Cập Nhật thành công', duration: 3000 });
+      this.getAllPaymentStatus();
+    }, error => {
+      console.log(error);
+      this.isLoading = false;
+    });
 
   }
 
   //phần hóa đơn
 
   // phần sản phẩm đặt
-  addToCart(pro: any) {
+
+
+  createOrderDetail() {
     this.isLoading = true;
-    this.cart.productId = pro.id;
-    console.log(pro.id);
-    this.restCart.createCart(this.cart)
-      .subscribe(data => {
-        this.isLoading = false;
-        this.cart = data.data;
-        this.toast.success({ summary: 'Thêm sản phẩm thành công!', duration: 3000 });
-        // this.ngOnInit();
-        this.resetFilterByCode = '';
-        this.getCartByUser();
-        this.getSumTotal();
+    console.log(this.tokenStorageService.get('id_pro'));
 
-      });
+    this.restOrder.createOrderDetail(this.delivery.id, this.tokenStorageService.get('id_pro')).subscribe((res: any) => {
+      this.isLoading = false;
+      this.toast.success({ summary: 'Thêm sản phẩm thành công', duration: 3000 });
+
+      this.getOrderDetails();
+      this.sumPriceOrderDetail();
+
+    }, error => {
+      console.log(error);
+      this.toast.error({ summary: 'Thêm sản phẩm thất bại' });
+      this.isLoading = false;
+    });
   }
 
-
-  getCartByUser() {
-    this.restCart.getAllCartByUser()
-      .subscribe(data => {
-        this.carts = data.data;
-      });
-  }
-
-  getSumTotal() {
-    this.isLoading = true;
-    this.restCart.getSumTotal()
-      .subscribe(data => {
-        this.isLoading = false;
-        this.totalAmount = data.data.totalAmount;
-        this.quantityCart = data.data.quantityCart;
-        this.total = this.totalAmount + this.ship;
-      });
-  }
-
-  plusQuantityCart(cart: any) {
-    cart.quantity++;
-    this.restProduct.getOne(cart.product_id)
-      .subscribe(data => {
-        if (cart.quantity > data.data.quantity) {
-          this.toast.warning({ summary: 'Số lượng vượt quá số lượng trong kho!', duration: 3000 });
-          // this.ngOnInit();
-          this.getSumTotal();
-        } else {
-          this.restCart.updateCart(cart.product_id, cart)
-            .subscribe(data => {
-              this.getSumTotal();
-            });
-        }
-      });
-
-  }
-
-  minusQuantityCart(cart: any) {
-    cart.quantity--;
-    if (cart.quantity < 1) {
-      this.toast.warning({ summary: 'Số lượng sản phẩm phải lớn hơn 0!', duration: 3000 });
-      this.getSumTotal();
-    } else {
-      this.restCart.updateCart(cart.product_id, cart)
-        .subscribe(data => {
-          this.getSumTotal();
-        });
-    }
-  }
-
-  updateCart(cart: any) {
-    if (cart.quantity < 1) {
-      this.toast.warning({ summary: 'Số lượng sản phẩm phải lớn hơn 0!', duration: 3000 });
-      this.ngOnInit();
-    } else if (cart.quantity >= 'a' && cart.quantity <= 'z' || cart.quantity >= 'A' && cart.quantity <= 'Z') {
-      this.toast.warning({ summary: 'Số lượng sản phẩm phải là số!', duration: 3000 });
-      this.ngOnInit();
-    } else {
-      this.restProduct.getOne(cart.product_id)
-        .subscribe(data => {
-          if (cart.quantity > data.data.quantity) {
-            this.toast.warning({ summary: 'Số lượng vượt quá số lượng trong kho!', duration: 3000 });
-            this.ngOnInit();
-          } else {
-            this.restCart.updateCart(cart.product_id, cart)
-              .subscribe(data => {
-                this.ngOnInit();
-              });
-          }
-        });
-    }
-  }
-
-  deleteCart(cart: any) {
+  deleteOrderDetail(idO: any) {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
@@ -569,16 +546,238 @@ export class BuyOfflineComponent implements OnInit {
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-        this.restCart.deleteCart(cart.product_id)
+        this.restOrder.deleteOrderDetail(idO)
           .subscribe(data => {
             this.toast.success({ summary: 'Xóa sản phẩm khỏi giỏ hàng thành công!', duration: 3000 });
-            this.getCartByUser();
-            this.getSumTotal();
+            this.getOrderDetails();
+            this.sumPriceOrderDetail();
           });
         swalWithBootstrapButtons.fire('Deleted!', 'Xóa Sản Phẩm Khỏi Giỏ Hàng Thành Công', 'success')
       }
     })
   }
+
+  updateQuantity(idPro: any, idOr: any, quantity: any) {
+    this.isLoading = true;
+
+    if (quantity < 1) {
+      this.isLoading = false;
+      this.toast.warning({ summary: 'Số lượng sản phẩm phải lớn hơn 0!', duration: 3000 });
+      this.getOrderDetails();
+      this.sumPriceOrderDetail();
+    } else if (quantity >= 'a' && quantity <= 'z' || quantity >= 'A' && quantity <= 'Z') {
+      this.isLoading = false;
+      this.toast.warning({ summary: 'Số lượng sản phẩm phải là số!', duration: 3000 });
+      this.getOrderDetails();
+      this.sumPriceOrderDetail();
+    } else {
+
+      this.restProduct.getOne(idPro).subscribe(res => {
+        if (quantity > res.data.quantity) {
+          this.toast.warning({ summary: 'Số lượng vượt quá số lượng trong kho!', duration: 3000 });
+          this.getOrderDetails();
+      this.sumPriceOrderDetail();
+        } else {
+          this.restOrder.updateQuantity(idPro, idOr, quantity).subscribe(res => {
+            this.isLoading = false;
+            this.toast.success({ summary: 'Cập nhật thành công!', duration: 3000 });
+          });
+        }
+      });
+    }
+  }
+
+
+  getOrderDetails() {
+    this.restOrder.getOneOrderDetail(this.tokenStorageService.get('id_order')).subscribe(res => {
+      this.orderDetails = res.data;
+      console.log(res.data + 'kakakakakaka');
+    })
+  }
+
+  sumPriceOrderDetail() {
+    this.restOrder.sumPriceOrderDetail(this.tokenStorageService.get('id_order')).subscribe((res: any) => {
+      this.totalAmount = res.data.totalAmount;
+      this.ship = res.data.shipping;
+      this.total = this.totalAmount + this.ship;
+      console.log(this.totalAmount + 'hahahahaha');
+    })
+  }
+
+  minusQuantity(idPro: any, idOr: any, quantity: any) {
+    quantity--;
+    if (quantity < 1) {
+      this.toast.warning({ summary: 'Số lượng sản phẩm phải lớn hơn 0!', duration: 3000 });
+      this.getOrderDetails();
+      this.sumPriceOrderDetail();
+    } else {
+      this.restOrder.updateQuantity(idPro, idOr, quantity).subscribe(res => {
+        this.isLoading = false;
+        this.toast.success({ summary: 'Cập nhật thành công!', duration: 3000 });
+        this.getOrderDetails();
+        this.sumPriceOrderDetail();
+      });
+    }
+  }
+
+  plusQuantity(idPro: any, idOr: any, quantity: any) {
+    quantity++;
+    this.restProduct.getOne(idPro)
+      .subscribe(data => {
+        if (quantity > data.data.quantity) {
+          this.toast.warning({ summary: 'Số lượng vượt quá số lượng trong kho!', duration: 3000 });
+          this.getOrderDetails();
+          this.sumPriceOrderDetail();
+        } else {
+          this.restOrder.updateQuantity(idPro, idOr, quantity).subscribe(res => {
+            this.isLoading = false;
+            this.toast.success({ summary: 'Cập nhật thành công!', duration: 3000 });
+            this.getOrderDetails();
+            this.sumPriceOrderDetail();
+          });
+        }
+      });
+
+  }
+
+
+  // sumPriceOrderDet() {
+  //   this.restOrder.sumPriceOrderDetail(this.tokenStorageService.get('id_order')).subscribe((res: any) => {
+  //     this.totalAmount = res.data.totalAmount;
+  //     console.log(this.totalAmount + 'hahahahaha');
+  //   })
+  // }
+
+
+
+  // addToCart(pro: any) {
+  //   this.isLoading = true;
+  //   this.cart.productId = pro.id;
+  //   console.log(pro.id);
+  //   this.restCart.createCart(this.cart)
+  //     .subscribe(data => {
+  //       this.isLoading = false;
+  //       this.cart = data.data;
+  //       this.toast.success({ summary: 'Thêm sản phẩm thành công!', duration: 3000 });
+  //       // this.ngOnInit();
+  //       this.resetFilterByCode = '';
+  //       this.getCartByUser();
+  //       this.getSumTotal();
+
+  //     });
+  // }
+
+
+  // getCartByUser() {
+  //   this.restCart.getAllCartByUser()
+  //     .subscribe(data => {
+  //       this.carts = data.data;
+  //     });
+  // }
+
+  // getSumTotal() {
+  //   this.isLoading = true;
+  //   this.restCart.getSumTotal()
+  //     .subscribe(data => {
+  //       this.isLoading = false;
+  //       this.totalAmount = data.data.totalAmount;
+  //       this.quantityCart = data.data.quantityCart;
+  //       this.total = this.totalAmount + this.ship;
+  //     });
+  // }
+
+  // plusQuantityCart(cart: any) {
+  //   cart.quantity++;
+  //   this.restProduct.getOne(cart.product_id)
+  //     .subscribe(data => {
+  //       if (cart.quantity > data.data.quantity) {
+  //         this.toast.warning({ summary: 'Số lượng vượt quá số lượng trong kho!', duration: 3000 });
+  //         // this.ngOnInit();
+  //         this.getSumTotal();
+  //         this.getCartByUser();
+  //       } else {
+  //         this.restCart.updateCart(cart.product_id, cart)
+  //           .subscribe(data => {
+  //             this.getSumTotal();
+  //             this.getCartByUser();
+  //           });
+  //       }
+  //     });
+
+  // }
+
+  // minusQuantityCart(cart: any) {
+  //   cart.quantity--;
+  //   if (cart.quantity < 1) {
+  //     this.toast.warning({ summary: 'Số lượng sản phẩm phải lớn hơn 0!', duration: 3000 });
+  //     this.getSumTotal();
+  //     this.getCartByUser();
+  //   } else {
+  //     this.restCart.updateCart(cart.product_id, cart)
+  //       .subscribe(data => {
+  //         this.getSumTotal();
+  //         this.getCartByUser();
+  //       });
+  //   }
+  // }
+
+  // updateCart(cart: any) {
+  //   if (cart.quantity < 1) {
+  //     this.toast.warning({ summary: 'Số lượng sản phẩm phải lớn hơn 0!', duration: 3000 });
+  //     this.ngOnInit();
+  //   } else if (cart.quantity >= 'a' && cart.quantity <= 'z' || cart.quantity >= 'A' && cart.quantity <= 'Z') {
+  //     this.toast.warning({ summary: 'Số lượng sản phẩm phải là số!', duration: 3000 });
+  //     this.ngOnInit();
+  //   } else {
+  //     this.restProduct.getOne(cart.product_id)
+  //       .subscribe(data => {
+  //         if (cart.quantity > data.data.quantity) {
+  //           this.toast.warning({ summary: 'Số lượng vượt quá số lượng trong kho!', duration: 3000 });
+  //           this.ngOnInit();
+  //         } else {
+  //           this.restCart.updateCart(cart.product_id, cart)
+  //             .subscribe(data => {
+  //               this.ngOnInit();
+  //             });
+  //         }
+  //       });
+  //   }
+  // }
+
+
+
+  // deleteCart(cart: any) {
+  //   const swalWithBootstrapButtons = Swal.mixin({
+  //     customClass: {
+  //       confirmButton: 'btn btn-success',
+  //       cancelButton: 'btn btn-danger'
+  //     },
+  //     buttonsStyling: false
+  //   })
+
+  //   swalWithBootstrapButtons.fire({
+  //     title: 'Xóa Khỏi Giỏ Hàng',
+  //     text: "Bạn có chắc chắn muốn xóa sản phẩm khỏi giỏ hàng không?",
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonText: 'Chắc Chắn!',
+  //     cancelButtonText: 'Không',
+  //     reverseButtons: true
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       this.restCart.deleteCart(cart.product_id)
+  //         .subscribe(data => {
+  //           this.toast.success({ summary: 'Xóa sản phẩm khỏi giỏ hàng thành công!', duration: 3000 });
+  //           this.getCartByUser();
+  //           this.getSumTotal();
+  //         });
+  //       swalWithBootstrapButtons.fire('Deleted!', 'Xóa Sản Phẩm Khỏi Giỏ Hàng Thành Công', 'success')
+  //     }
+  //   })
+  // }
+
+
+
   // phần sản phẩm đặt
 
 
@@ -598,13 +797,23 @@ export class BuyOfflineComponent implements OnInit {
 
 
   searchTitle(even: any): void {
+    this.doing = false;
     this.isLoading = true;
     let condition = even.target.value;
     this.restProduct.getAllProductsAndSearch(condition, 0, 10).subscribe(res => {
-      this.isLoading = false;
-      this.products = res.data;
-      const totalItem = res.pagination.totalItem;
-      // this.count = totalItem;
+      if (res.data == null) {
+        this.doing = false;
+        this.toast.error({ summary: 'Không tìm thấy sản phẩm!' })
+      } else {
+        this.isLoading = false;
+        this.products = res.data;
+        console.log(this.products);
+        // const totalItem = res.pagination.totalItem;
+        // this.count = totalItem;
+        this.doing = false;
+        this.isDoing = true;
+        this.resetFilterByCode = '';
+      }
     })
   }
 
@@ -646,16 +855,23 @@ export class BuyOfflineComponent implements OnInit {
   // tìm kiếm theo mã code sản phẩm
   filterByCodeProduct(e: any) {
     let condition = e.target.value;
+    this.doing = false;
     if (condition) {
       this.restImages.findByMaCodeProduct(condition).subscribe(data => {
-        this.productIamges = data.data;
-        console.log(data);
+        if (data.data == null) {
+          this.doing = false;
+          this.toast.error({ summary: 'Không tìm thấy sản phẩm!' })
+        } else {
+          this.doing = true;
+          this.productIamges = data.data;
+          console.log(data.data);
+          this.resetFilterByCode = '';
+          this.tokenStorageService.saveidproduct(data.data.id);
+        }
       },
         error => {
           this.toast.error({ summary: 'Không tìm thấy sản phẩm!' })
         });
-    } else {
-      this.toast.error({ summary: 'Không tìm thấy sản phẩm!' })
     }
   }
 
