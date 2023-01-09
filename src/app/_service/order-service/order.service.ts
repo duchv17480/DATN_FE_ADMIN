@@ -57,7 +57,7 @@ export class OrderService {
     return this.http.get(URL_order + "/get-one/" + id);
   }
 
-  getOneOrderDetail(id: number):Observable<any>{
+  getOneOrderDetail(id: any):Observable<any>{
     return this.http.get(URL_orderdetail + "/order-id/" + id);
   }
 
@@ -95,8 +95,8 @@ export class OrderService {
   }
 
   // tạo đơn hàng bán lẻ
-  createRetailOrder(): Observable<any>{
-    return this.http.get(URL_order + "/create-retail-order");
+  createRetailOrder(id: any): Observable<any>{
+    return this.http.get(URL_order + "/create-retail-order/" + id);
   }
 
   // tạo hóa đơn tại quầy
@@ -133,6 +133,32 @@ export class OrderService {
   updateOrderDetail(id: any, data: any){
     return this.http.put(URL_orderdetail + '/update/' + id, data);
   }
+
+  // tạo đơn hàng chơ
+  createO(){
+    return this.http.get(URL_order + '/create-or');
+  }
+
+  // tạo order-detail
+  createOrderDetail(idO: any, idP: any){
+    return this.http.get(URL_orderdetail + '/create-order-detail/' + idO + "/" + idP);
+  }
+
+  // tính tổng tiền theo order id
+  sumPriceOrderDetail(idO: any){
+    return this.http.get(URL_orderdetail + "/sum-price-order/" + idO);
+  }
+
+  // xoa order detail
+  deleteOrderDetail(idO: any){
+    return this.http.delete(URL_orderdetail + "/delete/" + idO);
+  }
+
+  //cap nhat lai so luong order detail
+  updateQuantity(idPr: any, idOr: any, quantity: any){
+    return this.http.get(URL_orderdetail + '/updateQuantity/' + idPr + '/order/' + idOr + '?quantity=' + quantity);
+  }
+
 
   // cập nhật số lượng đơn hàng chi tiết
   updateQuantityOrderDetail(productId: any, orderId: any, quantity: any, data: any){
