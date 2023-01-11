@@ -45,7 +45,7 @@ export class OrderService {
   }
 
   getall(): Observable<any> {
-    return this.http.get(URL_order  );
+    return this.http.get(URL_order);
   }
 
   getAllOrderStatus():Observable<any>{

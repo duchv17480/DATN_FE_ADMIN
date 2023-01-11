@@ -124,6 +124,7 @@ import { AuthenticatedComponent } from './component/authenticated/authenticated.
 import {MatMenuModule} from '@angular/material/menu';
 import { EditAddessComponent } from './component/Oder/edit-addess/edit-addess.component';
 import { EditShipNameComponent } from './component/Oder/edit-ship-name/edit-ship-name.component';
+import { ListAllOrderComponent } from './component/Oder/list-all-order/list-all-order.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -146,6 +147,7 @@ import { EditShipNameComponent } from './component/Oder/edit-ship-name/edit-ship
     EditOrderComponent,
     EditAddessComponent,
     EditShipNameComponent,
+    ListAllOrderComponent,
 
     ConfirmDialogComponent,
 
