@@ -36,7 +36,14 @@ export class AuthenticatedComponent implements OnInit {
     {
       label: 'Order',
       icon: 'pi pi-fw pi-tablet',
-      routerLink: 'list-order'
+      routerLink: 'list-order',
+      items: [
+          {
+            label: 'All Order',
+            icon: 'pi pi-fw pi-tablet',
+            routerLink: '/all-order',
+        }
+      ]
     },
     {
       label: 'User',

@@ -62,6 +62,7 @@ import { BuyOfflineComponent } from './component/Buy-offline/buy-offline/buy-off
 import { AuthGuard } from './_helper/auth.guard';
 import { PublicComponent } from './component/public/public.component';
 import { AuthenticatedComponent } from './component/authenticated/authenticated.component';
+import { ListAllOrderComponent } from './component/Oder/list-all-order/list-all-order.component';
 
 
 const routes: Routes=[
@@ -82,6 +83,8 @@ const routes: Routes=[
       { path: 'list-order', component: ListOrderComponent, canActivate: [AuthGuard]},
       { path: 'list-orders', component: ListOrdersComponent, canActivate: [AuthGuard]},
       { path: 'info-order/:id', component: InfoOrderComponent, canActivate: [AuthGuard]},
+      { path: 'all-order', component: ListAllOrderComponent, canActivate: [AuthGuard]},
+
 
       { path: 'statistical', component: StatisticalComponent, canActivate: [AuthGuard]},
 
