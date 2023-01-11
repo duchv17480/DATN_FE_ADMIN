@@ -45,7 +45,7 @@
       </ng-container>
       <ng-container matColumnDef="grandTotal">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Tổng số tiền</th>
-        <td mat-cell *matCellDef="let row">{{row.grandTotal}}</td>
+        <td mat-cell *matCellDef="let row">{{row.grandTotal| currency:'VND'}}</td>
     </ng-container>
     <ng-container matColumnDef="type">
       <th mat-header-cell *matHeaderCellDef>
