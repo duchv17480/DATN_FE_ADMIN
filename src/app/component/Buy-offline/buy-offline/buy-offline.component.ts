@@ -38,6 +38,9 @@ export class BuyOfflineComponent implements OnInit {
   idProduct: any;
   message: any;
   resetFilterByCode: any;
+  quantityProduct: any;
+
+
   //phần sản phẩm
 
   isLoading: boolean = false;
@@ -158,7 +161,7 @@ export class BuyOfflineComponent implements OnInit {
       'province': new FormControl(null, [Validators.required]),
       'district': new FormControl(null, [Validators.required]),
       'ward': new FormControl(null, [Validators.required]),
-      'address': new FormControl(null),
+      // 'address': new FormControl(null),
       'phone': new FormControl(null, [Validators.required, Validators.pattern("(\\+84|0)([0-9]{9}|[0-9]{10})")]),
       'description': new FormControl(null),
     })
@@ -442,18 +445,29 @@ export class BuyOfflineComponent implements OnInit {
       this.isLoading = false;
       this.toast.success({ summary: 'Đặt hàng thành công', duration: 3000 });
 
-      window.location.reload();
       // this.clickReset();
       // this.restExport.exportOrder(this.idOrder).subscribe(response =>{
       //   console.log("export order success");
       // })
+
+      window.location.reload();
+
+
     }, error => {
-      console.log(error);
-      this.isLoading = false;
-      if (error == false) {
-        return this.toast.error({ summary: 'Bạn chưa chọn san pham' });
+      console.log(error + 'hah');
+      if (error.success == false) {
+        this.isLoading = false;
+        this.toast.error({ summary: error.message })
       }
-      this.toast.error({ summary: 'Bạn chưa chọn hóa đơn thanh toán' });
+      this.isLoading = false;
+      this.toast.error({ summary: 'Bạn chưa chọn san pham' });
+
+      // console.log(error);
+      // this.isLoading = false;
+      // if (error == false) {
+      //   return this.toast.error({ summary: 'Bạn chưa chọn san pham' });
+      // }
+      // this.toast.error({ summary: 'Bạn chưa chọn hóa đơn thanh toán' });
     });
   }
 
@@ -574,9 +588,11 @@ export class BuyOfflineComponent implements OnInit {
 
       this.restProduct.getOne(idPro).subscribe(res => {
         if (quantity > res.data.quantity) {
+          this.isLoading = false;
           this.toast.warning({ summary: 'Số lượng vượt quá số lượng trong kho!', duration: 3000 });
           this.getOrderDetails();
-      this.sumPriceOrderDetail();
+
+          this.sumPriceOrderDetail();
         } else {
           this.restOrder.updateQuantity(idPro, idOr, quantity).subscribe(res => {
             this.isLoading = false;
@@ -610,6 +626,7 @@ export class BuyOfflineComponent implements OnInit {
       this.toast.warning({ summary: 'Số lượng sản phẩm phải lớn hơn 0!', duration: 3000 });
       this.getOrderDetails();
       this.sumPriceOrderDetail();
+      this.isLoading = false;
     } else {
       this.restOrder.updateQuantity(idPro, idOr, quantity).subscribe(res => {
         this.isLoading = false;
@@ -625,9 +642,11 @@ export class BuyOfflineComponent implements OnInit {
     this.restProduct.getOne(idPro)
       .subscribe(data => {
         if (quantity > data.data.quantity) {
+          this.isLoading = false;
           this.toast.warning({ summary: 'Số lượng vượt quá số lượng trong kho!', duration: 3000 });
           this.getOrderDetails();
           this.sumPriceOrderDetail();
+
         } else {
           this.restOrder.updateQuantity(idPro, idOr, quantity).subscribe(res => {
             this.isLoading = false;
@@ -637,7 +656,7 @@ export class BuyOfflineComponent implements OnInit {
           });
         }
       });
-
+    this.isLoading = false;
   }
 
 
