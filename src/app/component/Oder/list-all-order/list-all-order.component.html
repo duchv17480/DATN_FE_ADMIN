@@ -58,12 +58,22 @@
       <td mat-cell *matCellDef="let row" class="text-white">
         <div style="width: 140px" *ngIf="row.orderStatus=='DONCHO'" class="bg-primary p-2 rounded-pill text-center">
           <span>
-            Giao hàng
+            Đơn Chờ
           </span>
         </div>
-        <div style="width: 140px" *ngIf="row.orderStatus=='DONLE'" class="bg-success p-2 rounded-pill text-center">
+        <div style="width: 140px" *ngIf="row.orderStatus=='DONLE'" class="bg-dark p-2 rounded-pill text-center">
           <span>
-            Tại quầy
+            Đơn lẻ
+          </span>
+        </div>
+        <div style="width: 140px" *ngIf="row.orderStatus=='TAIQUAY'" class="bg-success p-2 rounded-pill text-center">
+          <span>
+            Tại Quầy
+          </span>
+        </div>
+        <div style="width: 140px" *ngIf="row.orderStatus=='DONGIAO'" class="bg-secondary p-2 rounded-pill text-center">
+          <span>
+            Đơn Giao
           </span>
         </div>
       </td>
@@ -94,12 +104,17 @@
       </div>
       <div style="width: 140px" *ngIf="row.status=='DAGIAO'" class="bg-success p-2 rounded-pill text-center">
         <span>
-          Đã giao
+          Đã hoàn thành
         </span>
       </div>
       <div style="width: 140px" *ngIf="row.status=='DAHUY'" class="bg-danger p-2 rounded-pill text-center">
         <span>
           Đã hủy
+        </span>
+      </div>
+      <div style="width: 140px" *ngIf="row.status=='DAHOANTHANH'" class="bg-success p-2 rounded-pill text-center">
+        <span>
+          Đã hoàn thành
         </span>
       </div>
     </td>
