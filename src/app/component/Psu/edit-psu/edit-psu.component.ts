@@ -42,9 +42,13 @@ export class EditPsuComponent implements OnInit {
       this.groupSelect = this.psu.productId;
 
     });
-    this.ProductApiService.getAllProduct(0,50).subscribe((data) => {
+    // this.ProductApiService.getAllProduct(0,50).subscribe((data) => {
+    //   this.product = data.data;
+    //   console.log(data.data)
+    // });
+    this.PsuService.getCateProductPsu().subscribe((data) => {
       this.product = data.data;
-      console.log(data.data)
+      console.log(data);
     });
 
   }

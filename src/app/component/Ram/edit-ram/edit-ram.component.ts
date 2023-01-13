@@ -44,10 +44,9 @@ export class EditRamComponent implements OnInit {
       this.groupSelect = this.ram.productId;
 
     });
-    this.ProductApiService.getAllProduct(0,50).subscribe((data) => {
-      this.product = data.data;
-      console.log(data.data)
-    });
+    this.RamService.getCateProductRam().subscribe(res=>{
+      this.product = res.data;
+    })
 
   }
   changeGroup = (val:any) => {{

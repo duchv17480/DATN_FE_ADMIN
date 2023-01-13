@@ -22,7 +22,13 @@ export class AddChipComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAllProduct();
+    this.getCateProductChip();
+  }
+
+  getCateProductChip(){
+    this.rest.getCateProductChip().subscribe((res:any)=>{
+      this.products = res.data
+    })
   }
 
   open(content: TemplateRef<any>) {

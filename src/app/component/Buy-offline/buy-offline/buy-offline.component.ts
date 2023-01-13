@@ -438,6 +438,15 @@ export class BuyOfflineComponent implements OnInit {
     });
   }
 
+
+  confirmCheckoutAtTheCounter(confirmDialog: TemplateRef<any>,){
+    this.modalService.open(confirmDialog,
+      { ariaDescribedBy: 'modal-basic-title' }).result.then((result) => {
+      }).catch((err) => {
+
+      })
+  }
+
   // đặt hàng
   checkoutAtTheCounter() {
     this.isLoading = true;
@@ -482,6 +491,7 @@ export class BuyOfflineComponent implements OnInit {
       console.log(res.data + "update");
       // this.getOneOrder(this.delivery.id);
       this.getAllPaymentStatus();
+      this.sumPriceOrderDetail();
     }, error => {
       console.log(error);
       this.isLoading = false;
@@ -496,6 +506,7 @@ export class BuyOfflineComponent implements OnInit {
       this.isLoading = false;
       this.toast.success({ summary: 'Tạo đơn hàng chờ thành công', duration: 3000 });
       this.getAllPaymentStatus();
+      // this.sumPriceOrderDetail();
     }, error => {
       console.log(error);
       this.isLoading = false;
@@ -591,12 +602,13 @@ export class BuyOfflineComponent implements OnInit {
           this.isLoading = false;
           this.toast.warning({ summary: 'Số lượng vượt quá số lượng trong kho!', duration: 3000 });
           this.getOrderDetails();
-
           this.sumPriceOrderDetail();
         } else {
           this.restOrder.updateQuantity(idPro, idOr, quantity).subscribe(res => {
             this.isLoading = false;
             this.toast.success({ summary: 'Cập nhật thành công!', duration: 3000 });
+            this.getOrderDetails();
+            this.sumPriceOrderDetail();
           });
         }
       });

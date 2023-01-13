@@ -34,9 +34,12 @@ export class AddCaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.ProductApiService.getAllProduct(0,50).subscribe((data) => {
+    // this.ProductApiService.getAllProduct(0,50).subscribe((data) => {
+    //   this.Product = data.data;
+    //   console.log(data);
+    // });
+    this.CasesService.getCateProductCase().subscribe((data) => {
       this.Product = data.data;
-      console.log(data);
     });
   }
 

@@ -43,9 +43,13 @@ export class EditHdComponent implements OnInit {
       this.groupSelect = this.hd.productId;
 
     });
-    this.ProductApiService.getAllProduct(0,50).subscribe((data) => {
+    // this.ProductApiService.getAllProduct(0,50).subscribe((data) => {
+    //   this.product = data.data;
+    //   console.log(data.data)
+    // });
+    this.HdService.getCaseProductHd().subscribe((data) => {
       this.product = data.data;
-      console.log(data.data)
+      console.log(data);
     });
 
   }
@@ -64,7 +68,7 @@ export class EditHdComponent implements OnInit {
 
         };
 
-        
+
         setTimeout(() => {
            this.HdService.put(this.id,groupForm).subscribe({
           next: (data: any) => {

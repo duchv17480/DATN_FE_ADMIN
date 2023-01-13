@@ -13,43 +13,48 @@ export class RamService {
   constructor(private httpClient: HttpClient) { }
   getHeader() {
     const token = localStorage.getItem("auth-token");
-    return token ? new HttpHeaders().set('Authorization', 'Bearer ' + token) : null;}
-  getAll():Observable<any> {
+    return token ? new HttpHeaders().set('Authorization', 'Bearer ' + token) : null;
+  }
+  getAll(): Observable<any> {
     let headers = this.getHeader();
-    if (headers instanceof HttpHeaders)
-    {
-      return this.httpClient.get(this.url  ,{ headers: headers });
-    }else{
-      return this.httpClient.get(this.url );
+    if (headers instanceof HttpHeaders) {
+      return this.httpClient.get(this.url, { headers: headers });
+    } else {
+      return this.httpClient.get(this.url);
     }
 
   }
 
-  getOne(id:number):Observable<any> {
-    return this.httpClient.get(this.url+'/'+id);
+  getOne(id: number): Observable<any> {
+    return this.httpClient.get(this.url + '/' + id);
   }
 
-  post(item:any):Observable<any>  {
+  post(item: any): Observable<any> {
     let headers = this.getHeader();
-    if (headers instanceof HttpHeaders)
-    {
-      return this.httpClient.post(this.url+"/create", item ,{ headers: headers });
-    }else{
-      return this.httpClient.post(this.url+"/create" , item);
+    if (headers instanceof HttpHeaders) {
+      return this.httpClient.post(this.url + "/create", item, { headers: headers });
+    } else {
+      return this.httpClient.post(this.url + "/create", item);
     }
 
   }
 
-  put(id:number, item:any):Observable<any> {
-    return this.httpClient.put(this.url+'/update/'+id, item);
+  put(id: number, item: any): Observable<any> {
+    return this.httpClient.put(this.url + '/update/' + id, item);
   }
-  delete(id:number): Observable<any> {
+  delete(id: number): Observable<any> {
     let headers = this.getHeader();
-    if (headers instanceof HttpHeaders)
-    {
-    return this.httpClient.delete(this.url+'/delete/'+id,{ headers: headers });
-  }else{
-    return this.httpClient.post(this.url+"/delete/" , id);
+    if (headers instanceof HttpHeaders) {
+      return this.httpClient.delete(this.url + '/delete/' + id, { headers: headers });
+    } else {
+      return this.httpClient.post(this.url + "/delete/", id);
+    }
   }
+
+  getCateProductRam(): Observable<any> {
+    return this.httpClient.get(this.url + '/list-ram');
   }
+
+
+
 }

@@ -13,13 +13,11 @@
             <div class="row">
               <h2>Tìm kiếm sản phẩm</h2>
               <div class="col">
-                <input type="text" class="form-control" [(ngModel)]="idProduct"
-                 (change)="filterByCodeProduct($event)"
-                  (change)="confirmAddProduct(cancelled)" [value]="resetFilterByCode"  placeholder="Search by code" />
+                <input type="text" class="form-control" [(ngModel)]="idProduct" (change)="filterByCodeProduct($event)"
+                  (change)="confirmAddProduct(cancelled)" [value]="resetFilterByCode" placeholder="Search by code" />
               </div>
               <div class="col">
-                <input type="text" class="form-control" [(ngModel)]="title"
-                (change)="searchTitle($event)"
+                <input type="text" class="form-control" [(ngModel)]="title" (change)="searchTitle($event)"
                   (change)="confirmAddProduct(cancelled)" placeholder="Search by name and price" />
               </div>
             </div>
@@ -38,10 +36,21 @@
   <div class="row mt-3">
     <div class="card">
       <div class="card-header">
-        <button class="btn btn-success mx-2" active
-        *ngFor="let item of listOrder let i = index"
-        (click)="getOneOrder(item.id)"
-        >Hóa đơn {{i + 1}}</button>
+
+        <!-- <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist"*ngFor="let item of listOrder let i = index"
+        (click)="getOneOrder(item.id)">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-hd-tab" data-bs-toggle="pill" data-bs-target="#pills-hd"
+             type="button" role="tab" aria-controls="pills-hd" aria-selected="true"
+             >Hóa đơn {{i + 1}}</button>
+          </li>
+        </ul> -->
+
+        <mat-button-toggle-group name="favoriteColor" aria-label="Favorite Color"
+          *ngFor="let item of listOrder let i = index">
+          <mat-button-toggle (click)="getOneOrder(item.id)" value="{{item.name}}">Hóa đơn {{i + 1}}</mat-button-toggle>
+        </mat-button-toggle-group>
+
       </div>
     </div>
   </div>
@@ -73,7 +82,8 @@
               </div>
               <div class="d-flex flex-row">
                 <h1 class="">Trạng Thái:</h1>
-                <h1 class="text-danger"> {{delivery.paymentStatus == 'CHUATHANHTOAN' ? 'Đã Thanh Toán' : 'Chưa Thanh Toán' }}</h1>
+                <h1 class="text-danger"> {{delivery.paymentStatus == 'CHUATHANHTOAN' ? 'Đã Thanh Toán' : 'Chưa Thanh
+                  Toán' }}</h1>
               </div>
 
             </div>
@@ -156,13 +166,15 @@
                     <mdb-form-control>
                       <label mdbLabel class="form-label">Họ Và Tên</label>
                       <input mdbInput type="text" formControlName="fullname" [(ngModel)]="orderAt.fullname"
-                        class="form-control"/>
+                        class="form-control" />
                     </mdb-form-control>
                     <div
                       *ngIf="validFormAtTheCounterOrder.controls['fullname'].invalid && validFormAtTheCounterOrder.controls['fullname'].touched"
                       class="text-danger">
-                      <small *ngIf="validFormAtTheCounterOrder.controls['fullname'].errors?.['required']">Họ và tên không được để trống</small>
-                        <small *ngIf="validFormAtTheCounterOrder.controls['fullname'].errors?.['pattern']"> Họ và tên không được nhập số</small>
+                      <small *ngIf="validFormAtTheCounterOrder.controls['fullname'].errors?.['required']">Họ và tên
+                        không được để trống</small>
+                      <small *ngIf="validFormAtTheCounterOrder.controls['fullname'].errors?.['pattern']"> Họ và tên
+                        không được nhập số</small>
                     </div>
                   </div>
                 </div>
@@ -170,19 +182,19 @@
                   <div>
                     <mdb-form-control>
                       <label mdbLabel class="form-label" for="phone">Số Điện Thoại</label>
-                      <input mdbInput formControlName="phone"
-                       [(ngModel)]="orderAt.phone"
-                        (change)="searchFullnameOrder($event)"
-                        class="form-control" />
+                      <input mdbInput formControlName="phone" [(ngModel)]="orderAt.phone"
+                        (change)="searchFullnameOrder($event)" class="form-control" />
                     </mdb-form-control>
                     <div
                       *ngIf="validFormAtTheCounterOrder.controls['phone'].invalid && validFormAtTheCounterOrder.controls['phone'].touched"
                       class="text-danger">
-                      <small *ngIf="validFormAtTheCounterOrder.controls['phone'].errors?.['required']"> Số điện thoại không được
+                      <small *ngIf="validFormAtTheCounterOrder.controls['phone'].errors?.['required']"> Số điện thoại
+                        không được
                         để
                         trống</small>
-                        <small *ngIf="validFormAtTheCounterOrder.controls['phone'].errors?.['pattern']"> Số điện thoại không đúng định dạng
-                        </small>
+                      <small *ngIf="validFormAtTheCounterOrder.controls['phone'].errors?.['pattern']"> Số điện thoại
+                        không đúng định dạng
+                      </small>
                     </div>
                   </div>
                 </div>
@@ -197,12 +209,10 @@
                   <div>
                     <mat-form-field appearance="outline">
                       <mat-label>Chọn Tỉnh/Thành phố *</mat-label>
-                      <mat-select formControlName="province"
-                      (selectionChange)="getDistrict(provinceId,provinceName)"
-                       [(ngModel)]="orderAt.province">
-                       <mat-option *ngFor="let p of province" [value]="p.ProvinceID"
-                          (click)="getDistrict(p.ProvinceID,p.ProvinceName)"
-                          >
+                      <mat-select formControlName="province" (selectionChange)="getDistrict(provinceId,provinceName)"
+                        [(ngModel)]="orderAt.province">
+                        <mat-option *ngFor="let p of province" [value]="p.ProvinceID"
+                          (click)="getDistrict(p.ProvinceID,p.ProvinceName)">
                           {{p.ProvinceName}}
                         </mat-option>
                       </mat-select>
@@ -235,7 +245,7 @@
                     <mat-form-field appearance="outline">
                       <mat-label>Chọn Phường/Xã *</mat-label>
                       <mat-select formControlName="ward" [(ngModel)]="orderAt.ward">
-                        <mat-option [value]="orderAt.ward" >
+                        <mat-option [value]="orderAt.ward">
                           {{provinceName}}
                         </mat-option>
                         <mat-option *ngFor="let w of ward" [value]="w.WardCode" (click)="getWardName(w.WardName)">
@@ -308,7 +318,8 @@
                       <input mdbInput type="text" formControlName="fullname" [(ngModel)]="delivery.fullname"
                         class="form-control" />
                     </mdb-form-control>
-                    <div *ngIf="validFormDeliveryOrder.controls['fullname'].invalid && validFormDeliveryOrder.controls['fullname'].touched"
+                    <div
+                      *ngIf="validFormDeliveryOrder.controls['fullname'].invalid && validFormDeliveryOrder.controls['fullname'].touched"
                       class="text-danger">
                       <small *ngIf="validFormDeliveryOrder.controls['fullname'].errors?.['required']"> Họ và tên không
                         được
@@ -320,16 +331,14 @@
                   <div>
                     <mdb-form-control>
                       <label mdbLabel class="form-label">Số Điện Thoại</label>
-                      <input mdbInput type="text"
-                      formControlName="phone"
-                      [(ngModel)]="delivery.phone"
-                      (change)="searchFullnameOrder($event)"
-                        class="form-control" />
+                      <input mdbInput type="text" formControlName="phone" [(ngModel)]="delivery.phone"
+                        (change)="searchFullnameOrder($event)" class="form-control" />
                     </mdb-form-control>
                     <div
                       *ngIf="validFormDeliveryOrder.controls['phone'].invalid && validFormDeliveryOrder.controls['phone'].touched"
                       class="text-danger">
-                      <small *ngIf="validFormDeliveryOrder.controls['phone'].errors?.['required']"> Số điện thoại không được
+                      <small *ngIf="validFormDeliveryOrder.controls['phone'].errors?.['required']"> Số điện thoại không
+                        được
                         để
                         trống</small>
                     </div>
@@ -339,8 +348,7 @@
                   <div *ngIf="!doing">
                     <mdb-form-control>
                       <label mdbLabel class="form-label">Tiền Shipping</label>
-                      <input [value]="shippingTotal"
-                        class="form-control" disabled/>
+                      <input [value]="shippingTotal" class="form-control" disabled />
                     </mdb-form-control>
                     <div
                       *ngIf="validFormDeliveryOrder.controls['shipping'].invalid && validFormDeliveryOrder.controls['shipping'].touched"
@@ -355,8 +363,7 @@
                   <div *ngIf="doing">
                     <mdb-form-control>
                       <label mdbLabel class="form-label">Tiền Shipping</label>
-                      <input mdbInput formControlName="shipping"
-                       [(ngModel)]="delivery.shipping" [value]="shippingTotal"
+                      <input mdbInput formControlName="shipping" [(ngModel)]="delivery.shipping" [value]="shippingTotal"
                         class="form-control" />
                     </mdb-form-control>
                     <div
@@ -399,8 +406,7 @@
                   <mat-form-field appearance="outline">
                     <mat-label>Chọn Quận/Huyện *</mat-label>
                     <mat-select formControlName="district" [(ngModel)]="delivery.district">
-                      <mat-option *ngFor="let d of district"
-                       [value]="d.DistrictID"
+                      <mat-option *ngFor="let d of district" [value]="d.DistrictID"
                         (click)="getWard(d.DistrictID, d.DistrictName);">
                         {{d.DistrictName}}
                       </mat-option>
@@ -525,30 +531,33 @@
                 <td class="align-middle">
                   <div class="input-group quantity mx-auto" style="width: 100px;">
                     <div class="input-group-btn">
-                      <button (click)="minusQuantity(orderD.product_id,orderD.order_id,orderD.quantity)" class="btn btn-sm btn-primary btn-minus">
+                      <button (click)="minusQuantity(orderD.product_id,orderD.order_id,orderD.quantity)"
+                        class="btn btn-sm btn-primary btn-minus">
                         <i class="fa fa-minus"></i>
                       </button>
                     </div>
                     <input type="text" class="form-control form-control-sm bg-white text-dark text-center"
-                      (change)="updateQuantity(orderD.product_id,orderD.order_id,orderD.quantity)" [(ngModel)]="orderD.quantity">
+                      (change)="updateQuantity(orderD.product_id,orderD.order_id,orderD.quantity)"
+                      [(ngModel)]="orderD.quantity">
                     <div class="input-group-btn">
-                      <button (click)="plusQuantity(orderD.product_id,orderD.order_id,orderD.quantity)" class="btn btn-sm btn-primary btn-plus">
+                      <button (click)="plusQuantity(orderD.product_id,orderD.order_id,orderD.quantity)"
+                        class="btn btn-sm btn-primary btn-plus">
                         <i class="fa fa-plus"></i>
                       </button>
                     </div>
                   </div>
                 </td>
                 <td class="align-middle">{{ orderD.total | currency:'VND' }}</td>
-                <td class="align-middle"><button (click)="deleteOrderDetail(orderD.id)" class="btn btn-sm btn-primary"><i
-                      class="fa fa-times"></i></button></td>
+                <td class="align-middle"><button (click)="deleteOrderDetail(orderD.id)"
+                    class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-       <!-- Thong tin san pham dat hang -->
-       <div class="card mt-3 mb-5">
+      <!-- Thong tin san pham dat hang -->
+      <div class="card mt-3 mb-5">
         <div class="row p-0 mt-3 m-0">
           <div class="col-6 ">
             <div class="d-flex flex-row">
@@ -573,8 +582,8 @@
           </div>
           <div class="col-3">
             <div class="mt-2">
-              <button  (click)="checkoutAtTheCounter()"
-                class="btn btn-primary">Thanh Toán</button>
+              <button (click)="confirmCheckoutAtTheCounter(confirmCheckout)" class="btn btn-primary">Thanh
+                Toán</button>
             </div>
           </div>
         </div>
@@ -625,8 +634,7 @@
           <div class="row">
             <div class="col-5"></div>
             <div class="col-3">
-              <button (click)="createOrderDetail()" (click)="c('Close click')"
-                class="btn btn-success">Thêm</button>
+              <button (click)="createOrderDetail()" (click)="c('Close click')" class="btn btn-success">Thêm</button>
             </div>
             <div class="col-4">
               <a [routerLink]="['/product-detail', productIamges.id]" (click)="c('Close click')"
@@ -641,46 +649,45 @@
       </div>
 
       <div *ngIf="isDoing">
-      <div class="card mb-2" *ngFor="let item of products">
-        <div class="card-body">
-          <div class="row">
-            <div class="d-flex flex-row">
-              <h1> {{item.name}}</h1>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-5">
-              <img src="{{item.imageLink}}" class="img-fluid" alt="">
-            </div>
-            <div class="col-7">
+        <div class="card mb-2" *ngFor="let item of products">
+          <div class="card-body">
+            <div class="row">
               <div class="d-flex flex-row">
-                <h1 class="">- Mã SP: </h1>
-                <h1> {{item.code}}</h1>
-              </div>
-              <div class="d-flex flex-row">
-                <h1 class="">- Giá: </h1>
-                <h1 class="text-danger"> {{item.price | currency:'VND'}}</h1>
-              </div>
-              <div class="d-flex flex-row">
-                <h1 class="">- Số lượng: </h1>
-                <h1> {{item.quantity}}</h1>
+                <h1> {{item.name}}</h1>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-5"></div>
-            <div class="col-3">
-              <button (click)="createOrderDetail()" (click)="c('Close click')"
-                class="btn btn-success">Thêm</button>
+            <div class="row">
+              <div class="col-5">
+                <img src="{{item.imageLink}}" class="img-fluid" alt="">
+              </div>
+              <div class="col-7">
+                <div class="d-flex flex-row">
+                  <h1 class="">- Mã SP: </h1>
+                  <h1> {{item.code}}</h1>
+                </div>
+                <div class="d-flex flex-row">
+                  <h1 class="">- Giá: </h1>
+                  <h1 class="text-danger"> {{item.price | currency:'VND'}}</h1>
+                </div>
+                <div class="d-flex flex-row">
+                  <h1 class="">- Số lượng: </h1>
+                  <h1> {{item.quantity}}</h1>
+                </div>
+              </div>
             </div>
-            <div class="col-4">
-              <a [routerLink]="['/product-detail', item.id]" (click)="c('Close click')"
-                class="btn btn-primary">Xem chi tiết</a>
+            <div class="row">
+              <div class="col-5"></div>
+              <div class="col-3">
+                <button (click)="createOrderDetail()" (click)="c('Close click')" class="btn btn-success">Thêm</button>
+              </div>
+              <div class="col-4">
+                <a [routerLink]="['/product-detail', item.id]" (click)="c('Close click')" class="btn btn-primary">Xem
+                  chi tiết</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
 
     </div>
@@ -690,4 +697,26 @@
 
   </ng-template>
   <!-- Thong tin sản phẩm-->
+
+
+  <!-- Xac nhan dat hang -->
+  <ng-template #confirmCheckout let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h1 class="modal-title">Xác nhận đơn đặt hàng</h1>
+      <button type="button" class="close" aria-label="close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <h1 class="text-danger">Bạn có muốn thanh toán đơn hàng này không ?</h1>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success" (click)="checkoutAtTheCounter()" (click)="c('Close click')" type="submit">Thanh
+        Toán</button>
+      <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cancel</button>
+    </div>
+  </ng-template>
+
+  <!-- Xac nhan dat hang -->
+
 </div>
