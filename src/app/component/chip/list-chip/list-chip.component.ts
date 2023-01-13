@@ -4,6 +4,7 @@ import { ChipApiService } from '../../../_service/chip-service/chip-api.service'
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
+import {data} from "jquery";
 
 @Component({
   selector: 'app-list-chip',
@@ -89,6 +90,7 @@ export class ListChipComponent implements OnInit {
     this.rest.getAllAndPage(params).subscribe(response=>{
       const totalItems = response.pagination.totalItem;
       this.chips = response.data;
+      console.log(response.data)
       this.count = totalItems;
     },
     error => {

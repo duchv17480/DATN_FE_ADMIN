@@ -10,7 +10,8 @@
         <tr>
             <th pSortableColumn="ddr">Ddr<p-sortIcon></p-sortIcon></th>
             <th pSortableColumn="bus">Bus<p-sortIcon></p-sortIcon></th>
-            <th pSortableColumn="productId">Product<p-sortIcon></p-sortIcon></th>
+            <th pSortableColumn="productId">Product ID<p-sortIcon></p-sortIcon></th>
+            <th pSortableColumn="productName">Product Name<p-sortIcon></p-sortIcon></th>
             <th>Action</th>
         </tr>
       </ng-template>
@@ -20,6 +21,7 @@
             <td>{{ram?.ddr}}</td>
             <td>{{ram?.ddr}}</td>
             <td >{{ram?.productId}}</td>
+            <td >{{ram?.productName}}</td>
               <td>
                 <button [routerLink]="['/ram/update/'+ ram.id]" pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" ></button>
                 <button (click)="confirmDeleteStaff(content, ram.id)" pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"  ></button>
