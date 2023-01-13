@@ -19,7 +19,7 @@ export class ImageApiService {
   }
 
   getAllProduct(page: number, pageNumber: number): Observable<any> {
-    return this.rest.get(URL_PRODUCT + '/list' + "?page=" + page + "&page-number=" + pageNumber);
+    return this.rest.get(URL_PRODUCT + '/list' + "?page=" + page + "&page-size=" + pageNumber);
   }
 
 

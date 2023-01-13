@@ -50,4 +50,9 @@ export class ChipApiService {
   }
 
 
+  getCateProductChip():Observable<any>{
+    return this.http.get(URL + '/list-chip');
+  }
+
+
 }

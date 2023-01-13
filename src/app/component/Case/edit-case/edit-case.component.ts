@@ -42,9 +42,12 @@ export class EditCaseComponent implements OnInit {
       this.groupSelect = this.case.productId;
 
     });
-    this.ProductApiService.getAllProduct(0,50).subscribe((data) => {
+    // this.ProductApiService.getAllProduct(0,50).subscribe((data) => {
+    //   this.product = data.data;
+    //   console.log(data.data)
+    // });
+    this.CasesService.getCateProductCase().subscribe((data) => {
       this.product = data.data;
-      console.log(data.data)
     });
 
   }

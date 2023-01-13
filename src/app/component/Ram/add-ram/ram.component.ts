@@ -38,10 +38,13 @@ export class RamComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.ProductApiService.getAllProduct(0,50).subscribe((data) => {
-      this.Product = data.data;
-      console.log(data);
-    });
+    // this.ProductApiService.getAllProduct(0,50).subscribe((data) => {
+    //   this.Product = data.data;
+    //   console.log(data);
+    // });
+    this.RamService.getCateProductRam().subscribe(res=>{
+      this.Product = res.data;
+    })
   }
 
   selectGroup = (event: any) => {

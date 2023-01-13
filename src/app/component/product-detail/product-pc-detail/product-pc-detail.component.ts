@@ -4,6 +4,8 @@ import { PcService } from '../../../_service/Pc-service/pc.service';
 import { CartModel } from '../../../_model/CartModel';
 import { CartService } from '../../../_service/cart-service/cart.service';
 import { NgToastService } from 'ng-angular-popup';
+import { TokenStorageService } from '../../../_service/token-storage-service/token-storage.service';
+import { OrderService } from '../../../_service/order-service/order.service';
 
 @Component({
   selector: 'app-product-pc-detail',
@@ -15,12 +17,17 @@ export class ProductPcDetailComponent implements OnInit {
   cart: CartModel = new CartModel();
   productPc: any[] = [];
 
+
+  isLoading: boolean = false;
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private restPc: PcService,
     private restCart: CartService,
-    private toast: NgToastService
+    private toast: NgToastService,
+    private tokenStorageService: TokenStorageService,
+    private restOrder: OrderService
   ) { }
 
   ngOnInit() {
@@ -37,6 +44,24 @@ export class ProductPcDetailComponent implements OnInit {
       })
 
   }
+
+  // createOrderDetail() {
+  //   this.isLoading = true;
+  //   console.log(this.tokenStorageService.get('id_pro'));
+
+  //   this.restOrder.createOrderDetail(this.delivery.id, this.tokenStorageService.get('id_pro')).subscribe((res: any) => {
+  //     this.isLoading = false;
+  //     this.toast.success({ summary: 'Thêm sản phẩm thành công', duration: 3000 });
+
+  //     this.getOrderDetails();
+  //     this.sumPriceOrderDetail();
+
+  //   }, error => {
+  //     console.log(error);
+  //     this.toast.error({ summary: 'Thêm sản phẩm thất bại' });
+  //     this.isLoading = false;
+  //   });
+  // }
 
    // phần sản phẩm đặt
    addToCart(pro: any) {
