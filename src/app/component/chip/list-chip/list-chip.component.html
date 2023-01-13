@@ -19,9 +19,9 @@
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>Id</th>
-          <th>Name</th>
-          <th>product id</th>
+          <th>Socket</th>
+          <th>Product id</th>
+          <th>Product name</th>
           <th colspan="2">Action</th>
         </tr>
       </thead>
@@ -30,9 +30,9 @@
           itemsPerPage: pageSize,
           currentPage: page,
           totalItems: count}">
-          <td>{{c.id}}</td>
           <td>{{c.socket}}</td>
           <td>{{c.productId}}</td>
+          <td>{{c.productName}}</td>
           <td>
             <app-edit-chip [id]="c.id" (updateFinished)="finishAndAlert($event)" >
             </app-edit-chip>
