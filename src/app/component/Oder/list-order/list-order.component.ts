@@ -17,6 +17,9 @@ import { EditShipNameComponent } from '../edit-ship-name/edit-ship-name.componen
   styleUrls: ['./list-order.component.css']
 })
 export class ListOrderComponent implements OnInit {
+
+  stepIndex: any = 'CHOXACNHAN';
+
   order: any = [];
   order1: any = [];
   order2: any = [];
@@ -36,6 +39,11 @@ export class ListOrderComponent implements OnInit {
   count = 0;
   list_order: any = [];
   isLoading: boolean = false;
+
+  formSearch = this.fb.group({
+    mahd: [''],
+  })
+
   constructor(
     private toastr: ToastrService,
     private sessionService: SessionStorageService,
@@ -44,7 +52,8 @@ export class ListOrderComponent implements OnInit {
     private toast: NgToastService,
     private _formBuilder: FormBuilder,
     private OrderService: OrderService,
-    private matdialog: MatDialog
+    private matdialog: MatDialog,
+    private fb: FormBuilder
   ) { }
 
   firstFormGroup = this._formBuilder.group({
@@ -78,6 +87,64 @@ export class ListOrderComponent implements OnInit {
     // })
   }
 
+  searchMaHD(){
+    console.log(this.formSearch.value.mahd);
+    console.log(this.stepIndex);
+
+    if (this.formSearch.value.mahd=='') {
+      if (this.stepIndex == 'CHOXACNHAN') {
+        this.getAll_choxacnhan();
+      }else if (this.stepIndex == 'DANGXULY') {
+        this.getAll_DANGXULY();
+      }else if (this.stepIndex == 'DANGVANCHUYEN') {
+        this.getAll_DANGVANCHUYEN();
+      }else if (this.stepIndex == 'DAGIAO') {
+        this.getAll_DAGIAO();
+      }else if (this.stepIndex == 'DAHUY') {
+        this.getAll_DAHUY();
+      }else{
+        this.getAllOrder();
+      }
+    }else{
+      this.OrderService.searchMaHD(this.formSearch.value.mahd,this.stepIndex).subscribe({
+        next: res=>{
+
+          let orderArr = [];
+          orderArr.push(res.data);
+          console.log(orderArr);
+
+
+          if (this.stepIndex == 'CHOXACNHAN') {
+            this.order = orderArr;
+          }else if (this.stepIndex == 'DANGXULY') {
+            this.order1 = orderArr;
+          }else if (this.stepIndex == 'DANGVANCHUYEN') {
+            this.order2 = orderArr;
+          }else if (this.stepIndex == 'DAGIAO') {
+            this.order3 = orderArr;
+          }else if (this.stepIndex == 'DAHUY') {
+            this.order4 = orderArr;
+          }else{
+            this.getAllOrder();
+          }
+        },
+        error:e =>{
+          console.log(e);
+          this.toast.error({ summary: e.error.message, duration: 3000 });
+        }
+      })
+    }
+
+
+  }
+
+  setStepIndex(status: any){
+
+    this.stepIndex = status;
+    console.log(this.stepIndex);
+
+
+  }
 
   getAllstatuss() {
     this.isLoading = true;
@@ -223,6 +290,17 @@ export class ListOrderComponent implements OnInit {
 
       })
 
+  }
+
+  editOrder(data: any){
+    this.matdialog.open(EditAddessComponent,{
+      width: '700px',
+      data: data
+    }).afterClosed().subscribe(res=>{
+      if (res=='submit') {
+        this.getAllInit();
+      }
+    })
   }
 
   editAddress(data: any){

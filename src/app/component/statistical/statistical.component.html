@@ -84,6 +84,76 @@
                   </mat-tab>
               </mat-tab-group>
           </div>
+
+          <!-- Doanh thu năm -->
+          <div class="p-3 border rounded col-5 m-4" style="margin-left: 6% !important;">
+            <h4 style="font-size: 16px; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+                Doanh thu theo năm</h4>
+            <mat-tab-group>
+                <mat-tab label="Biểu đồ">
+                    <div id="divChart">
+                        <canvas id="chartTotalMoney"></canvas>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Bảng">
+                    <table #sortDate="matSort" mat-table [dataSource]="listDataDate" matSort class="mat-elevation-z8">
+                        <ng-container matColumnDef="index">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>STT</th>
+                            <td mat-cell *matCellDef="let row, let i = index">{{i+1}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="totalOrder">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Số đơn hàng</th>
+                            <td mat-cell *matCellDef="let row">{{row.totalOrder}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="totalMoney">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Tổng tiền</th>
+                            <td mat-cell *matCellDef="let row">{{row.totalMoney|currency:'VND'}}</td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="columnsDate"></tr>
+                        <tr mat-row *matRowDef="let row; columns: columnsDate;"></tr>
+                    </table>
+                    <mat-paginator #MatPaginatorDate [length]="lengthDate" [pageSize]="5"
+                        [pageSizeOptions]="[5, 10, 25, 50, 100]">
+                    </mat-paginator>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+        <!-- Số đơn năm -->
+        <div class="p-3 border rounded col-5 m-4" style="margin-left: 6% !important;">
+          <h4 style="font-size: 16px; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+              Tổng đơn theo năm</h4>
+          <mat-tab-group>
+              <mat-tab label="Biểu đồ">
+                  <div id="divChart">
+                      <canvas id="chartTotalOrder"></canvas>
+                  </div>
+              </mat-tab>
+              <mat-tab label="Bảng">
+                  <table #sortDate="matSort" mat-table [dataSource]="listDataDate" matSort class="mat-elevation-z8">
+                      <ng-container matColumnDef="index">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>STT</th>
+                          <td mat-cell *matCellDef="let row, let i = index">{{i+1}}</td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="totalOrder">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Số đơn hàng</th>
+                          <td mat-cell *matCellDef="let row">{{row.totalOrder}}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="totalMoney">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Tổng tiền</th>
+                          <td mat-cell *matCellDef="let row">{{row.totalMoney|currency:'VND'}}</td>
+                      </ng-container>
+                      <tr mat-header-row *matHeaderRowDef="columnsDate"></tr>
+                      <tr mat-row *matRowDef="let row; columns: columnsDate;"></tr>
+                  </table>
+                  <mat-paginator #MatPaginatorDate [length]="lengthDate" [pageSize]="5"
+                      [pageSizeOptions]="[5, 10, 25, 50, 100]">
+                  </mat-paginator>
+              </mat-tab>
+          </mat-tab-group>
+      </div>
+      <!-- Top sản phẩm bán chạy -->
           <div class="p-3 border rounded col-11 m-4" style="margin-left: 6% !important;">
             <h4 style="font-size: 16px; font-family: Verdana, Geneva, Tahoma, sans-serif;">
                 Top 10 sản phẩm bán chạy</h4>

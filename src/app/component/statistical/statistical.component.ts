@@ -38,6 +38,13 @@ export class StatisticalComponent implements OnInit {
   columnsYears: string[] = ['index', 'year', 'totalOrder', 'totalMoney'];
   statisticalYear!: Statistical[];
 
+  totalMoneyAndOrderByYear: any[] = [];
+  labelTotalMoneyOrder: any[] = [];
+  dataTotalMoney: any[] = [];
+  dataTotalOrder: any[] = [];
+  // labelTotalOrder: any[] = [];
+
+
   topProduct: any[] = [];
   labelsTopProduct:  any[] = [];
   dataTopProduct:  any[] = [];
@@ -78,16 +85,29 @@ export class StatisticalComponent implements OnInit {
     this.getdate();
     this.getStatisticalAllDate();
     this.getTopProduct();
+    this.getTotalMoneyAndOrderByYear();
   }
 
   getTopProduct(){
     this.statisticalService.getTopProduct(10).subscribe(res=>{
       this.topProduct = res.data;
       this.topProduct.forEach(item => {
-        this.dataTopProduct.push(item.quantity)
+        this.dataTopProduct.push(item.quantity);
           this.labelsTopProduct.push(item.code);
       })
       this.loadChartLineTopProduct();
+    })
+  }
+
+  getTotalMoneyAndOrderByYear(){
+    this.statisticalService.getall().subscribe(res=>{
+      this.totalMoneyAndOrderByYear = res.data;
+      this.totalMoneyAndOrderByYear.forEach(item =>{
+        this.dataTotalMoney.push(item.totalMoney);
+        this.dataTotalOrder.push(item.totalOrder);
+        this.labelTotalMoneyOrder.push(item.year);
+      })
+      this.loadChartLineTotalMoneyOrder();
     })
   }
 
@@ -97,7 +117,7 @@ export class StatisticalComponent implements OnInit {
       //chart
       this.statisticalDates = data.data as any;
       this.statisticalDates.forEach(item => {
-        this.dataDate.push(item.totalMoney),
+        this.dataDate.push(item.totalMoney);
           this.labelsDate.push(this.datepipe.transform(new Date, 'dd/MM/yyyy'));
       })
       this.loadChartLineDate();
@@ -183,6 +203,117 @@ export class StatisticalComponent implements OnInit {
       console.log('this.doanhthu', this.doanhthu);
 
     })
+  }
+
+  loadChartLineTotalMoneyOrder() {
+    this.myChartBar = new Chart('chartTotalMoney', {
+      type: 'bar',
+      data: {
+        labels: this.labelTotalMoneyOrder,
+        datasets: [{
+          // label: '# of Votes',
+          data: this.dataTotalMoney,
+          // borderColor: 'rgb(75, 192, 192)',
+          // pointBorderColor: 'rgba(54, 162, 235, 0.2)',
+          // backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(201, 203, 207, 0.2)',
+            'rgba(0, 162, 71, 0.2)',
+            'rgba(82, 0, 36, 0.2)',
+            'rgba(82, 164, 36, 0.2)',
+            'rgba(255, 158, 146, 0.2)',
+            'rgba(123, 39, 56, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(201, 203, 207, 1)',
+            'rgba(0, 162, 71, 1)',
+            'rgba(82, 0, 36, 1)',
+            'rgba(82, 164, 36, 1)',
+            'rgba(255, 158, 146, 1)',
+            'rgba(123, 39, 56, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          }
+        }
+      }
+    });
+    this.myChartBar = new Chart('chartTotalOrder', {
+      type: 'bar',
+      data: {
+        labels: this.labelTotalMoneyOrder,
+        datasets: [{
+          // label: '# of Votes',
+          data: this.dataTotalOrder,
+          // borderColor: 'rgb(75, 192, 192)',
+          // pointBorderColor: 'rgba(54, 162, 235, 0.2)',
+          // backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(201, 203, 207, 0.2)',
+            'rgba(0, 162, 71, 0.2)',
+            'rgba(82, 0, 36, 0.2)',
+            'rgba(82, 164, 36, 0.2)',
+            'rgba(255, 158, 146, 0.2)',
+            'rgba(123, 39, 56, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(201, 203, 207, 1)',
+            'rgba(0, 162, 71, 1)',
+            'rgba(82, 0, 36, 1)',
+            'rgba(82, 164, 36, 1)',
+            'rgba(255, 158, 146, 1)',
+            'rgba(123, 39, 56, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          }
+        }
+      }
+    });
   }
 
   loadChartLineTopProduct() {

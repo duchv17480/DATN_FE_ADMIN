@@ -8,7 +8,7 @@
   </div>
 
   <mat-stepper #stepper>
-    <mat-step [stepControl]="firstFormGroup" [editable]="false">
+    <mat-step [stepControl]="firstFormGroup">
       <ng-template matStepLabel>
         Add product
       </ng-template>
@@ -135,10 +135,11 @@
         </div>
       </form>
       <div>
-        <button mat-button [disabled]="validateForm.invalid" class="btn btn-success mt-2" (click)="createProduct()" matStepperNext >Create and next</button>
+        <!-- <button mat-button [disabled]="validateForm.invalid" class="btn btn-success mt-2" matStepperNext >Create and next</button> -->
+        <button mat-button [disabled]="validateForm.invalid" class="btn btn-success mt-2" matStepperNext >Next</button>
       </div>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup"  [editable]="false">
+    <mat-step [stepControl]="secondFormGroup">
       <ng-template matStepLabel>
         Add Images
       </ng-template>
@@ -185,16 +186,16 @@
         </div>
       </form>
       <div>
-        <button mat-button matStepperNext [disabled]="imageformAdd.invalid" class="btn btn-success mt-2" (click)="addImage()">Create</button>
+        <button mat-button (click)="goBack(stepper)" class="btn btn-success mt-2">Back</button>
+        <button mat-button [disabled]="imageformAdd.invalid" matStepperNext class="btn btn-success mt-2">Next</button>
       </div>
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Done</ng-template>
       <p>You are now done.</p>
       <div>
-        <button mat-button matStepperPrevious class="btn btn-success me-2">Back</button>
-        <button mat-button (click)="stepper.reset()" class="btn btn-danger me-2">Reset</button>
-        <a [routerLink]="['/list-product']" class="btn btn-success"> List Products </a>
+        <button mat-button (click)="goBack(stepper)" class="btn btn-success me-2">Back</button>
+        <button mat-button (click)="createProduct(stepper)" class="btn btn-danger me-2">Create</button>
       </div>
     </mat-step>
   </mat-stepper>

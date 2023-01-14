@@ -9,6 +9,10 @@ import { CategoryService } from 'src/app/_service/category-service/category.serv
 import { BrandService } from 'src/app/_service/Brand-service/brand.service';
 import { ImageApiService } from 'src/app/_service/image-service/image-api.service';
 import { TokenStorageService } from 'src/app/_service/token-storage-service/token-storage.service';
+import { MatStepper } from '@angular/material/stepper';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../../_helper/confirm-dialog/confirm-dialog.component';
+import { Constant } from '../../../_constant/Constant';
 
 
 @Component({
@@ -36,6 +40,14 @@ export class AddProductComponent implements OnInit {
   preview = '';
   validateForm!: FormGroup;
 
+  imageformAdd = new FormGroup({
+
+    'name': new FormControl('', [Validators.required]),
+    'link': new FormControl(''),
+    'product_id': new FormControl(null),
+    'file': new FormControl('', [Validators.required]),
+  })
+
   regex: string = '^[\\w\'\\-,.a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\ ][^_!¡?÷?¿/\\\\+=@#$%ˆ&*{}~<>;:[\\]]{2,}$'
 
   constructor(
@@ -47,6 +59,7 @@ export class AddProductComponent implements OnInit {
      private _formBuilder: FormBuilder,
      private tokenStorage: TokenStorageService,
      private restI: ImageApiService,
+     private matDialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -62,28 +75,72 @@ export class AddProductComponent implements OnInit {
       'status': new FormControl(STATUS.ACTIVE, [Validators.required]),
       'brandId': new FormControl(2, [Validators.required]),
       'categoryId': new FormControl(2, [Validators.required]),
+      'description': new FormControl(null)
     })
   }
 
-  createProduct() {
-    this.isLoading = true;
-    this.restP.createProduct(this.product).subscribe(data => {
-      this.isLoading = false;
-      this.toast.success({ summary: 'Thêm sản phẩm thành công', duration: 1000 });
+  createProduct(stepper: MatStepper) {
+    this.matDialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      hasBackdrop: true,
+      data: {
+          message: 'Tạo sản phẩm mới?'
+      }
+    }).afterClosed().subscribe(result => {
+        if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
+
+          this.isLoading = true;
+    // console.log(this.product);
+    // console.log(this.imageformAdd);
+
+
+    this.restP.createProduct(this.product).subscribe({
+      next: data => {
+        // this.toast.success({ summary: 'Thêm sản phẩm thành công', duration: 1000 });
+      console.log('Data ----- product');
+      console.log(data.data);
       this.id=data.data.id;
-      this.imageformAdd.patchValue({
-        product_id:
-          this.id
-      })
+        this.imageformAdd.patchValue({
+          product_id:
+            this.id
+        })
+        this.addImage(stepper);
+      },
+      error: e=>{
+        console.log(e);
+        this.toast.error({ summary: e.error.message, duration: 3000 });
+        this.selectStepIndex(stepper, 0);
+        this.isLoading = false;
+      }
+    })
+
+        }
+    })
+
+  }
+
+  addImage(stepper: MatStepper) {
+    console.log(this.imageformAdd);
+
+    this.isLoading = true;
+    this.restI.create(this.imageformAdd.value, this.currentFile).subscribe({
+      next: response => {
+        this.isLoading = false;
+        this.toast.success({ summary: 'Thêm sản phẩm thành công', duration: 3000 });
+        this.route.navigate(['/list-product']);
+        console.log('Data ----- image');
+        console.log(response.data);
+      },
+      error: e=>{
+        this.isLoading = false;
+        console.log(e);
+        this.toast.error({ summary: e.error.message, duration: 3000 });
+        this.selectStepIndex(stepper, 1);
+      }
     })
   }
-  imageformAdd = new FormGroup({
 
-    'name': new FormControl('', [Validators.required]),
-    'link': new FormControl('', [Validators.required]),
-    'product_id': new FormControl(1, [Validators.required]),
-    'file': new FormControl('', [Validators.required]),
-  })
+
 
   getAllCategory() {
     this.isLoading = true;
@@ -128,15 +185,19 @@ export class AddProductComponent implements OnInit {
     }
   }
 
-  addImage() {
-    this.isLoading = true;
-    this.restI.create(this.imageformAdd.value, this.currentFile).subscribe(response => {
-      this.isLoading = false;
-      this.toast.success({ summary: 'Thêm thành công ảnh cho sản phẩm', duration: 3000 });
-      console.log(response.data);
-    })
+
+
+  goBack(stepper: MatStepper) {
+    stepper.previous();
   }
 
+  goForward(stepper: MatStepper) {
+    stepper.next();
+  }
+
+  selectStepIndex(stepper: MatStepper,index: number){
+    stepper.selectedIndex = index;
+  }
 
 
 }

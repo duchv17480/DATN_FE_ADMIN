@@ -46,6 +46,28 @@ export class ListAllOrderComponent implements OnInit {
       id: 4,
       content: 'Đã hủy'
     },
+  ];
+  orderStatus: any[] = [
+    {
+      id: 9,
+      content: 'Tất cả'
+    },
+    {
+      id: 0,
+      content: 'Đơn chờ'
+    },
+    {
+      id: 1,
+      content: 'Đơn lẻ'
+    },
+    {
+      id: 2,
+      content: 'Tại quầy'
+    },
+    {
+      id: 3,
+      content: 'Đơn giao'
+    },
   ]
 
   columnsAllOrder: string[] = ['index', 'fullname', 'address', 'grandTotal', 'type' , 'status', 'action'];
@@ -77,6 +99,33 @@ export class ListAllOrderComponent implements OnInit {
     }else if (index == 4) {
       this.getAll_DAHUY();
     }
+  }
+  filterOrderStatus(index: any){
+    console.log(index);
+    if (index == 9) {
+      this.getAllOrder();
+    }else if (index == 0) {
+      this.getByOrderStatus('DONCHO');
+    }else if (index == 1) {
+      this.getByOrderStatus('DONLE');
+    }else if (index == 2) {
+      this.getByOrderStatus('TAIQUAY');
+    }else if (index == 3) {
+      this.getByOrderStatus('DONGIAO');
+    }
+  }
+
+  getByOrderStatus(status: any){
+    this.orderService.filterOrderStatus(status).subscribe(data =>{
+      this.allOrder = new MatTableDataSource<any>(data.data);
+        this.allOrder.data = data.data;
+        // this.allOrder = res.data;
+        this.lengthAllOrder = data.data.length;
+        console.log(this.lengthAllOrder);
+        console.log(this.allOrder.data);
+        this.allOrder.paginator = this.paginator;
+        this.allOrder.sort = this.sort;
+    })
   }
 
   openOrderInfo(order: any){

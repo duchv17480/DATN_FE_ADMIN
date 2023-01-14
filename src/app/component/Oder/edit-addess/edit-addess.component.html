@@ -1,11 +1,11 @@
 <h1 mat-dialog-title class="text-center h3 font-weight-bold">
-  Đổi địa chỉ
+  Sửa thông tin đơn hàng
 </h1>
 <div class="order-detail2">
   <div mat-dialog-content class="scroll-order-detail">
 
 
-
+    <h3>Địa chỉ:</h3>
     <form [formGroup]="validFormAtTheCounterOrder">
 
     <div class="row">
@@ -26,10 +26,10 @@
           <div
             *ngIf="validFormAtTheCounterOrder.controls['province'].invalid && validFormAtTheCounterOrder.controls['province'].touched"
             class="text-danger">
-            <small *ngIf="validFormAtTheCounterOrder.controls['province'].errors?.['required']"> Tỉnh/Thành phố
+            <!-- <small *ngIf="validFormAtTheCounterOrder.controls['province'].errors?.['required']"> Tỉnh/Thành phố
               không
               được
-              để trống</small>
+              để trống</small> -->
           </div>
         </div>
       </div>
@@ -48,10 +48,10 @@
         <div
             *ngIf="validFormAtTheCounterOrder.controls['district'].invalid && validFormAtTheCounterOrder.controls['district'].touched"
             class="text-danger">
-            <small *ngIf="validFormAtTheCounterOrder.controls['district'].errors?.['required']"> Quận/Huyện
+            <!-- <small *ngIf="validFormAtTheCounterOrder.controls['district'].errors?.['required']"> Quận/Huyện
               không
               được
-              để trống</small>
+              để trống</small> -->
           </div>
       </div>
       <div class="col-4">
@@ -69,9 +69,9 @@
           <div
             *ngIf="validFormAtTheCounterOrder.controls['ward'].invalid && validFormAtTheCounterOrder.controls['ward'].touched"
             class="text-danger">
-            <small *ngIf="validFormAtTheCounterOrder.controls['ward'].errors?.['required']"> Phường/Xã không được
+            <!-- <small *ngIf="validFormAtTheCounterOrder.controls['ward'].errors?.['required']"> Phường/Xã không được
               để
-              trống</small>
+              trống</small> -->
           </div>
         </div>
       </div>
@@ -79,8 +79,44 @@
     </div>
 
   </form>
+  <div class="edit-shipname mt-3">
+    <h3>Thông tin người nhận:</h3>
+  <form [formGroup]="formGroup">
+    <div class="row">
+      <div class="col-12">
+        <mat-form-field appearance="outline">
+          <mat-label>Họ và tên</mat-label>
+          <input formControlName="fullname" matInput>
+        </mat-form-field>
+        <div *ngIf="formGroup.controls['fullname'].invalid && formGroup.controls['fullname'].touched"
+          class="text-danger">
+          <small *ngIf="formGroup.controls['fullname'].errors?.['required']"> Họ tên không được
+            để
+            trống</small>
+        </div>
+      </div>
+      <div class="col-12">
 
+        <mat-form-field appearance="outline">
+          <mat-label>Số điện thoại</mat-label>
+          <input formControlName="phone" matInput>
+        </mat-form-field>
+        <div *ngIf="formGroup.controls['phone'].invalid && formGroup.controls['phone'].touched" class="text-danger">
+          <small *ngIf="formGroup.controls['phone'].errors?.['required']"> Số điện thoại không được
+            để
+            trống</small>
+          <small *ngIf="formGroup.controls['phone'].errors?.['pattern']"> Số điện thoại không đúng định dạng
+          </small>
+        </div>
+        <mat-form-field appearance="outline">
+          <mat-label>Ghi chú:</mat-label>
+          <textarea formControlName="description" matInput></textarea>
+        </mat-form-field>
+      </div>
+    </div>
 
+  </form>
+</div>
 
 
   </div>

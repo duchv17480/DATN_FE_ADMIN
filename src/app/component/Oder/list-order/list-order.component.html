@@ -25,11 +25,19 @@
         </div>
       </div>
     </div> -->
-
+    <div class="row">
+      <form [formGroup]="formSearch">
+        <mat-form-field appearance="standard">
+          <mat-label>Tìm mã hóa đơn</mat-label>
+          <input formControlName="mahd" matInput>
+        </mat-form-field>
+        <button style="margin-left: 20px;" (click)="searchMaHD()" class="btn btn-primary">Tìm kiếm</button>
+      </form>
+    </div>
     <mat-stepper #stepper>
       <mat-step [stepControl]="firstFormGroup" >
         <ng-template matStepLabel>
-          <div (click)="getAll_choxacnhan()">   <a > Chờ Xác Nhận</a></div>
+          <div (click)="getAll_choxacnhan(); setStepIndex('CHOXACNHAN')">   <a > Chờ Xác Nhận</a></div>
 
         </ng-template>
         <p-table #dt [value]="order" [rows]="5" [paginator]="true"  responsiveLayout="scroll" [rowHover]="true"
@@ -38,8 +46,10 @@
         <ng-template pTemplate="header">
             <tr>
 
+                <th pSortableColumn="shipping">Mã đơn<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="shipping">Người nhận<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="createDate">Địa chỉ<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="createDate">Phí ship<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="status">Trạng thái<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="grandTotal">Giá trị<p-sortIcon ></p-sortIcon></th>
 
@@ -48,10 +58,12 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-order>
-            <tr>
+            <tr *ngIf="order?.orderStatus=='DONGIAO'">
 
+              <td>{{order?.mahd}}</td>
               <td>{{order?.fullname}}</td>
               <td >{{order?.address}}</td>
+              <td >{{order?.shipping}}</td>
               <td style="font-weight:bold ; color: rgb(69, 188, 4);">{{order?.status}}</td>
               <td >{{order?.grandTotal| currency:'VND':'symbol':'0.0-2'}}</td>
 
@@ -64,11 +76,11 @@
                     <span (click)="openOrderInfo(order)">Chi tiết đơn</span>
                   </button>
                   <button mat-menu-item>
-                    <span (click)="editAddress(order)">Đổi địa chỉ</span>
+                    <span (click)="editOrder(order)">Sửa đơn</span>
                   </button>
-                  <button mat-menu-item>
+                  <!-- <button mat-menu-item>
                     <span (click)="editShipName(order)">Đổi người nhận</span>
-                  </button>
+                  </button> -->
                 </mat-menu>
                     <!-- <button (click)="openOrderInfo(order)" pButton pRipple  class="  mr-2"  ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ticket-detailed" viewBox="0 0 16 16">
                       <path d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5ZM5 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H5Z"/>
@@ -143,7 +155,7 @@
       </mat-step>
       <mat-step [stepControl]="secondFormGroup"  >
         <ng-template matStepLabel>
-          <div (click)="  getAll_DANGXULY()">  <a >  Đang Xử Lý</a></div>
+          <div (click)="  getAll_DANGXULY(); setStepIndex('DANGXULY')">  <a >  Đang Xử Lý</a></div>
 
         </ng-template>
         <p-table #dt [value]="order1" [rows]="5" [paginator]="true"  responsiveLayout="scroll" [rowHover]="true"
@@ -152,8 +164,10 @@
         <ng-template pTemplate="header">
             <tr>
 
+                <th pSortableColumn="shipping">Mã đơn<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="shipping">Người nhận<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="createDate">Địa chỉ<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="createDate">Phí ship<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="status">Trạng thái<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="grandTotal">Giá trị<p-sortIcon ></p-sortIcon></th>
 
@@ -163,9 +177,10 @@
         </ng-template>
         <ng-template pTemplate="body" let-order1>
             <tr>
-
+              <td>{{order1?.mahd}}</td>
               <td>{{order1?.fullname}}</td>
               <td >{{order1?.address}}</td>
+              <td >{{order1?.shipping}}</td>
               <td style="font-weight:bold ; color: rgb(244, 41, 1);">{{order1?.status}}</td>
               <td >{{order1?.grandTotal| currency:'VND':'symbol':'0.0-2'}}</td>
 
@@ -255,7 +270,7 @@
 
       <mat-step [stepControl]="fourthFormGroup"  >
         <ng-template matStepLabel>
-          <div (click)="  getAll_DANGVANCHUYEN()">   <a  > Đang Vận Chuyển</a> </div>
+          <div (click)="  getAll_DANGVANCHUYEN(); setStepIndex('DANGVANCHUYEN')">   <a  > Đang Vận Chuyển</a> </div>
 
         </ng-template>
         <p-table #dt [value]="order2" [rows]="5" [paginator]="true"  responsiveLayout="scroll" [rowHover]="true"
@@ -264,8 +279,10 @@
         <ng-template pTemplate="header">
             <tr>
 
+                <th pSortableColumn="shipping">Mã đơn<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="shipping">Người nhận<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="createDate">Địa chỉ<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="createDate">Phí ship<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="status">Trạng thái<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="grandTotal">Giá trị<p-sortIcon ></p-sortIcon></th>
 
@@ -275,9 +292,10 @@
         </ng-template>
         <ng-template pTemplate="body" let-order2>
             <tr>
-
+              <td>{{order2?.mahd}}</td>
               <td>{{order2?.fullname}}</td>
               <td >{{order2?.address}}</td>
+              <td >{{order2?.shipping}}</td>
               <td style="font-weight:bold ; color: rgb(247, 113, 2);">{{order2?.status}}</td>
               <td >{{order2?.grandTotal| currency:'VND':'symbol':'0.0-2'}}</td>
 
@@ -413,7 +431,7 @@
       </mat-step>
       <mat-step [stepControl]="fifthFormGroup"  >
         <ng-template matStepLabel>
-          <div (click)=" getAll_DAGIAO()"><a  >    Đã Giao</a></div>
+          <div (click)=" getAll_DAGIAO(); setStepIndex('DAGIAO')"><a  >    Đã Giao</a></div>
 
         </ng-template>
         <p-table #dt [value]="order3" [rows]="5" [paginator]="true"  responsiveLayout="scroll" [rowHover]="true"
@@ -422,8 +440,10 @@
         <ng-template pTemplate="header">
             <tr>
 
+                <th pSortableColumn="shipping">Mã đơn<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="shipping">Người nhận<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="createDate">Địa chỉ<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="createDate">Phí ship<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="status">Trạng thái<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="grandTotal">Giá trị<p-sortIcon ></p-sortIcon></th>
 
@@ -434,8 +454,10 @@
         <ng-template pTemplate="body" let-order3>
             <tr>
 
+              <td>{{order3?.mahd}}</td>
               <td>{{order3?.fullname}}</td>
               <td >{{order3?.address}}</td>
+              <td >{{order3?.shipping}}</td>
               <td style="font-weight:bold ; color: rgb(5, 50, 129);">{{order3?.status}}</td>
               <td >{{order3?.grandTotal| currency:'VND':'symbol':'0.0-2'}}</td>
 
@@ -523,17 +545,20 @@
     </p-table>
       </mat-step>
       <mat-step [stepControl]="sixthFormGroup"  >
-        <ng-template matStepLabel>
-         <a  (click)="getAll_DAHUY()" >   Đã Hủy  </a>
-        </ng-template>
-        <p-table #dt [value]="order4" [rows]="5" [paginator]="true"  responsiveLayout="scroll" [rowHover]="true"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+
+          <ng-template matStepLabel>
+            <a  (click)="getAll_DAHUY(); setStepIndex('DAHUY')" >   Đã Hủy  </a>
+          </ng-template>
+          <p-table #dt [value]="order4" [rows]="5" [paginator]="true"  responsiveLayout="scroll" [rowHover]="true"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
 
         <ng-template pTemplate="header">
             <tr>
 
+                <th pSortableColumn="shipping">Mã đơn<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="shipping">Người nhận<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="createDate">Địa chỉ<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="createDate">Phí ship<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="status">Trạng thái<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="grandTotal">Giá trị<p-sortIcon ></p-sortIcon></th>
 
@@ -544,8 +569,10 @@
         <ng-template pTemplate="body" let-order4>
             <tr>
 
+              <td>{{order4?.mahd}}</td>
               <td>{{order4?.fullname}}</td>
               <td >{{order4?.address}}</td>
+              <td >{{order4?.shipping}}</td>
               <td style="font-weight:bold ; color: rgb(188, 4, 4);">{{order4?.status}}</td>
               <td style="font-weight:bold ; color: rgb(188, 4, 4);" >{{order4?.grandTotal| currency:'VND':'symbol':'0.0-2'}}</td>
 
