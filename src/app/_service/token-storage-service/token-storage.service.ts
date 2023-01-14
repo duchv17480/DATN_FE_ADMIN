@@ -71,5 +71,22 @@ export class TokenStorageService {
     return JSON.parse(localStorage.getItem(USER_ROLE)!);
   }
 
+  get(key: string){
+    const value = localStorage.getItem(key)!;
+    try {
+      return JSON.parse(value);
+    } catch (e) {
+      return value;
+    }
+  }
+
+  set(key: string, value: any) {
+    return localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  remove(key: string) {
+    localStorage.removeItem(key);
+  }
+
 
 }

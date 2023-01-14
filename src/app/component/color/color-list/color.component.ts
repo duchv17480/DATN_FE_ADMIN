@@ -50,7 +50,7 @@ export class ColorComponent implements OnInit {
         })
     }
 
-    deletepsu(){
+    delete(){
       if(this.deleteId != null){
         this.ColorService.delete(this.deleteId)
         .subscribe(data => {

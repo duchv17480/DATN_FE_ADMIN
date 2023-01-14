@@ -1,5 +1,6 @@
 export class Delivery {
     id!:number;
+    mahd!:string;
     paymentStatus!:string;
     orderStatus!:string;
     nameStaff!:string;

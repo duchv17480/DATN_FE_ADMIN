@@ -29,11 +29,17 @@ export class EditChipComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAllProduct();
+    this.getCateProductChip();
     this.rest.getByID(this.editId).subscribe(data=>{
       this.chip = data.data;
     })
 
+  }
+
+  getCateProductChip(){
+    this.rest.getCateProductChip().subscribe((res:any)=>{
+      this.products = res.data
+    })
   }
 
   open(content: TemplateRef<any>) {

@@ -53,4 +53,9 @@ export class CasesService {
     return this.httpClient.post(this.url+"/delete/" , id);
   }
   }
+
+  getCateProductCase(): Observable<any> {
+    return this.httpClient.get(this.url+ '/list-case');
+  }
+
 }

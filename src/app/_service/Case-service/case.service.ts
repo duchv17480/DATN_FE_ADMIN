@@ -22,4 +22,11 @@ export class CaseService {
     return this.http.get(URL_CASE + "/get-one/" + id);
   }
 
+
+  getCateProductCase(): Observable<any> {
+    return this.http.get(URL_CASE + '/list-case');
+  }
+
+
+
 }
