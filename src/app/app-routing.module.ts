@@ -63,6 +63,9 @@ import { AuthGuard } from './_helper/auth.guard';
 import { PublicComponent } from './component/public/public.component';
 import { AuthenticatedComponent } from './component/authenticated/authenticated.component';
 import { ListAllOrderComponent } from './component/Oder/list-all-order/list-all-order.component';
+import { AddPcComponent } from './component/pc/add-pc/add-pc.component';
+import { ListPcComponent } from './component/pc/list-pc/list-pc.component';
+import { EditPcComponent } from './component/pc/edit-pc/edit-pc.component';
 
 
 const routes: Routes=[
@@ -154,6 +157,14 @@ const routes: Routes=[
       { path: 'buy-offline-test', component: BuyOfflineTestComponent, canActivate: [AuthGuard]},
       { path: 'buy-offline', component: BuyOfflineComponent, canActivate: [AuthGuard]},
       { path: 'product-detail/:id', component: ProductDetailComponent, canActivate: [AuthGuard]},
+
+
+      { path: 'add-pc', component: AddPcComponent, canActivate: [AuthGuard]},
+      { path: 'list-pc', component: ListPcComponent, canActivate: [AuthGuard]},
+      { path: 'edit-pc/:id', component: EditPcComponent, canActivate: [AuthGuard]},
+
+
+
     ]
   }
 

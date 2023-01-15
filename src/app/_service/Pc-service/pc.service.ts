@@ -17,8 +17,8 @@ getOneProductPCByProductId(id:any):Observable<any>{
   return this.http.get(URL_PC + '/product/' + id);
 }
 
-listPc():Observable<any>{
-  return this.http.get(URL_PC);
+listPc(params:any):Observable<any>{
+  return this.http.get(URL_PC,{params});
 }
 
 

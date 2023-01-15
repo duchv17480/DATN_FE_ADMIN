@@ -1,3 +1,55 @@
-<p>
-  add-pc works!
-</p>
+<div id="categoryAdd" class="mt-5">
+  <div class="row">
+    <div class="card">
+      <div class="card-header">
+        <div style="overflow-x:auto;">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th>1. Bộ vi sử lý</th>
+                <th>
+                  <div class="form-group">
+                    <label for="">Choose Product</label>
+                    <select class="form-control" formControlName="productId">
+                      <option  *ngFor="let pro of products" [value]="pro.id">
+                        {{pro.name}}
+                      </option>
+                    </select>
+                  </div>
+                </th>
+              </tr>
+              <tr>
+                <th>1. Bộ Mạch chủ</th>
+                <th>Name</th>
+              </tr>
+              <tr>
+                <th>2. Ram</th>
+                <th>Name</th>
+              </tr>
+              <tr>
+                <th>1. HDD</th>
+                <th>Name</th>
+              </tr>
+              <tr>
+                <th>1. Ổ cứng ssd</th>
+                <th>Name</th>
+              </tr>
+              <tr>
+                <th>1. VGA</th>
+                <th>Name</th>
+              </tr>
+              <tr>
+                <th>1. Nguồn</th>
+                <th>Name</th>
+              </tr>
+              <tr>
+                <th>1. NguVỏ Case</th>
+                <th>Name</th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
