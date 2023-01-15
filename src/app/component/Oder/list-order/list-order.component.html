@@ -58,7 +58,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-order>
-            <tr *ngIf="order?.orderStatus=='DONGIAO'">
+            <tr *ngIf="order?.orderStatus==null">
 
               <td>{{order?.mahd}}</td>
               <td>{{order?.fullname}}</td>
