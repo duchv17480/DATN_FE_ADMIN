@@ -10,12 +10,25 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Chart, registerables } from 'chart.js';
 import { DatePipe } from '@angular/common';
 import { Statistical, ThongKeTheoThang } from 'src/app/_model/Statistical';
+import { FormBuilder, Validators } from '@angular/forms';
+import * as Chartist from 'chartist';
 @Component({
   selector: 'app-statistical',
   templateUrl: './statistical.component.html',
   styleUrls: ['./statistical.component.css']
 })
 export class StatisticalComponent implements OnInit {
+
+  formYear = this.fb.group({
+    year: 2022
+  });
+  today = new Date();
+  formMonthYear = this.fb.group({
+    year: 2022,
+    month: null
+  });
+
+
 
   statisticalDates!: ThongKeTheoNgay[];
   statisticalDatesTable!: ThongKeTheoNgay[];
@@ -37,6 +50,27 @@ export class StatisticalComponent implements OnInit {
   lengthYears!: number;
   columnsYears: string[] = ['index', 'year', 'totalOrder', 'totalMoney'];
   statisticalYear!: Statistical[];
+
+  totalMoneyAndOrderByYear: any[] = [];
+  labelTotalMoneyOrder: any[] = [];
+  dataTotalMoney: any[] = [];
+  dataTotalOrder: any[] = [];
+
+  monthByYear: any[] = [];
+  labelMonthByYear: any[] = [];
+  dataMoneyMonthByYear: any[] = [];
+  dataOrderMonthByYear: any[] = [];
+
+  monthYear: any[] = [];
+  labelMonthYear: any[] = [];
+  dataMoneyMonthYear: any[] = [];
+  dataOrderMonthYear: any[] = [];
+
+
+  thongKeTuTruocToiNay = {
+    totalOrder: null,
+    totalMoney: null
+  };
 
   topProduct: any[] = [];
   labelsTopProduct:  any[] = [];
@@ -64,10 +98,19 @@ export class StatisticalComponent implements OnInit {
   myChartBar !: Chart;
   myCharDoughnut !: Chart;
 
+  chartIndex: any = 0;
+
+
+  chart1!: Chart;
+  chart2!: Chart;
+  chart3!: Chart;
+  chart4!: Chart;
 
 
 
-  constructor(private datepipe: DatePipe, private statisticalService: StatisticalService, private toastr: ToastrService, private sessionService: SessionStorageService) { }
+
+  constructor(private datepipe: DatePipe, private statisticalService: StatisticalService, private toastr: ToastrService, private sessionService: SessionStorageService,
+    private fb: FormBuilder) { }
 
   ngOnInit(): void {
 
@@ -78,16 +121,89 @@ export class StatisticalComponent implements OnInit {
     this.getdate();
     this.getStatisticalAllDate();
     this.getTopProduct();
+    this.getTotalMoneyAndOrderByYear();
+    this.getThongKeTuTruocToiNay();
+    this.formYear.patchValue({year:this.today.getFullYear()-1});
+    this.formMonthYear.patchValue({year:this.today.getFullYear()-1});
+    this.getListHoaDonTungThangTheoNam();
+  }
+
+
+
+
+
+  getThongKeTuTruocToiNay(){
+    this.statisticalService.getThongKeTuTruocToiNay().subscribe({
+      next: res =>{
+        // console.log(res);
+        this.thongKeTuTruocToiNay = res.data;
+        console.log(this.thongKeTuTruocToiNay);
+
+      },
+      error: e =>{
+        console.log(e);
+
+      }
+    })
+  }
+
+  getListHoaDonTungThangTheoNam(){
+    console.log(this.formYear.value.year);
+    this.dataMoneyMonthByYear=[];
+    this.dataOrderMonthByYear=[];
+    this.labelMonthByYear=[];
+    this.statisticalService.getListHoaDonTungThangTheoNam(this.formYear.value.year).subscribe(
+      res=>{
+        console.log(res);
+        this.monthByYear = res.data;
+        this.monthByYear.forEach(item =>{
+          this.dataMoneyMonthByYear.push(item.totalMoney);
+          this.dataOrderMonthByYear.push(item.totalOrder);
+          this.labelMonthByYear.push(item.month);
+        });
+        this.loadChartLineMonthByYear();
+      }
+    )
+  }
+
+  getListHoaDonTungNgayTheoThangVaNam(){
+    this.dataMoneyMonthYear=[];
+    this.dataOrderMonthYear=[];
+    this.labelMonthYear=[];
+    this.statisticalService.getListHoaDonTungNgayTheoThangVaNam(this.formMonthYear.value.month, this.formMonthYear.value.year).subscribe(
+      res=>{
+        console.log(res);
+        this.monthYear = res.data;
+        this.monthYear.forEach(item =>{
+          this.dataMoneyMonthYear.push(item.totalMoney);
+          this.dataOrderMonthYear.push(item.totalOrder);
+          this.labelMonthYear.push(item.day);
+        });
+        this.loadChartLineMonthYear();
+      }
+    )
   }
 
   getTopProduct(){
     this.statisticalService.getTopProduct(10).subscribe(res=>{
       this.topProduct = res.data;
       this.topProduct.forEach(item => {
-        this.dataTopProduct.push(item.quantity)
+        this.dataTopProduct.push(item.quantity);
           this.labelsTopProduct.push(item.code);
       })
       this.loadChartLineTopProduct();
+    })
+  }
+
+  getTotalMoneyAndOrderByYear(){
+    this.statisticalService.getall().subscribe(res=>{
+      this.totalMoneyAndOrderByYear = res.data;
+      this.totalMoneyAndOrderByYear.forEach(item =>{
+        this.dataTotalMoney.push(item.totalMoney);
+        this.dataTotalOrder.push(item.totalOrder);
+        this.labelTotalMoneyOrder.push(item.year);
+      })
+      this.loadChartLineTotalMoneyOrder();
     })
   }
 
@@ -97,7 +213,7 @@ export class StatisticalComponent implements OnInit {
       //chart
       this.statisticalDates = data.data as any;
       this.statisticalDates.forEach(item => {
-        this.dataDate.push(item.totalMoney),
+        this.dataDate.push(item.totalMoney);
           this.labelsDate.push(this.datepipe.transform(new Date, 'dd/MM/yyyy'));
       })
       this.loadChartLineDate();
@@ -183,6 +299,476 @@ export class StatisticalComponent implements OnInit {
       console.log('this.doanhthu', this.doanhthu);
 
     })
+  }
+  loadChartLineMonthByYear() {
+
+      if (this.chart1) {
+        this.chart1.destroy();
+        console.log(this.chart1);
+      }
+      if (this.chart2) {
+        this.chart2.destroy();
+        console.log(this.chart2);
+
+      }
+
+      this.chart1 = new Chart('chartMonthByYearMoney', {
+        type: 'bar',
+        data: {
+          labels: this.labelMonthByYear,
+          datasets: [{
+            // label: '# of Votes',
+            data: this.dataMoneyMonthByYear,
+            // borderColor: 'rgb(75, 192, 192)',
+            // pointBorderColor: 'rgba(54, 162, 235, 0.2)',
+            // backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(201, 203, 207, 0.2)',
+              'rgba(0, 162, 71, 0.2)',
+              'rgba(82, 0, 36, 0.2)',
+              'rgba(82, 164, 36, 0.2)',
+              'rgba(255, 158, 146, 0.2)',
+              'rgba(123, 39, 56, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(201, 203, 207, 1)',
+              'rgba(0, 162, 71, 1)',
+              'rgba(82, 0, 36, 1)',
+              'rgba(82, 164, 36, 1)',
+              'rgba(255, 158, 146, 1)',
+              'rgba(123, 39, 56, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            }
+          }
+        }
+      });
+
+      this.chart2 = new Chart('chartMonthByYearOrder', {
+        type: 'bar',
+        data: {
+          labels: this.labelMonthByYear,
+          datasets: [{
+            // label: '# of Votes',
+            data: this.dataOrderMonthByYear,
+            // borderColor: 'rgb(75, 192, 192)',
+            // pointBorderColor: 'rgba(54, 162, 235, 0.2)',
+            // backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(201, 203, 207, 0.2)',
+              'rgba(0, 162, 71, 0.2)',
+              'rgba(82, 0, 36, 0.2)',
+              'rgba(82, 164, 36, 0.2)',
+              'rgba(255, 158, 146, 0.2)',
+              'rgba(123, 39, 56, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(201, 203, 207, 1)',
+              'rgba(0, 162, 71, 1)',
+              'rgba(82, 0, 36, 1)',
+              'rgba(82, 164, 36, 1)',
+              'rgba(255, 158, 146, 1)',
+              'rgba(123, 39, 56, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            }
+          }
+        }
+      });
+
+    // this.myChartBar.destroy()
+  }
+
+  // loadChartLineMonthByYear() {
+  //   this.myChartBar = new Chart('chartMonthByYearMoney', {
+  //     type: 'bar',
+  //     data: {
+  //       labels: this.labelMonthByYear,
+  //       datasets: [{
+  //         // label: '# of Votes',
+  //         data: this.dataMoneyMonthByYear,
+  //         // borderColor: 'rgb(75, 192, 192)',
+  //         // pointBorderColor: 'rgba(54, 162, 235, 0.2)',
+  //         // backgroundColor: 'rgba(255, 99, 132, 0.2)',
+  //         backgroundColor: [
+  //           'rgba(255, 99, 132, 0.2)',
+  //           'rgba(54, 162, 235, 0.2)',
+  //           'rgba(255, 206, 86, 0.2)',
+  //           'rgba(75, 192, 192, 0.2)',
+  //           'rgba(153, 102, 255, 0.2)',
+  //           'rgba(255, 159, 64, 0.2)',
+  //           'rgba(201, 203, 207, 0.2)',
+  //           'rgba(0, 162, 71, 0.2)',
+  //           'rgba(82, 0, 36, 0.2)',
+  //           'rgba(82, 164, 36, 0.2)',
+  //           'rgba(255, 158, 146, 0.2)',
+  //           'rgba(123, 39, 56, 0.2)'
+  //         ],
+  //         borderColor: [
+  //           'rgba(255, 99, 132, 1)',
+  //           'rgba(54, 162, 235, 1)',
+  //           'rgba(255, 206, 86, 1)',
+  //           'rgba(75, 192, 192, 1)',
+  //           'rgba(153, 102, 255, 1)',
+  //           'rgba(255, 159, 64, 1)',
+  //           'rgba(201, 203, 207, 1)',
+  //           'rgba(0, 162, 71, 1)',
+  //           'rgba(82, 0, 36, 1)',
+  //           'rgba(82, 164, 36, 1)',
+  //           'rgba(255, 158, 146, 1)',
+  //           'rgba(123, 39, 56, 1)'
+  //         ],
+  //         borderWidth: 1
+  //       }]
+  //     },
+  //     options: {
+  //       scales: {
+  //         y: {
+  //           beginAtZero: true
+  //         }
+  //       },
+  //       plugins: {
+  //         legend: {
+  //           display: false
+  //         }
+  //       }
+  //     }
+  //   });
+  //   this.myChartBar = new Chart('chartMonthByYearOrder', {
+  //     type: 'bar',
+  //     data: {
+  //       labels: this.labelMonthByYear,
+  //       datasets: [{
+  //         // label: '# of Votes',
+  //         data: this.dataOrderMonthByYear,
+  //         // borderColor: 'rgb(75, 192, 192)',
+  //         // pointBorderColor: 'rgba(54, 162, 235, 0.2)',
+  //         // backgroundColor: 'rgba(255, 99, 132, 0.2)',
+  //         backgroundColor: [
+  //           'rgba(255, 99, 132, 0.2)',
+  //           'rgba(54, 162, 235, 0.2)',
+  //           'rgba(255, 206, 86, 0.2)',
+  //           'rgba(75, 192, 192, 0.2)',
+  //           'rgba(153, 102, 255, 0.2)',
+  //           'rgba(255, 159, 64, 0.2)',
+  //           'rgba(201, 203, 207, 0.2)',
+  //           'rgba(0, 162, 71, 0.2)',
+  //           'rgba(82, 0, 36, 0.2)',
+  //           'rgba(82, 164, 36, 0.2)',
+  //           'rgba(255, 158, 146, 0.2)',
+  //           'rgba(123, 39, 56, 0.2)'
+  //         ],
+  //         borderColor: [
+  //           'rgba(255, 99, 132, 1)',
+  //           'rgba(54, 162, 235, 1)',
+  //           'rgba(255, 206, 86, 1)',
+  //           'rgba(75, 192, 192, 1)',
+  //           'rgba(153, 102, 255, 1)',
+  //           'rgba(255, 159, 64, 1)',
+  //           'rgba(201, 203, 207, 1)',
+  //           'rgba(0, 162, 71, 1)',
+  //           'rgba(82, 0, 36, 1)',
+  //           'rgba(82, 164, 36, 1)',
+  //           'rgba(255, 158, 146, 1)',
+  //           'rgba(123, 39, 56, 1)'
+  //         ],
+  //         borderWidth: 1
+  //       }]
+  //     },
+  //     options: {
+  //       scales: {
+  //         y: {
+  //           beginAtZero: true
+  //         }
+  //       },
+  //       plugins: {
+  //         legend: {
+  //           display: false
+  //         }
+  //       }
+  //     }
+  //   });
+  // }
+
+  loadChartLineMonthYear() {
+
+    if (this.chart3) {
+      this.chart3.destroy();
+      console.log('chart3--------------');
+      console.log(this.chart3);
+    }
+    if (this.chart4) {
+      this.chart4.destroy();
+      console.log('chart4--------------');
+      console.log(this.chart4);
+
+    }
+
+    this.chart3 = new Chart('chartMonthYearMoney', {
+      type: 'bar',
+      data: {
+        labels: this.labelMonthYear,
+        datasets: [{
+          // label: '# of Votes',
+          data: this.dataMoneyMonthYear,
+          // borderColor: 'rgb(75, 192, 192)',
+          // pointBorderColor: 'rgba(54, 162, 235, 0.2)',
+          // backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(201, 203, 207, 0.2)',
+            'rgba(0, 162, 71, 0.2)',
+            'rgba(82, 0, 36, 0.2)',
+            'rgba(82, 164, 36, 0.2)',
+            'rgba(255, 158, 146, 0.2)',
+            'rgba(123, 39, 56, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(201, 203, 207, 1)',
+            'rgba(0, 162, 71, 1)',
+            'rgba(82, 0, 36, 1)',
+            'rgba(82, 164, 36, 1)',
+            'rgba(255, 158, 146, 1)',
+            'rgba(123, 39, 56, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          }
+        }
+      }
+    });
+    this.chart4 = new Chart('chartMonthYearOrder', {
+      type: 'bar',
+      data: {
+        labels: this.labelMonthYear,
+        datasets: [{
+          // label: '# of Votes',
+          data: this.dataOrderMonthYear,
+          // borderColor: 'rgb(75, 192, 192)',
+          // pointBorderColor: 'rgba(54, 162, 235, 0.2)',
+          // backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(201, 203, 207, 0.2)',
+            'rgba(0, 162, 71, 0.2)',
+            'rgba(82, 0, 36, 0.2)',
+            'rgba(82, 164, 36, 0.2)',
+            'rgba(255, 158, 146, 0.2)',
+            'rgba(123, 39, 56, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(201, 203, 207, 1)',
+            'rgba(0, 162, 71, 1)',
+            'rgba(82, 0, 36, 1)',
+            'rgba(82, 164, 36, 1)',
+            'rgba(255, 158, 146, 1)',
+            'rgba(123, 39, 56, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          }
+        }
+      }
+    });
+  }
+
+  loadChartLineTotalMoneyOrder() {
+    this.myChartBar = new Chart('chartTotalMoney', {
+      type: 'bar',
+      data: {
+        labels: this.labelTotalMoneyOrder,
+        datasets: [{
+          // label: '# of Votes',
+          data: this.dataTotalMoney,
+          // borderColor: 'rgb(75, 192, 192)',
+          // pointBorderColor: 'rgba(54, 162, 235, 0.2)',
+          // backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(201, 203, 207, 0.2)',
+            'rgba(0, 162, 71, 0.2)',
+            'rgba(82, 0, 36, 0.2)',
+            'rgba(82, 164, 36, 0.2)',
+            'rgba(255, 158, 146, 0.2)',
+            'rgba(123, 39, 56, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(201, 203, 207, 1)',
+            'rgba(0, 162, 71, 1)',
+            'rgba(82, 0, 36, 1)',
+            'rgba(82, 164, 36, 1)',
+            'rgba(255, 158, 146, 1)',
+            'rgba(123, 39, 56, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          }
+        }
+      }
+    });
+    this.myChartBar = new Chart('chartTotalOrder', {
+      type: 'bar',
+      data: {
+        labels: this.labelTotalMoneyOrder,
+        datasets: [{
+          // label: '# of Votes',
+          data: this.dataTotalOrder,
+          // borderColor: 'rgb(75, 192, 192)',
+          // pointBorderColor: 'rgba(54, 162, 235, 0.2)',
+          // backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(201, 203, 207, 0.2)',
+            'rgba(0, 162, 71, 0.2)',
+            'rgba(82, 0, 36, 0.2)',
+            'rgba(82, 164, 36, 0.2)',
+            'rgba(255, 158, 146, 0.2)',
+            'rgba(123, 39, 56, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(201, 203, 207, 1)',
+            'rgba(0, 162, 71, 1)',
+            'rgba(82, 0, 36, 1)',
+            'rgba(82, 164, 36, 1)',
+            'rgba(255, 158, 146, 1)',
+            'rgba(123, 39, 56, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          }
+        }
+      }
+    });
   }
 
   loadChartLineTopProduct() {

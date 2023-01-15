@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { GhnService } from '../../../_service/ghn-service/ghn.service';
 import { OrderTheCounter } from '../../../_model/AtTheCounterOrder';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 import { OrderService } from '../../../_service/order-service/order.service';
 import { ConfirmDialogComponent } from '../../../_helper/confirm-dialog/confirm-dialog.component';
@@ -14,6 +14,12 @@ import { Constant } from '../../../_constant/Constant';
   styleUrls: ['./edit-addess.component.css']
 })
 export class EditAddessComponent implements OnInit {
+  //address origin
+  provinceOrigin: any;
+  districtOrigin: any;
+  wardOrigin: any;
+  addressNameOrigin: any;
+  shippingOrigin: any;
 
   //phan api GHN
   provinceName: any;
@@ -31,23 +37,33 @@ export class EditAddessComponent implements OnInit {
   validFormAtTheCounterOrder!: FormGroup;
 
 
+
+  formGroup = this.fb.group({
+    fullname: ['', Validators.required],
+    phone: ['', [Validators.required, Validators.pattern("(\\+84|0)([0-9]{9}|[0-9]{10})")]],
+    description: [''],
+  })
+
+
   constructor(
     private matDialogRef: MatDialogRef<EditAddessComponent>,
     @Inject(MAT_DIALOG_DATA) public dataDialog: any,
     private ghnService: GhnService,
     private orderService: OrderService,
     private toast: NgToastService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
     console.log(this.dataDialog);
     this.getProvinces();
     this.validFormAtTheCounterOrder = new FormGroup({
-      'province': new FormControl(null, [Validators.required]),
-      'district': new FormControl(null, [Validators.required]),
-      'ward': new FormControl(null, [Validators.required]),
-    })
+      'province': new FormControl(null),
+      'district': new FormControl(null),
+      'ward': new FormControl(null),
+    });
+    this.pathFormGroup();
   }
 
   // phần api giao hang nhanh
@@ -111,7 +127,18 @@ export class EditAddessComponent implements OnInit {
 
   }
 
+  pathFormGroup() {
+    this.formGroup.patchValue({ fullname: this.dataDialog.fullname, phone: this.dataDialog.phone, description: this.dataDialog.description });
+    this.validFormAtTheCounterOrder.patchValue({province: this.dataDialog.province, district: this.dataDialog.district, ward: this.dataDialog.ward});
+    this.provinceOrigin = this.dataDialog.province;
+    this.districtOrigin = this.dataDialog.district;
+    this.wardOrigin = this.dataDialog.ward;
+    this.addressNameOrigin = this.dataDialog.address;
+    this.shippingOrigin = this.dataDialog.shipping;
+  }
+
   onSubmit(){
+    console.log(this.formGroup.value.fullname);
     // console.log(this.validFormAtTheCounterOrder.value);
     // console.log(this.addressName);
     // console.log(this.shippingTotal);
@@ -124,29 +151,81 @@ export class EditAddessComponent implements OnInit {
     }).afterClosed().subscribe(result => {
         if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
 
-          this.dataDialog.address = this.addressName;
-          this.dataDialog.province = this.validFormAtTheCounterOrder.value.province;
-          this.dataDialog.district = this.validFormAtTheCounterOrder.value.district;
-          this.dataDialog.ward = this.validFormAtTheCounterOrder.value.ward;
-          this.dataDialog.shipping = this.shippingTotal;
-          console.log(this.dataDialog);
-          this.orderService.updateOrder(this.dataDialog).subscribe({
-            next: res =>{
-              console.log(res);
-              this.toast.success({ summary: 'Cập nhật thông tin thành công', duration: 2000 });
-              this.matDialogRef.close('submit');
-            },
-            error: e =>{
-              console.log(e);
-              this.toast.error({ summary: 'Cập nhật thông tin thất bại', duration: 2000 });
-              this.matDialogRef.close('submit');
+          if (this.validFormAtTheCounterOrder.value.province) {
+            if (!this.validFormAtTheCounterOrder.value.ward||!this.validFormAtTheCounterOrder.value.district) {
+              this.toast.warning({ summary: 'Vui lòng chọn đầy đủ thông tin', duration: 2000 });
+              return;
             }
-          })
+            var deliveryOrder= {
+              shipping: this.shippingTotal,
+              fullname: this.formGroup.value.fullname,
+              province: this.validFormAtTheCounterOrder.value.province,
+              district: this.validFormAtTheCounterOrder.value.district,
+              ward: this.validFormAtTheCounterOrder.value.ward,
+              address: this.addressName,
+              phone: this.formGroup.value.phone,
+              description: this.formGroup.value.description
+            };
+            console.log(deliveryOrder);
+            this.updateDeliveryOrder(deliveryOrder);
+          }else{
+            var deliveryOrder= {
+              shipping: this.shippingOrigin,
+              fullname: this.formGroup.value.fullname,
+              province: this.provinceOrigin,
+              district: this.districtOrigin,
+              ward: this.wardOrigin,
+              address: this.addressNameOrigin,
+              phone: this.formGroup.value.phone,
+              description: this.formGroup.value.description
+            };
+            console.log(deliveryOrder);
+            this.updateDeliveryOrder(deliveryOrder);
+          }
+
+
+
+
+
+
+          // this.dataDialog.fullname = this.formGroup.value.fullname;
+          // this.dataDialog.phone = this.formGroup.value.phone;
+          // this.dataDialog.address = this.addressName;
+          // this.dataDialog.province = this.validFormAtTheCounterOrder.value.province;
+          // this.dataDialog.district = this.validFormAtTheCounterOrder.value.district;
+          // this.dataDialog.ward = this.validFormAtTheCounterOrder.value.ward;
+          // this.dataDialog.shipping = this.shippingTotal;
+          // this.orderService.updateOrder(this.dataDialog).subscribe({
+          //   next: res =>{
+          //     console.log(res);
+          //     this.toast.success({ summary: 'Cập nhật thông tin thành công', duration: 2000 });
+          //     this.matDialogRef.close('submit');
+          //   },
+          //   error: e =>{
+          //     console.log(e);
+          //     this.toast.error({ summary: 'Cập nhật thông tin thất bại', duration: 2000 });
+          //     this.matDialogRef.close('submit');
+          //   }
+          // })
         }
     })
 
     // this.toast.error({ summary: 'Đợi API cập nhật đơn', duration: 2000 });
 
+  }
+  updateDeliveryOrder(data: any){
+    this.orderService.updateDeliveryOrder(this.dataDialog.id,data).subscribe({
+      next: res=>{
+        console.log(res);
+        this.toast.success({ summary: res.message, duration: 2000 });
+        this.matDialogRef.close('submit');
+      },
+      error: e =>{
+        console.log(e);
+        this.toast.success({ summary: 'Cập nhật thất bại', duration: 2000 });
+        this.matDialogRef.close('submit');
+      }
+    })
   }
 
   close(){

@@ -1,5 +1,5 @@
 <div class="col">
-    <h1 class="text-center mt-4">Thống Kê</h1>
+    <h1 class="thongke text-center mt-4">Thống Kê</h1>
 
       <!-- <h2 class="mt-3" style="font-size: 20px; font-family: Verdana, Geneva, Tahoma, sans-serif ">
           Doanh thu hôm nay: <span  style="font-size: 25px; color: rgb(238, 7, 61);">{{doanhthu | currency:'VND'}} </span></h2> -->
@@ -12,7 +12,109 @@
               </div>
           </div>
       </div> -->
+      <div class="row d-flex justify-content-center">
+        <div class="col-3">
+            <div class="card card-stats">
+                <div class="card-header card-header-warning card-header-icon text-center">
+                    <div class="card-icon">
+                        <i class="pi pi-fw pi-money-bill"></i>
+                    </div>
+                    <p class="card-category">Tổng doanh thu</p>
+                    <h3 class="card-title">
+                      {{thongKeTuTruocToiNay.totalMoney|currency:'VND'}}
+                    </h3>
+                </div>
+                <!-- <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">date_range</i>
+                        trong năm date.getFullYear()
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card card-stats">
+                <div class="card-header card-header-info card-header-icon text-center">
+                    <div class="card-icon">
+                        <i class="pi pi-fw pi-calendar"></i>
+                    </div>
+                    <p class="card-category">Tổng số đơn hàng</p>
+                    <h3 class="card-title">
+                      {{thongKeTuTruocToiNay.totalOrder}}
+                    </h3>
+                </div>
+                <!-- <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">date_range</i>
+                        trong tháng date.getMonth()
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
      <div class="row">
+          <!-- Tháng theo năm -->
+          <div class="mt-3 col-11" style="margin-left: 6% !important;">
+            <form [formGroup]="formYear">
+              <mat-form-field appearance="standard">
+                <mat-label>Năm</mat-label>
+                <input formControlName="year" matInput>
+              </mat-form-field>
+              <button style="margin-left: 20px;" (click)="getListHoaDonTungThangTheoNam()" class="btn btn-primary">Tìm kiếm</button>
+            </form>
+          </div>
+          <div class="p-3 border rounded col-5 m-4 mt-0" style="margin-left: 6% !important;">
+            <h4 style="font-size: 16px; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+                Doanh thu từng tháng theo năm</h4>
+                <div id="divChart">
+                  <canvas id="chartMonthByYearMoney"></canvas>
+                  <!-- <div class="ct-chart" id="chartMonthByYearMoney"></div> -->
+
+              </div>
+        </div>
+
+       <div class="p-3 border rounded col-5 m-4 mt-0" style="margin-left: 6% !important;">
+            <h4 style="font-size: 16px; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+                Tổng đơn từng tháng theo năm</h4>
+                <div id="divChart">
+                  <canvas id="chartMonthByYearOrder"></canvas>
+                  <!-- <div class="ct-chart ct-golden-section" id="chart1"></div> -->
+              </div>
+        </div>
+
+        <!-- end thang năm -->
+
+        <!-- Month And Year -->
+        <div class="mt-3 col-11" style="margin-left: 6% !important;">
+          <form [formGroup]="formMonthYear">
+            <mat-form-field appearance="standard">
+              <mat-label>Tháng</mat-label>
+              <input formControlName="month" matInput>
+            </mat-form-field>
+            <mat-form-field appearance="standard">
+              <mat-label>Năm</mat-label>
+              <input formControlName="year" matInput>
+            </mat-form-field>
+            <button style="margin-left: 20px;" (click)="getListHoaDonTungNgayTheoThangVaNam()" class="btn btn-primary">Tìm kiếm</button>
+          </form>
+        </div>
+        <div class="p-3 border rounded col-5 m-4 mt-0" style="margin-left: 6% !important;">
+          <h4 style="font-size: 16px; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+              Doanh thu từng ngày theo tháng, năm</h4>
+              <div id="divChart">
+                <canvas id="chartMonthYearMoney"></canvas>
+            </div>
+      </div>
+
+     <div class="p-3 border rounded col-5 m-4 mt-0" style="margin-left: 6% !important;">
+          <h4 style="font-size: 16px; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+              Tổng đơn từng ngày theo tháng, năm</h4>
+              <div id="divChart">
+                <canvas id="chartMonthYearOrder"></canvas>
+            </div>
+      </div>
+      <!-- end Month and year -->
+
           <div class="p-3 border rounded col-5 m-4" style="margin-left: 6% !important;">
               <h4 style="font-size: 16px; font-family: Verdana, Geneva, Tahoma, sans-serif;">
                   Theo ngày</h4>
@@ -84,6 +186,24 @@
                   </mat-tab>
               </mat-tab-group>
           </div>
+
+          <!-- Doanh thu năm -->
+          <div class="p-3 border rounded col-5 m-4" style="margin-left: 6% !important;">
+            <h4 style="font-size: 16px; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+                Doanh thu theo năm</h4>
+                <div id="divChart">
+                  <canvas id="chartTotalMoney"></canvas>
+              </div>
+        </div>
+        <!-- Số đơn năm -->
+        <div class="p-3 border rounded col-5 m-4" style="margin-left: 6% !important;">
+          <h4 style="font-size: 16px; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+              Tổng đơn theo năm</h4>
+              <div id="divChart">
+                <canvas id="chartTotalOrder"></canvas>
+            </div>
+      </div>
+      <!-- Top sản phẩm bán chạy -->
           <div class="p-3 border rounded col-11 m-4" style="margin-left: 6% !important;">
             <h4 style="font-size: 16px; font-family: Verdana, Geneva, Tahoma, sans-serif;">
                 Top 10 sản phẩm bán chạy</h4>

@@ -33,6 +33,19 @@ export class StatisticalService {
     return this.http.get(this.url+'/list');
   }
 
+  //ThongKeTuTruocToiNay
+  getThongKeTuTruocToiNay():Observable<any>{
+    return this.http.get(this.url+'/ThongKeTuTruocToiNay');
+  }
+
+  getListHoaDonTungThangTheoNam(year: any): Observable<any>{
+    return this.http.get(this.url + '/listHoaDonTungThangTheoNam?year=' + year);
+  }
+
+  getListHoaDonTungNgayTheoThangVaNam(month: any, year: any): Observable<any>{
+    return this.http.get(this.url + '/listHoaDonTungNgayTheoThangVaNam?month='+month+'&year='+year);
+  }
+
   //top product
   getTopProduct(top: any):Observable<any> {
     return this.http.get(this.url+'/top-product/'+top);

@@ -36,12 +36,19 @@ export class OrderService {
   getAll_DAHUY(): Observable<any> {
     return this.http.get(URL_order +'/list-status/DAHUY');
   }
+  filterOrderStatus(orderStatus: any): Observable<any>{
+    return this.http.get(URL_order+'/filter-order/'+orderStatus);
+  }
   getorderdetail_byid(id: any): Observable<any> {
     return this.http.get(URL_orderdetail +'/order/'+id + "?page=" + 0 + "&page-number=" + 50);
   }
 
   transporting(id: any): Observable<any> {
     return this.http.get(URL_order +'/being-shipped/'+id );
+  }
+
+  searchMaHD(mahd: any, status: any): Observable<any>{
+    return this.http.get(URL_order+'/find-mahd/'+mahd+'/'+status);
   }
 
   getall(): Observable<any> {

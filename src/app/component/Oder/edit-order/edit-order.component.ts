@@ -129,6 +129,8 @@ export class EditOrderComponent implements OnInit {
   }
 
   onSubmit(){
+    console.log(this.list);
+
     let check = 0;
     this.checkQuantity();
     this.matDialog.open(ConfirmDialogComponent, {
@@ -140,8 +142,22 @@ export class EditOrderComponent implements OnInit {
     }).afterClosed().subscribe(result => {
         if (result === Constant.RESULT_CLOSE_DIALOG.CONFIRM) {
           for (let i = 0; i < this.list.length; i++) {
-            this.service.updateOrderDetail(this.list[i].id,this.list[i]).subscribe({
+            // this.service.updateOrderDetail(this.list[i].id,this.list[i]).subscribe({
+            //   next: res =>{
+            //     check++;
+            //     if (check==this.list.length) {
+            //       this.toast.success({summary:'Cập nhật đơn thành công', duration:3000});
+            //       this.matDialogRef.close('submit');
+            //     }
+            //   },
+            //   error: e=>{
+            //     console.log(e);
+            //     this.toast.error({summary:'Cập nhật đơn thất bại', duration:3000});
+            //   }
+            // })
+            this.service.updateQuantityOrderDetail(this.list[i].productId,this.list[i].orderId,this.list[i].quantity,this.list[i]).subscribe({
               next: res =>{
+                console.log(res);
                 check++;
                 if (check==this.list.length) {
                   this.toast.success({summary:'Cập nhật đơn thành công', duration:3000});
@@ -151,6 +167,7 @@ export class EditOrderComponent implements OnInit {
               error: e=>{
                 console.log(e);
                 this.toast.error({summary:'Cập nhật đơn thất bại', duration:3000});
+                this.matDialogRef.close('submit');
               }
             })
           }

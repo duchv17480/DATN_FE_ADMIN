@@ -253,7 +253,6 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatTableModule,
     MatButtonToggleModule,
 
-
     MatPaginatorModule,
     MatInputModule,
     MatFormFieldModule,
