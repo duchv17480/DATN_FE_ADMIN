@@ -126,6 +126,10 @@ import { EditAddessComponent } from './component/Oder/edit-addess/edit-addess.co
 import { EditShipNameComponent } from './component/Oder/edit-ship-name/edit-ship-name.component';
 import { ListAllOrderComponent } from './component/Oder/list-all-order/list-all-order.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { AddPcComponent } from './component/pc/add-pc/add-pc.component';
+import { EditPcComponent } from './component/pc/edit-pc/edit-pc.component';
+import { ListPcComponent } from './component/pc/list-pc/list-pc.component';
+
 
 @NgModule({
   declarations: [
@@ -222,7 +226,11 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     BuyOfflineTestComponent,
     BuyOfflineComponent,
 
-    ProductPcDetailComponent
+    ProductPcDetailComponent,
+
+    AddPcComponent,
+    EditPcComponent,
+    ListPcComponent
 
   ],
   imports: [
@@ -286,6 +294,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MdbTooltipModule,
     MdbValidationModule,
     BrowserAnimationsModule
+
   ],
   providers: [
     DatePipe,

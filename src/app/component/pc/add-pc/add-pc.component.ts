@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ChipApiService } from '../../../_service/chip-service/chip-api.service';
 
 @Component({
   selector: 'app-add-pc',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddPcComponent implements OnInit {
 
-  constructor() { }
+  products: any[] = [];
+  constructor(
+    private rest: ChipApiService
+  ) { }
 
   ngOnInit() {
+    this.getCateProductChip();
+  }
+
+
+  getCateProductChip(){
+    this.rest.getCateProductChip().subscribe((res:any)=>{
+      this.products = res.data
+    })
   }
 
 }

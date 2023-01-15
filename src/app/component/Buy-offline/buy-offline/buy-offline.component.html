@@ -46,10 +46,33 @@
           </li>
         </ul> -->
 
-        <mat-button-toggle-group name="favoriteColor" aria-label="Favorite Color"
+        <!-- <mat-button-toggle-group name="favoriteColor" aria-label="Favorite Color"
           *ngFor="let item of listOrder let i = index">
           <mat-button-toggle (click)="getOneOrder(item.id)" value="{{item.name}}">Hóa đơn {{i + 1}}</mat-button-toggle>
+        </mat-button-toggle-group> -->
+
+        <!-- <mat-button-toggle-group #toggleBtn="matButtonToggleGroup">
+          <mat-button-toggle
+          *ngFor="let item of listOrder let i = index"
+          (click)="getOneOrder(item.id)"
+           [value]="item.id">
+           Hóa đơn {{i + 1}}
+          </mat-button-toggle>
+      </mat-button-toggle-group> -->
+        <mat-button-toggle-group
+        name="fontStyle"
+        aria-label="Font Style"
+        *ngFor="let item of listOrder let i = index"
+        (click)="getOneOrder(item.id)"
+        >
+          <mat-button-toggle
+
+           value="{{item.id}}"
+          >
+            Hóa đơn {{i + 1}}</mat-button-toggle>
         </mat-button-toggle-group>
+
+
 
       </div>
     </div>
