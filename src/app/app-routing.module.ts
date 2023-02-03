@@ -154,6 +154,9 @@ const routes: Routes=[
       { path: 'buy-offline-test', component: BuyOfflineTestComponent, canActivate: [AuthGuard]},
       { path: 'buy-offline', component: BuyOfflineComponent, canActivate: [AuthGuard]},
       { path: 'product-detail/:id', component: ProductDetailComponent, canActivate: [AuthGuard]},
+
+
+
     ]
   }
 

@@ -362,6 +362,8 @@ export class BuyOfflineComponent implements OnInit {
     this.doing = false;
   }
 
+
+
   getOneOrder(id: any) {
     this.getAllPaymentStatus();
     this.doing = false;
@@ -377,10 +379,6 @@ export class BuyOfflineComponent implements OnInit {
       this.restOrder.getOneOrder(res.data.id).subscribe(res => {
         this.delivery = res.data;
         this.orderAt = res.data;
-
-        // this.totalAmount = res.data.total;
-        // this.ship = res.data.shipping;
-        // this.total = this.totalAmount * this.ship;
         this.sumPriceOrderDetail();
 
         console.log(res.data + "hihi");
@@ -544,11 +542,13 @@ export class BuyOfflineComponent implements OnInit {
 
       this.getOrderDetails();
       this.sumPriceOrderDetail();
+      this.resetFilterByCode = '';
 
     }, error => {
       console.log(error);
       this.toast.error({ summary: 'Thêm sản phẩm thất bại' });
       this.isLoading = false;
+      this.resetFilterByCode = '';
     });
   }
 
@@ -891,7 +891,8 @@ export class BuyOfflineComponent implements OnInit {
       this.restImages.findByMaCodeProduct(condition).subscribe(data => {
         if (data.data == null) {
           this.doing = false;
-          this.toast.error({ summary: 'Không tìm thấy sản phẩm!' })
+          this.toast.error({ summary: 'Không tìm thấy sản phẩm!' });
+          this.resetFilterByCode = '';
         } else {
           this.doing = true;
           this.productIamges = data.data;
@@ -901,6 +902,7 @@ export class BuyOfflineComponent implements OnInit {
         }
       },
         error => {
+          this.resetFilterByCode = '';
           this.toast.error({ summary: 'Không tìm thấy sản phẩm!' })
         });
     }

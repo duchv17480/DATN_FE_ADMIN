@@ -127,6 +127,7 @@ import { EditShipNameComponent } from './component/Oder/edit-ship-name/edit-ship
 import { ListAllOrderComponent } from './component/Oder/list-all-order/list-all-order.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -222,7 +223,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     BuyOfflineTestComponent,
     BuyOfflineComponent,
 
-    ProductPcDetailComponent
+    ProductPcDetailComponent,
 
   ],
   imports: [
@@ -286,6 +287,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MdbTooltipModule,
     MdbValidationModule,
     BrowserAnimationsModule
+
   ],
   providers: [
     DatePipe,
