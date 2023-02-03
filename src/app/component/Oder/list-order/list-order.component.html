@@ -31,7 +31,7 @@
           <mat-label>Tìm mã hóa đơn</mat-label>
           <input formControlName="mahd" matInput>
         </mat-form-field>
-        <button style="margin-left: 20px;" (click)="searchMaHD()" class="btn btn-primary">Tìm kiếm</button>
+        <button style="margin-left: 19px;" (click)="searchMaHD()" class="btn btn-primary">Tìm kiếm</button>
       </form>
     </div>
     <mat-stepper #stepper>
@@ -48,6 +48,7 @@
 
                 <th pSortableColumn="shipping">Mã đơn<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="shipping">Người nhận<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="phone">Số Điện Thoại<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="createDate">Địa chỉ<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="createDate">Phí ship<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="status">Trạng thái<p-sortIcon ></p-sortIcon></th>
@@ -58,10 +59,10 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-order>
-            <tr *ngIf="order?.orderStatus==null">
-
+            <tr >
               <td>{{order?.mahd}}</td>
               <td>{{order?.fullname}}</td>
+              <td>{{order?.phone}}</td>
               <td >{{order?.address}}</td>
               <td >{{order?.shipping}}</td>
               <td style="font-weight:bold ; color: rgb(69, 188, 4);">{{order?.status}}</td>
@@ -166,6 +167,7 @@
 
                 <th pSortableColumn="shipping">Mã đơn<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="shipping">Người nhận<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="phone">Số Điện Thoại<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="createDate">Địa chỉ<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="createDate">Phí ship<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="status">Trạng thái<p-sortIcon ></p-sortIcon></th>
@@ -179,6 +181,7 @@
             <tr>
               <td>{{order1?.mahd}}</td>
               <td>{{order1?.fullname}}</td>
+              <td>{{order1?.phone}}</td>
               <td >{{order1?.address}}</td>
               <td >{{order1?.shipping}}</td>
               <td style="font-weight:bold ; color: rgb(244, 41, 1);">{{order1?.status}}</td>
@@ -281,6 +284,7 @@
 
                 <th pSortableColumn="shipping">Mã đơn<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="shipping">Người nhận<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="phone">Số Điện Thoại<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="createDate">Địa chỉ<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="createDate">Phí ship<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="status">Trạng thái<p-sortIcon ></p-sortIcon></th>
@@ -294,6 +298,7 @@
             <tr>
               <td>{{order2?.mahd}}</td>
               <td>{{order2?.fullname}}</td>
+              <td>{{order2?.phone}}</td>
               <td >{{order2?.address}}</td>
               <td >{{order2?.shipping}}</td>
               <td style="font-weight:bold ; color: rgb(247, 113, 2);">{{order2?.status}}</td>
@@ -442,6 +447,7 @@
 
                 <th pSortableColumn="shipping">Mã đơn<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="shipping">Người nhận<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="phone">Số Điện Thoại<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="createDate">Địa chỉ<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="createDate">Phí ship<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="status">Trạng thái<p-sortIcon ></p-sortIcon></th>
@@ -456,6 +462,7 @@
 
               <td>{{order3?.mahd}}</td>
               <td>{{order3?.fullname}}</td>
+              <td>{{order3?.phone}}</td>
               <td >{{order3?.address}}</td>
               <td >{{order3?.shipping}}</td>
               <td style="font-weight:bold ; color: rgb(5, 50, 129);">{{order3?.status}}</td>
@@ -557,6 +564,7 @@
 
                 <th pSortableColumn="shipping">Mã đơn<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="shipping">Người nhận<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="phone">Số Điện Thoại<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="createDate">Địa chỉ<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="createDate">Phí ship<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="status">Trạng thái<p-sortIcon ></p-sortIcon></th>
@@ -571,6 +579,7 @@
 
               <td>{{order4?.mahd}}</td>
               <td>{{order4?.fullname}}</td>
+              <td>{{order4?.phone}}</td>
               <td >{{order4?.address}}</td>
               <td >{{order4?.shipping}}</td>
               <td style="font-weight:bold ; color: rgb(188, 4, 4);">{{order4?.status}}</td>
