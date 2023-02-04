@@ -24,36 +24,31 @@ export class AppComponent implements OnInit{
 
   items:MenuItem[] = [
     {
-      label: 'Statistical',
+      label: 'Thống Kê',
       icon: 'bi bi-reception-4',
       routerLink: '/statistical'
 
   },
     {
-      label: 'Buy offline',
+      label: 'Bán Tại Quầy',
       icon: 'pi pi-fw pi-calendar',
       routerLink: '/buy-offline'
 
     },
     {
-        label: 'Product',
+        label: 'Sản Phẩm',
         icon: 'pi pi-fw pi-calendar',
         routerLink: '/list-product'
 
     },
     {
-      label: 'Order',
+      label: 'Hóa Đơn',
       icon: 'pi pi-fw pi-tablet',
       routerLink: 'list-order'
     },
-    {
-      label: 'User',
-      icon: 'pi pi-fw pi-user',
-      routerLink: '/list-staff'
 
-  },
     {
-        label: 'Category',
+        label: 'Danh Mục',
         icon: 'pi pi-fw pi-calendar',
         routerLink: '/list-category'
 
@@ -65,7 +60,7 @@ export class AppComponent implements OnInit{
 
   },
   {
-    label: 'Brand',
+    label: 'Thương hiệu',
     icon: 'pi pi-fw pi-calendar',
     routerLink: '/brand'
 
@@ -80,11 +75,11 @@ export class AppComponent implements OnInit{
                 icon: 'pi pi-fw pi-calendar',
                 routerLink: '/ram',
             },
-            {
-                label: 'Vga',
-                icon: 'pi pi-fw pi-calendar',
-                routerLink: '/vga',
-            },
+            // {
+            //     label: 'Vga',
+            //     icon: 'pi pi-fw pi-calendar',
+            //     routerLink: '/vga',
+            // },
             {
               label: 'Chip',
               icon: 'pi pi-fw pi-calendar',
@@ -116,11 +111,6 @@ export class AppComponent implements OnInit{
                 routerLink: '/list-image',
             }
         ]
-    },
-    {
-        label: 'Review',
-        icon: 'pi pi-fw pi-bookmark',
-        routerLink: '/review/list'
     }
     // ,
     // {

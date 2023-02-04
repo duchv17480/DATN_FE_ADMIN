@@ -20,6 +20,7 @@ export class EditOrderComponent implements OnInit {
   displayedColumns: string[] = ['price', 'quantity', 'product', 'image', 'func'];
   dataSource!: MatTableDataSource<any>;
   list: any = [];
+  sl1: any ;
   listQuantity: any = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -75,6 +76,7 @@ export class EditOrderComponent implements OnInit {
             next: res=>{
               // console.log(res);
               this.toast.success({summary: 'Xóa thành công!' , duration:3000});
+              this.getOrderDetail();
             },
             error: e =>{
               console.log(e);
@@ -100,11 +102,13 @@ export class EditOrderComponent implements OnInit {
       return;
     }
     if (parseInt(event.target.value)<=0) {
+      this.sl1=0;
       this.list[index].quantity = parseInt(event.target.value);
       this.toast.warning({summary:'Số lượng phải lớn hơn 0', duration:3000});
       return;
     }
     if (parseInt(event.target.value)>0) {
+      this.sl1=1;
       this.list[index].quantity = parseInt(event.target.value);
     }
 

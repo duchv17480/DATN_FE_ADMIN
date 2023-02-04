@@ -65,6 +65,7 @@
   </div>
 </div>
 <div mat-dialog-actions class="d-flex justify-content-end">
-  <button type="button" class="btn btn-success m-2" (click)="onSubmit()" >Xác nhận</button>
+  <button type="button" *ngIf="sl1 != 0" class="btn btn-success m-2" (click)="onSubmit()" >Xác nhận</button>
+  <!-- <button type="button" *ngIf="sl1 == 1" class="btn btn-success m-2" (click)="onSubmit()" >Xác nhận</button> -->
   <button type="button" class="btn btn-secondary" (click)="close()">Hủy</button>
 </div>
