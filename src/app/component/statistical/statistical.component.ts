@@ -46,7 +46,8 @@ export class StatisticalComponent implements OnInit {
   statisticalYearsTable!: Statistical[];
   listDataYear!: any
 
-  doanhthu!: any;
+  doanhthuhomnay!: any;
+  tongdonthanhconghomnay!: any;
   lengthYears!: number;
   columnsYears: string[] = ['index', 'year', 'totalOrder', 'totalMoney'];
   statisticalYear!: Statistical[];
@@ -295,8 +296,8 @@ export class StatisticalComponent implements OnInit {
   }
   getdate(){
     this.statisticalService.getDate().subscribe(data => {
-      this.doanhthu=data.data[0].totalMoney;
-      console.log('this.doanhthu', this.doanhthu);
+      this.doanhthuhomnay=data.data[0].totalMoney;
+      this.tongdonthanhconghomnay=data.data[0].totalOrder;
 
     })
   }
