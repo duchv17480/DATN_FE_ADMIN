@@ -896,7 +896,7 @@ export class BuyOfflineComponent implements OnInit {
         } else {
           this.doing = true;
           this.productIamges = data.data;
-          console.log(data.data);
+          console.log(data.data.price_new + "product_image");
           this.resetFilterByCode = '';
           this.tokenStorageService.saveidproduct(data.data.id);
         }

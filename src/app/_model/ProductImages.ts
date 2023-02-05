@@ -3,6 +3,7 @@ export class ProductImages {
     code!: string;
     name!: string;
     price!: number;
+    priceNew!: number;
     quantity!: number;
     description!: string;
     status!: number;

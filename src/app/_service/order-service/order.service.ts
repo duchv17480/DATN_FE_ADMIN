@@ -163,7 +163,7 @@ export class OrderService {
 
   //cap nhat lai so luong order detail
   updateQuantity(idPr: any, idOr: any, quantity: any){
-    return this.http.get(URL_orderdetail + '/updateQuantity/' + idPr + '/order/' + idOr + '?quantity=' + quantity);
+    return this.http.get(URL_orderdetail + '/updateQuantitys/' + idPr + '/order/' + idOr + '?quantity=' + quantity);
   }
 
 
