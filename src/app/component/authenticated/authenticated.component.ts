@@ -16,13 +16,13 @@ export class AuthenticatedComponent implements OnInit {
 
   items:MenuItem[] = [
     {
-      label: 'Thống Kê',
+      label: 'Thống kê',
       icon: 'bi bi-reception-4',
       routerLink: '/statistical'
 
   },
     {
-      label: 'Bán Tại Quầy',
+      label: 'Mua Tại Quầy',
       icon: 'pi pi-fw pi-calendar',
       routerLink: '/buy-offline'
 
