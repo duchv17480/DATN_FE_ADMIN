@@ -16,43 +16,38 @@ export class AuthenticatedComponent implements OnInit {
 
   items:MenuItem[] = [
     {
-      label: 'Statistical',
+      label: 'Thống Kê',
       icon: 'bi bi-reception-4',
       routerLink: '/statistical'
 
   },
     {
-      label: 'Buy offline',
+      label: 'Bán Tại Quầy',
       icon: 'pi pi-fw pi-calendar',
       routerLink: '/buy-offline'
 
     },
     {
-        label: 'Product',
+        label: 'Sản Phẩm',
         icon: 'pi pi-fw pi-calendar',
         routerLink: '/list-product'
 
     },
     {
-      label: 'Order',
+      label: 'Hóa Đơn',
       icon: 'pi pi-fw pi-tablet',
       routerLink: 'list-order',
       items: [
           {
-            label: 'All Order',
+            label: 'Danh Sách Hóa Đơn',
             icon: 'pi pi-fw pi-tablet',
             routerLink: '/all-order',
         }
       ]
     },
-    {
-      label: 'User',
-      icon: 'pi pi-fw pi-user',
-      routerLink: '/list-staff'
 
-  },
     {
-        label: 'Category',
+        label: 'Danh Mục',
         icon: 'pi pi-fw pi-calendar',
         routerLink: '/list-category'
 
@@ -64,7 +59,7 @@ export class AuthenticatedComponent implements OnInit {
 
   },
   {
-    label: 'Brand',
+    label: 'Thương Hiệu',
     icon: 'pi pi-fw pi-calendar',
     routerLink: '/brand'
 
@@ -79,11 +74,7 @@ export class AuthenticatedComponent implements OnInit {
                 icon: 'pi pi-fw pi-calendar',
                 routerLink: '/ram',
             },
-            {
-                label: 'Vga',
-                icon: 'pi pi-fw pi-calendar',
-                routerLink: '/vga',
-            },
+
             {
               label: 'Chip',
               icon: 'pi pi-fw pi-calendar',
@@ -115,11 +106,6 @@ export class AuthenticatedComponent implements OnInit {
                 routerLink: '/list-image',
             }
         ]
-    },
-    {
-        label: 'Review',
-        icon: 'pi pi-fw pi-bookmark',
-        routerLink: '/review/list'
     }
     // ,
     // {

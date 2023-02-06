@@ -52,6 +52,7 @@
                 <th pSortableColumn="createDate">Địa chỉ<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="createDate">Phí ship<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="status">Trạng thái<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="description">Mô tả<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="grandTotal">Giá trị<p-sortIcon ></p-sortIcon></th>
 
 
@@ -66,6 +67,7 @@
               <td >{{order?.address}}</td>
               <td >{{order?.shipping}}</td>
               <td style="font-weight:bold ; color: rgb(69, 188, 4);">{{order?.status}}</td>
+              <td >{{order?.description}}</td>
               <td >{{order?.grandTotal| currency:'VND':'symbol':'0.0-2'}}</td>
 
                  <td>
@@ -171,6 +173,7 @@
                 <th pSortableColumn="createDate">Địa chỉ<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="createDate">Phí ship<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="status">Trạng thái<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="description">Mô tả<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="grandTotal">Giá trị<p-sortIcon ></p-sortIcon></th>
 
 
@@ -185,6 +188,7 @@
               <td >{{order1?.address}}</td>
               <td >{{order1?.shipping}}</td>
               <td style="font-weight:bold ; color: rgb(244, 41, 1);">{{order1?.status}}</td>
+              <td >{{order1?.description}}</td>
               <td >{{order1?.grandTotal| currency:'VND':'symbol':'0.0-2'}}</td>
 
                  <td>
@@ -288,6 +292,7 @@
                 <th pSortableColumn="createDate">Địa chỉ<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="createDate">Phí ship<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="status">Trạng thái<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="description">Mô tả<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="grandTotal">Giá trị<p-sortIcon ></p-sortIcon></th>
 
 
@@ -302,6 +307,7 @@
               <td >{{order2?.address}}</td>
               <td >{{order2?.shipping}}</td>
               <td style="font-weight:bold ; color: rgb(247, 113, 2);">{{order2?.status}}</td>
+              <td >{{order2?.description}}</td>
               <td >{{order2?.grandTotal| currency:'VND':'symbol':'0.0-2'}}</td>
 
                  <td>
@@ -451,6 +457,7 @@
                 <th pSortableColumn="createDate">Địa chỉ<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="createDate">Phí ship<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="status">Trạng thái<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="description">Mô tả<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="grandTotal">Giá trị<p-sortIcon ></p-sortIcon></th>
 
 
@@ -466,6 +473,7 @@
               <td >{{order3?.address}}</td>
               <td >{{order3?.shipping}}</td>
               <td style="font-weight:bold ; color: rgb(5, 50, 129);">{{order3?.status}}</td>
+              <td >{{order3?.description}}</td>
               <td >{{order3?.grandTotal| currency:'VND':'symbol':'0.0-2'}}</td>
 
                  <td>
@@ -568,6 +576,8 @@
                 <th pSortableColumn="createDate">Địa chỉ<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="createDate">Phí ship<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="status">Trạng thái<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="description">Mô tả<p-sortIcon ></p-sortIcon></th>
+                <th pSortableColumn="reason">Lý Do Hủy<p-sortIcon ></p-sortIcon></th>
                 <th pSortableColumn="grandTotal">Giá trị<p-sortIcon ></p-sortIcon></th>
 
 
@@ -583,6 +593,8 @@
               <td >{{order4?.address}}</td>
               <td >{{order4?.shipping}}</td>
               <td style="font-weight:bold ; color: rgb(188, 4, 4);">{{order4?.status}}</td>
+              <td  >{{order4?.description}}</td>
+              <td  >{{order4?.reason}}</td>
               <td style="font-weight:bold ; color: rgb(188, 4, 4);" >{{order4?.grandTotal| currency:'VND':'symbol':'0.0-2'}}</td>
 
                  <td>
