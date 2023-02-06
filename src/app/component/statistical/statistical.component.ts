@@ -20,12 +20,12 @@ import * as Chartist from 'chartist';
 export class StatisticalComponent implements OnInit {
 
   formYear = this.fb.group({
-    year: 2022
+    year: 2023
   });
   today = new Date();
   formMonthYear = this.fb.group({
-    year: 2022,
-    month: null
+    year: 2023,
+    month: 2
   });
 
 
@@ -124,9 +124,11 @@ export class StatisticalComponent implements OnInit {
     this.getTopProduct();
     this.getTotalMoneyAndOrderByYear();
     this.getThongKeTuTruocToiNay();
-    this.formYear.patchValue({year:this.today.getFullYear()-1});
-    this.formMonthYear.patchValue({year:this.today.getFullYear()-1});
+    this.formYear.patchValue({year:this.today.getFullYear()});
+    this.formMonthYear.patchValue({year:this.today.getFullYear()});
+    this.formMonthYear.patchValue({month:this.today.getMonth()+1});
     this.getListHoaDonTungThangTheoNam();
+    this.getListHoaDonTungNgayTheoThangVaNam();
   }
 
 
